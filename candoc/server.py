@@ -16,6 +16,7 @@ from .review import edit_capability, search_items, review_state
 from .batch import BatchReview
 from .chat import Chat, load_settings
 from .codex_rpc import StdioRPC, CodexError
+from .conversation import Conversation
 
 
 def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
@@ -26,6 +27,8 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
         store.close()
         raise
     batch = BatchReview(store)
+    store.batch = batch
+    conversation = Conversation(store, batch, chat_settings, rpc_factory)
     token = secrets.token_urlsafe(32)
     cache = {}
 
@@ -52,6 +55,10 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
                     if self.headers.get('X-Candoc-Token') != token:
                         return self.send({'error': 'Invalid local session'}, 403)
                     return self.chat_get()
+                if self.path == '/api/conversation/state':
+                    if self.headers.get('X-Candoc-Token') != token:
+                        return self.send({'error': 'Invalid local session'}, 403)
+                    return self.send(conversation.state())
                 with store.lock:
                     self.get()
             except (BrokenPipeError, ConnectionResetError):
@@ -148,7 +155,7 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
                 if p.suffix.lower() not in {'.png','.jpg','.jpeg'}:
                     raise ValueError('Only raster assets are served')
                 return self.send(p.read_bytes(), mime=mimetypes.guess_type(p.name)[0])
-            static = {'/': 'index.html', '/app.js':'app.js', '/chat.js':'chat.js', '/style.css':'style.css', '/batch.js':'batch.js'}
+            static = {'/': 'index.html', '/app.js':'app.js', '/chat.js':'chat.js', '/style.css':'style.css', '/batch.js':'batch.js', '/conversation.js':'conversation.js'}
             if path in static:
                 p = ROOT/'web'/static[path]
                 return self.send(p.read_bytes(), mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8'}[p.suffix])
@@ -165,6 +172,14 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
                 if not 0 < length < 200000:
                     raise ValueError('Invalid request size')
                 req = json.loads(self.rfile.read(length))
+                if self.path == '/api/conversation/models':
+                    return self.send(conversation.models())
+                if self.path == '/api/conversation/settings':
+                    return self.send(conversation.configure(req))
+                if self.path == '/api/conversation/control':
+                    return self.send(conversation.control(req))
+                if self.path == '/api/conversation/message':
+                    return self.send(conversation.message(req))
                 if self.path == '/api/chat/connect':
                     return self.send(chat.connect())
                 if self.path == '/api/chat/message':
@@ -205,6 +220,7 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
 
     class ReviewServer(ThreadingHTTPServer):
         def server_close(self):
+            conversation.close()
             batch.close()
             chat.close()
             super().server_close()
@@ -212,12 +228,14 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
     try:
         server = ReviewServer(('127.0.0.1',port),Handler)
     except OSError:
+        conversation.close()
         chat.close()
         store.close()
         raise
     server.store = store
     server.chat = chat
     server.batch = batch
+    server.conversation = conversation
     store.batch = batch
     return server
 

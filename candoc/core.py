@@ -474,7 +474,7 @@ class Store:
                 self.db.execute('UPDATE proposals SET payload=? WHERE id=?', (dump(old), proposal_id))
             return new
 
-    def decide(self, proposal_id, action):
+    def decide(self, proposal_id, action, *, approval=None):
         with self.lock:
             p = self._proposal(proposal_id)
             if p['status'] != 'pending':
@@ -503,6 +503,7 @@ class Store:
             reviews[scope] = {'state': state, 'reason': p['request']['reason'], 'proposal': proposal_id, 'revision': revision+1}
             p['status'] = 'applied'
             event = {'seq': revision+1, 'kind': 'apply', 'proposal': proposal_id, 'ref': p['request']['ref'], 'scope': scope, 'before': before, 'after': after, 'reviews_before': old_reviews, 'reviews_after': reviews, 'time': datetime.now(timezone.utc).isoformat()}
+            if approval is not None: event['conversation_approval'] = copy.deepcopy(approval)
             with self.db:
                 self.db.execute('UPDATE current SET revision=?,document=?,reviews=? WHERE id=1', (revision+1, dump(doc), dump(reviews)))
                 self.db.execute('UPDATE proposals SET payload=? WHERE id=?', (dump(p), proposal_id))

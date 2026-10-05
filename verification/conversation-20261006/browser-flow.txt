@@ -1,0 +1,78 @@
+
+╔════════════════════════════════════════════════════════════════════╗
+║ Update available for @playwright/cli: 0.1.18 → 0.1.22              ║
+║ Run `npm install -g @playwright/cli@latest` (global) or            ║
+║ `npm install --save-dev @playwright/cli@latest` (local) to update. ║
+╚════════════════════════════════════════════════════════════════════╝
+
+### Result
+{"pass":true,"diagnosed":57,"approved":56,"excluded":"#/texts/2882","revision":2,"errors":[]}
+### Ran Playwright code
+```js
+await (async (page) => {
+ const base='http://127.0.0.1:52742';
+ const check=(ok,msg)=>{if(!ok)throw Error(msg)};
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(base);await page.evaluate(()=>localStorage.setItem('candoc-conversation-open','true'));await page.reload();
+ const boot=await (await page.request.get(base+'/api/bootstrap')).json();
+ const headers={'X-Candoc-Token':boot.token};
+ const get=async path=>(await page.request.get(base+'/api/'+path,{headers})).json();
+ const post=async(path,data)=>(await page.request.post(base+'/api/'+path,{headers,data})).json();
+ const baseline=await get('document');
+ await page.setViewportSize({width:1366,height:900});
+ await page.locator('#conversation-panel').waitFor({state:'visible'});
+ await page.locator('#conversation-models').click();
+ await page.waitForFunction(()=>document.querySelector('#conversation-model').options.length===2);
+ await page.locator('#conversation-model').selectOption('mock-b');
+ check(await page.locator('#conversation-effort option').allTextContents().then(x=>x.join())==='high','model-specific efforts');
+ await page.locator('#conversation-model').selectOption('mock-a');
+ await page.locator('#conversation-effort').selectOption('medium');
+ await page.locator('#conversation-configure').click();
+ await page.waitForFunction(()=>!document.querySelector('#conversation-start').disabled);
+ const previousRuns=(await get('conversation/state')).chat.runs.length;
+ await page.locator('#conversation-start').click();
+ await page.waitForFunction(n=>document.querySelectorAll('.conversation-turn').length>n&&document.querySelector('#conversation-status').textContent.startsWith('판단 대기'),previousRuns,{timeout:60000});
+ await page.locator('#crop').waitFor({state:'visible'});
+ let s=await get('conversation/state'),first=s.current;
+ check(s.job.status==='completed'&&first.proposal.targets.length===57,'actual diagnosis and first prepared batch');
+ check(s.chat.runs.at(-1).target.execution.effort==='medium','effort frozen in turn');
+ check((await get('bootstrap')).revision===boot.revision,'no approval no mutation');
+ await page.screenshot({path:'verification/conversation-20261006/browser-first.png'});
+ const send=async text=>{await page.locator('#conversation-input').fill(text);await page.locator('#conversation-send').click();await page.waitForFunction(()=>!document.querySelector('#conversation-send').disabled,{},{timeout:60000});};
+ await send('왜 그렇게 생각해?');
+ check((await get('conversation/state')).mode==='discussing','explanation turn completed');
+ await send('응');
+ check((await get('bootstrap')).revision===boot.revision,'ambiguous acknowledgement only reconfirms');
+ await send('137쪽 마지막 항목은 제외해');
+ s=await get('conversation/state');check(s.current.proposal.targets.length===56,'new exact proposal after exception');
+ check(!s.current.refs.includes(first.refs.at(-1)),'exception excluded');
+ await page.locator('#conversation-offer details').evaluate(e=>e.open=true);
+ check(await page.locator('#conversation-offer details article').count()===56,'all exact targets rendered');
+ await page.locator('#conversation-offer details article button').last().click();
+ await page.waitForFunction(ref=>window.candocChatContext()?.ref===ref,s.current.refs.at(-1));
+ const selected=await page.evaluate(()=>window.candocChatContext());
+ check(selected.ref===s.current.refs.at(-1),'source click selects exact target');
+ const offerId=s.current.id;
+ await page.screenshot({path:'verification/conversation-20261006/browser-exception.png'});
+ await page.reload();await page.waitForFunction(()=>document.querySelector('#conversation-status').textContent.startsWith('판단 대기'));
+ s=await get('conversation/state');check(s.current.id===offerId,'refresh restores pending proposal');
+ await send('응');
+ await page.waitForFunction(()=>document.querySelector('#conversation-status').textContent.startsWith('판단 대기'),{},{timeout:60000});
+ check((await get('bootstrap')).revision===boot.revision+1,'natural approval applied once and moved next');
+ const history=await get('history');check(history[0].conversation_approval.message==='응','real user approval receipt');
+ check(history[0].refs.length===56,'exact amended scope');
+ await page.locator('#conversation-pause').click();
+ await page.waitForFunction(()=>document.querySelector('#conversation-status').textContent.startsWith('일시정지'));
+ check(await page.locator('#conversation-send').isDisabled(),'paused approval disabled');
+ await page.screenshot({path:'verification/conversation-20261006/browser-paused.png'});
+ await page.locator('#history').click();await page.locator('#undo').click();
+ await page.waitForFunction(()=>document.querySelector('#message').textContent.includes('되돌렸습니다'));
+ check(JSON.stringify(await get('document'))===JSON.stringify(baseline),'one undo exactly restores source copy');
+ check(errors.length===0,'browser errors '+errors.join());
+ return {pass:true,diagnosed:57,approved:56,excluded:first.refs.at(-1),revision:(await get('bootstrap')).revision,errors};
+}
+)(page);
+```
+### Page
+- Page URL: http://127.0.0.1:52742/#page=18&ref=%23%2Ftexts%2F159&loc=0
+- Page Title: CanDoc · 원본 대조 검수

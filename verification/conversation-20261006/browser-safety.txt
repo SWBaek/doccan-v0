@@ -1,0 +1,74 @@
+
+╔════════════════════════════════════════════════════════════════════╗
+║ Update available for @playwright/cli: 0.1.18 → 0.1.22              ║
+║ Run `npm install -g @playwright/cli@latest` (global) or            ║
+║ `npm install --save-dev @playwright/cli@latest` (local) to update. ║
+╚════════════════════════════════════════════════════════════════════╝
+
+### Result
+{"pass":true,"resumedThread":"thread-1cb11d7f19184d26a46f8f554ec93d7d","lostResponseRecovered":true,"frozenCell":true,"revision":6}
+### Ran Playwright code
+```js
+await (async (page) => {
+ const base='http://127.0.0.1:52742',check=(ok,msg)=>{if(!ok)throw Error(msg)};
+ await page.goto(base);await page.reload();await page.locator('#conversation-toggle').click();
+ const boot=await(await page.request.get(base+'/api/bootstrap')).json(),headers={'X-Candoc-Token':boot.token};
+ const get=async p=>(await page.request.get(base+'/api/'+p,{headers})).json();
+ const post=async(p,data)=>(await page.request.post(base+'/api/'+p,{headers,data})).json();
+ const baseline=await get('document');let s=await get('conversation/state');
+ check(s.mode==='paused','reopened server is paused');
+ const thread=s.chat.thread_id,runCount=s.chat.runs.length;
+ await page.locator('#conversation-resume').click();
+ await page.waitForFunction(()=>document.querySelector('#conversation-status').textContent.startsWith('대화 중'));
+ s=await get('conversation/state');check(s.chat.thread_id===thread&&s.chat.runs.length===runCount,'resume preserves thread without replay');
+ const previous=s.chat.runs.at(-1)?.id;
+ await page.locator('#conversation-start').click();
+ await page.waitForFunction(id=>document.querySelector('.conversation-turn:last-child')?.dataset.run!==id&&document.querySelector('#conversation-status').textContent.startsWith('판단 대기'),previous,{timeout:60000});
+ await page.waitForFunction(()=>!document.querySelector('#conversation-send').disabled);
+ let lost=false;
+ await page.route('**/api/conversation/message',async route=>{
+   if(!lost&&route.request().postDataJSON().message==='응'){lost=true;await route.fetch();await route.abort('failed');}
+   else await route.continue();
+ });
+ await page.locator('#conversation-input').fill('응');await page.locator('#conversation-send').click();
+ await page.locator('#conversation-check').waitFor({state:'visible'});
+ await page.waitForFunction(()=>document.querySelector('#conversation-error').textContent.length>0);
+ check((await get('bootstrap')).revision===boot.revision+1,'lost approval response committed once');
+ await page.unroute('**/api/conversation/message');
+ await page.reload();await page.locator('#conversation-check').waitFor({state:'visible'});
+ await page.locator('#conversation-check').click();await page.locator('#conversation-check').waitFor({state:'hidden'});
+ check((await get('bootstrap')).revision===boot.revision+1,'reconnect recovers receipt, no duplicate');
+ await page.locator('#conversation-pause').click();await page.waitForFunction(()=>document.querySelector('#conversation-status').textContent.startsWith('일시정지'));
+ await post('undo',{revision:boot.revision+1});
+ await page.locator('#conversation-resume').click();await page.waitForFunction(()=>document.querySelector('#conversation-status').textContent.startsWith('대화 중'));
+ await page.evaluate(()=>window.candocBatchBridge.navigate(1,'#/tables/0',0));
+ await page.locator('#conversation-inspect').check();
+ await page.locator('#conversation-input').fill('[slow] [propose]');await page.locator('#conversation-send').click();
+ await page.waitForFunction(()=>document.querySelector('#conversation-status').textContent.startsWith('Codex 답변 중'));
+ await page.locator('#cell').selectOption('1');
+ s=await get('conversation/state');check(s.chat.runs.at(-1).target.cell===0,'running turn retains selected cell 0');
+ check(await page.locator('#conversation-model').isDisabled(),'model selection disabled during run');
+ await page.locator('#conversation-pause').click();await page.waitForFunction(()=>document.querySelector('#conversation-status').textContent.startsWith('일시정지'));
+ check((await get('bootstrap')).revision===boot.revision+2,'cancel does not apply');
+ await page.locator('#conversation-resume').click();await page.waitForFunction(()=>!document.querySelector('#conversation-send').disabled);
+ await page.locator('#conversation-inspect').check();await page.locator('#conversation-input').fill('[propose]');await page.locator('#conversation-send').click();
+ await page.waitForFunction(()=>document.querySelector('#conversation-status').textContent.startsWith('판단 대기'),{},{timeout:60000});
+ s=await get('conversation/state');check(s.current.proposal.request.cell===1,'new turn bound to selected cell 1');
+ await page.locator('#cell').selectOption('2');await page.waitForFunction(()=>window.candocChatContext()?.cell===2);
+ await page.locator('#conversation-input').fill('응');await page.locator('#conversation-send').click();
+ await page.waitForFunction(()=>!document.querySelector('#conversation-send').disabled,{},{timeout:60000});
+ const doc=await get('document');check(doc.tables[0].data.table_cells[1].text==='Synthetic correction','approved cell 1 updated');
+ check(doc.tables[0].data.table_cells[2].text===baseline.tables[0].data.table_cells[2].text,'screen selection cell 2 untouched');
+ await page.locator('#conversation-pause').click();await page.waitForFunction(()=>document.querySelector('#conversation-status').textContent.startsWith('일시정지'));
+ await post('undo',{revision:(await get('bootstrap')).revision});
+ check(JSON.stringify(await get('document'))===JSON.stringify(baseline),'final baseline restored');
+ await page.screenshot({path:'verification/conversation-20261006/browser-safety.png'});
+ return {pass:true,resumedThread:thread,lostResponseRecovered:true,frozenCell:true,revision:(await get('bootstrap')).revision};
+}
+)(page);
+```
+### Page
+- Page URL: http://127.0.0.1:52742/#page=43&ref=%23%2Ftexts%2F684&loc=0
+- Page Title: CanDoc · 원본 대조 검수
+### Events
+- New console entries: .playwright-cli\console-2026-10-05T22-31-10-939Z.log#L1-L5

@@ -1,0 +1,17 @@
+test_cancel_disconnect_and_resume_do_not_replay (test_conversation.ConversationTests.test_cancel_disconnect_and_resume_do_not_replay) ... ok
+test_commit_then_journal_failure_reconciles_from_document_history (test_conversation.ConversationTests.test_commit_then_journal_failure_reconciles_from_document_history) ... ok
+test_concurrent_duplicate_approvals_commit_once (test_conversation.ConversationTests.test_concurrent_duplicate_approvals_commit_once) ... ok
+test_database_failure_rolls_back_no_false_success (test_conversation.ConversationTests.test_database_failure_rolls_back_no_false_success) ... ok
+test_export_failure_and_crash_gap_receipt_reconcile (test_conversation.ConversationTests.test_export_failure_and_crash_gap_receipt_reconcile) ... ok
+test_frozen_selected_cell_stale_proposal_and_injection (test_conversation.ConversationTests.test_frozen_selected_cell_stale_proposal_and_injection) ... ok
+test_keep_defer_next_previous_and_reopen (test_conversation.ConversationTests.test_keep_defer_next_previous_and_reopen) ... ok
+test_model_configuration_changes_only_next_turn (test_conversation.ConversationTests.test_model_configuration_changes_only_next_turn) ... ok
+test_models_official_pagination_effort_on_wire_and_no_fallback (test_conversation.ConversationTests.test_models_official_pagination_effort_on_wire_and_no_fallback) ... ok
+test_old_tab_generation_and_multiple_offers_cannot_approve (test_conversation.ConversationTests.test_old_tab_generation_and_multiple_offers_cannot_approve) ... ok
+test_selection_snapshot_exception_and_inspect_separates_previous_offer (test_conversation.ConversationTests.test_selection_snapshot_exception_and_inspect_separates_previous_offer) ... ok
+test_start_explain_exception_clear_approval_receipt_and_undo (test_conversation.ConversationTests.test_start_explain_exception_clear_approval_receipt_and_undo) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 109.420s
+
+OK

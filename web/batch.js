@@ -22,7 +22,7 @@
     not_detected: "이번 진단 미탐지",
   };
   let data,
-    saved = { group: null, excluded: {}, preview: null, open: true, scroll: 0 },
+    saved = { group: null, excluded: {}, preview: null, open: false, scroll: 0 },
     key,
     busy = false,
     timer,
@@ -41,6 +41,7 @@
       }
   }
   function open(value) {
+    if (value) window.candocConversationShow?.(false);
     saved.open = value;
     $("diagnostic-panel").hidden = !value;
     $("items").hidden = value;
@@ -133,7 +134,7 @@
           )
             .filter(([, v]) => v)
             .map(([k, v]) => `${names[k]} ${v}`)
-            .join(" / ")}</small></button>`,
+            .join(" / ")}</small></button><button data-conversation-group="${esc(g.id)}">이 문제를 검수 대화에서 열기</button>`,
       )
       .join("");
     const g = group();
@@ -363,7 +364,7 @@
       if (v && typeof v === "object")
         saved = { ...saved, ...v, excluded: v.excluded || {} };
     } catch {}
-    open(saved.open);
+    open(saved.open && localStorage.getItem('candoc-conversation-open') === 'false');
     try {
       await load();
       if (saved.pending) {
@@ -375,8 +376,8 @@
           await bridge().api("batch?id=" + encodeURIComponent(saved.preview)),
         );
       $("diagnostic-scroll").scrollTop = saved.scroll;
-      if (data.job.status === "idle") await start();
-      if (!bridge().context()?.ref && group())
+      if (saved.open && data.job.status === "idle") await start();
+      if (saved.open && !bridge().context()?.ref && group())
         await inspect(group().targets[0].ref);
     } catch (e) {
       bridge().message("문제 묶음: " + e.message, true);

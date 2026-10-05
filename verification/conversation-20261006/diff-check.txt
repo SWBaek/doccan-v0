@@ -1,0 +1,13 @@
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'candoc/batch.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'candoc/chat.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'candoc/cli.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'candoc/core.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'candoc/server.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/AGENT.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/CODEX-CHAT.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/SCHEMA.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/fake_codex.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'web/batch.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'web/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'web/style.css', LF will be replaced by CRLF the next time Git touches it

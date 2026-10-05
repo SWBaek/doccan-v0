@@ -169,7 +169,7 @@ class BatchReview:
             with self.store.db:self.store.db.execute('INSERT INTO batches VALUES(?,?)',(rid,dump(p)))
             return self.view(rid)
 
-    def approve(self,bid):
+    def approve(self,bid,*,approval=None):
         with self.store.lock:
             p=self.view(bid)
             if p['status']!='pending':raise ProposalConflict('묶음이 이미 처리되었거나 충돌했습니다. 상태를 확인하세요.',p)
@@ -186,6 +186,7 @@ class BatchReview:
                 decisions_after[k]={'state':{'apply':'applied','keep':'kept','defer':'deferred'}[p['action']],'version':revision+1,'fingerprint':stamp(t['after']),'batch':bid,'individually_reviewed':False}
             p['status']='applied';p.pop('conflicts',None)
             event={'seq':revision+1,'kind':'apply','proposal':bid,'ref':p['targets'][0]['ref'],'refs':[t['ref'] for t in p['targets']],'batch':p['targets'],'title':p['title'],'before':p['targets'][0]['before'],'after':p['targets'][0]['after'],'reviews_before':old_reviews,'reviews_after':reviews,'decisions_before':decisions_before,'decisions_after':decisions_after,'time':datetime.now(timezone.utc).isoformat()}
+            if approval is not None:event['conversation_approval']=copy.deepcopy(approval)
             with self.store.db:
                 self.store.db.execute('UPDATE current SET revision=?,document=?,reviews=? WHERE id=1',(revision+1,dump(doc),dump(reviews)))
                 self.store.db.execute('UPDATE batches SET payload=? WHERE id=?',(dump(p),bid))

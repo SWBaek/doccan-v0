@@ -48,3 +48,9 @@
 고정 core 2.93.0의 `items/text.py`에서 page_header/page_footer는 TextItem이며 section_header의 level은 SectionHeaderItem 전용 필드입니다. `items/node.py`의 content_layer는 parent/children과 독립된 필드입니다. 따라서 승인된 leaf 항목의 label, content_layer=furniture, level 제거만 허용하고 트리를 옮기지 않습니다. text/orig/prov/charspan/self_ref/parent/children 및 모든 연결은 그대로 둡니다. 후보 전체를 원시 JSON 사본에 반영해 공식 모델과 추가 참조 검사로 검증하며 model_dump 결과를 저장하지 않습니다.
 
 묶음 제안·진단·판단은 별도 SQLite 테이블에 둡니다. 변경 이력은 기존 apply/undo에 refs와 대상별 before/after를 추가해 한 revision으로 기록합니다. 기존 단일 항목 이력은 변경하지 않습니다. 모든 대상의 스냅샷·변경 이력을 다시 검사한 뒤 하나의 DB 트랜잭션으로 확정합니다. 묶음 판단의 individually_reviewed=false는 DoclingDocument 밖 검수 기록에만 저장합니다.
+
+## 대화 승인 근거
+
+`conversation_state/messages/offers/tool_calls`는 작업 검수 DB의 별도 테이블이며 DoclingDocument 필드를 추가하지 않습니다. offer는 기존 proposal/batch ID를 참조하는 표시 기록입니다. 내용·대상은 기존 불변 제안에 있고, offer 버전은 해당 payload의 SHA-256입니다.
+
+대화 승인은 기존 적용 이력에 `conversation_approval`을 추가합니다. 실제 사용자 메시지 ID/본문, 제시 ID/버전/표시 차수, 적용 proposal ID와 대상·셀·revision을 문서 변경과 같은 트랜잭션으로 기록합니다. 승인 후 대화 상태 저장이 실패해도 이 기록으로 적용 사실을 복구하며 재적용하지 않습니다. undo는 기존 문서/검수 복구 경로를 사용하고 역사적 승인 근거를 삭제하지 않습니다.

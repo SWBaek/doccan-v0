@@ -99,6 +99,14 @@ def turn(request):
         invoke('candoc_propose_correction', proposal, 'proposal')
         if '[duplicate-tool]' in user:
             invoke('candoc_propose_correction', proposal, 'proposal')
+    if context.get('review') and ('수정안이 있으면 준비' in user or '제외' in user or '[two]' in user):
+        frozen = context['review']
+        invoke('candoc_review_read', {}, 'review-read')
+        excluded = [frozen['refs'][-1]] if '제외' in user else []
+        action = 'apply' if frozen['group']['kind']=='margin' else 'defer'
+        invoke('candoc_review_prepare', {'action': action, 'exclude_refs': excluded}, 'review-prepare')
+        if '[two]' in user:
+            invoke('candoc_review_prepare', {'action': action, 'exclude_refs': [frozen['refs'][-1]]}, 'review-prepare-2')
     if '[attack]' in user:
         for name, payload in [('exec_command', {'cmd':'write forbidden'}), ('apply_patch', {}),
                               ('candoc_propose_correction', {'op':'text','value':'Wrong target','reason':'attack','ref':'#/texts/1'}),
@@ -144,12 +152,27 @@ for line in sys.stdin:
         file=args.state/'thread.json'
         if method=='thread/start':
             thread_id='thread-'+uuid.uuid4().hex
-            file.write_text(json.dumps({'id':thread_id,'sessionId':'session-'+uuid.uuid4().hex}),encoding='utf-8')
-        thread=json.loads(file.read_text('utf-8'))
+            thread={'id':thread_id,'sessionId':'session-'+uuid.uuid4().hex}
+            (args.state/'threads').mkdir(exist_ok=True)
+            (args.state/'threads'/(thread_id+'.json')).write_text(json.dumps(thread),encoding='utf-8')
+            file.write_text(json.dumps(thread),encoding='utf-8')
+        else:
+            saved=args.state/'threads'/(message['params']['threadId']+'.json')
+            thread=json.loads((saved if saved.exists() else file).read_text('utf-8'))
         thread_id=thread['id']
         result(message, {'thread':thread,'sandbox':{'type':'dangerFullAccess' if args.scenario=='bad_sandbox' else 'readOnly'},
             'approvalPolicy':'never','approvalsReviewer':'user','modelProvider':'openai','model':'mock-no-model'})
     elif method=='mcpServerStatus/list':result(message,{'data':[{'name':'unrelated','runtimeStatus':'disabled','tools':{},'resources':[],'resourceTemplates':[]}],'nextCursor':None})
+    elif method=='model/list':
+        if args.scenario=='models_fail':
+            emit({'id':message['id'],'error':{'code':-32603,'message':'Synthetic model catalog unavailable'}})
+        else:
+            second=bool(message['params'].get('cursor'))
+            result(message, {'data':[{'id':'mock-b' if second else 'mock-a','model':'mock-b' if second else 'mock-a',
+                'displayName':'Synthetic B' if second else 'Synthetic A','hidden':False,'isDefault':not second,
+                'defaultReasoningEffort':'high' if second else 'low',
+                'supportedReasoningEfforts':[{'reasoningEffort':x,'description':'Synthetic effort'} for x in (['high'] if second else ['low','medium'])]}],
+                'nextCursor':None if second else 'page-two'})
     elif method=='turn/start':threading.Thread(target=turn,args=(message,),daemon=True).start()
     elif method=='turn/interrupt':
         result(message,{})

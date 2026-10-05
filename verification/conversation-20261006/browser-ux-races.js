@@ -1,0 +1,77 @@
+async page => {
+ await page.addInitScript(() => localStorage.setItem('candoc-conversation-open','false'));
+ const base='http://127.0.0.1:52742',check=(v,m)=>{if(!v)throw Error(m)};
+ const get=async p=>(await page.request.get(base+'/api/'+p)).json();
+ await page.goto(base+'/#page=1');await page.reload();await page.setViewportSize({width:1366,height:768});await page.locator('#items .item').first().waitFor();
+ const boot=await get('bootstrap');
+ const post=async(p,data)=>(await page.request.post(base+'/api/'+p,{headers:{'X-Candoc-Token':boot.token},data})).json();
+ // Delay fully received responses so we exercise an actual late response, not just dispatch order.
+ await page.route('**/api/item?*',async route=>{const url=decodeURIComponent(route.request().url());if(url.includes('ref=#/texts/0')){const response=await route.fetch();await page.waitForTimeout(850);await route.fulfill({response});}else await route.continue();});
+ await page.locator('#chat-toggle').click();
+ await page.locator('[data-ref="#/texts/0"]').click();
+ check(await page.evaluate(()=>window.candocChatContext()===null),'No previous target while loading');
+ check(await page.locator('#chat-input').isDisabled(),'No editing against a stale displayed target');
+ await page.locator('[data-ref="#/texts/1"]').click();
+ await page.waitForFunction(()=>window.candocChatContext()?.ref==='#/texts/1');await page.waitForTimeout(1100);
+ check(await page.evaluate(()=>window.candocChatContext().ref)==='#/texts/1','Last item intent wins');
+ check(await page.locator('.item.selected').getAttribute('data-ref')==='#/texts/1','Highlight matches selected data');
+ check(await page.locator('#current-value').textContent()===(await get('item?ref=%23%2Ftexts%2F1')).item.text,'Current content matches target');
+ await page.unroute('**/api/item?*');
+ await page.route('**/api/page?page=2',async route=>{const response=await route.fetch();await page.waitForTimeout(900);await route.fulfill({response});});
+ await page.locator('#next').click();await page.locator('#next').click();
+ await page.waitForFunction(()=>document.querySelector('#page').value==='3'&&window.candocChatContext()!==null);await page.waitForTimeout(1200);
+ check(await page.locator('#page-image').getAttribute('alt')==='원본 3페이지','Last page source image wins');
+ check(await page.locator('#page').inputValue()==='3','Late page did not rewind');
+ await page.unroute('**/api/page?page=2');
+ await page.locator('#search').fill('Basso');await page.locator('#search-form button').click();
+ await page.locator('[data-queue="#/tables/0/cells/0"]').click();await page.waitForFunction(()=>window.candocChatContext()?.cell===0);
+ await page.locator('#chat-input').fill('셀 0 초안');
+ await page.locator('#cell').selectOption('1');await page.waitForFunction(()=>window.candocChatContext()?.cell===1);
+ await page.locator('#chat-input').fill('셀 1 초안');
+ await page.route('**/api/item?*',async route=>{if(route.request().url().includes('cell=0')){const response=await route.fetch();await page.waitForTimeout(900);await route.fulfill({response});}else await route.continue();});
+ await page.locator('[data-ref="#/tables/0"] [data-cell="0"]').click();
+ await page.locator('[data-ref="#/tables/0"] [data-cell="1"]').click();
+ await page.waitForFunction(()=>window.candocChatContext()?.cell===1);await page.waitForTimeout(1200);
+ check(await page.locator('#cell').inputValue()==='1','Last cell wins');
+ check(await page.locator('#chat-input').inputValue()==='셀 1 초안','Cell-specific chat draft follows last selection');
+ check(await page.locator('.selected-cell').getAttribute('data-cell')==='1','Converted cell matches next chat');
+ const item=await get('item?ref=%23%2Ftables%2F0&cell=1');
+ check(await page.locator('#current-value').textContent()===item.item.data.table_cells[1].text,'Current cell and target agree');
+ check((await page.locator('#location-note').getAttribute('title')).includes(item.locations[0].rect.x.toFixed(1)),'Source coordinates match current cell');
+ await page.unroute('**/api/item?*');
+ // Existing mock Codex verifies frozen sent target and unsent drafts together.
+ await page.locator('#chat-connect').click();await page.waitForFunction(()=>document.querySelector('#chat-status').dataset.state==='connected');
+ const priorRuns=await page.locator('.chat-turn').count();
+ if(await page.locator('#draft-warning').isVisible())await page.locator('#draft-rebase').click();
+ await page.locator('#chat-input').fill('[slow] 셀 1 고정 대상 검토');await page.locator('#chat-send').click();
+ await page.waitForFunction(n=>document.querySelectorAll('.chat-turn')[n]?.querySelector('.chat-answer')?.textContent.includes('검토 중입니다.'),priorRuns);
+ await page.locator('#cell').selectOption('0');await page.waitForFunction(()=>window.candocChatContext()?.cell===0);
+ check(await page.locator('#chat-input').inputValue()==='셀 0 초안','Changing selection during send preserves other draft');
+ check((await page.locator('.chat-frozen-target').last().innerText()).includes('셀 1'),'Sent target remains frozen');
+ check((await page.locator('#chat-target').innerText()).includes('셀 0'),'Next message target follows selection');
+ await page.locator('#chat-interrupt').click();await page.waitForFunction(n=>document.querySelectorAll('.chat-turn')[n]?.dataset.status==='interrupted',priorRuns);
+ await page.locator('#chat-disconnect').click();await page.waitForFunction(()=>document.querySelector('#chat-status').dataset.state==='disconnected');
+ await page.locator('#chat-hide').click();
+ // A target mutation must expose the old draft basis instead of rebasing silently.
+ await page.locator('#edit-value').fill('초안은 그대로 남아야 함');await page.locator('#reason').fill('초안 기준 변경 시험');
+ const current=await get('bootstrap');
+ const p=await post('propose',{asset_id:boot.asset.asset_id,revision:current.revision,ref:'#/tables/0',cell:0,op:'cell',value:'Concurrent explicit cell correction',reason:'Draft basis test exact proposal'});
+ await page.locator('#proposals').click();await page.locator('#proposal-choice').selectOption(p.id);await page.locator(`[data-approve="${p.id}"]`).click();
+ await page.waitForFunction(()=>document.querySelector('#draft-warning')?.hidden===false&&window.candocChatContext()?.cell===0);
+ check(await page.locator('#edit-value').inputValue()==='초안은 그대로 남아야 함','Changed basis does not discard draft');
+ check(await page.locator('#manual-propose').isDisabled(),'Changed basis blocks creation until inspected');
+ await page.reload();await page.waitForFunction(()=>document.querySelector('#draft-warning')?.hidden===false);
+ check(await page.locator('#edit-value').inputValue()==='초안은 그대로 남아야 함','Stale draft survives reload with old basis');
+ await page.locator('#draft-warning details').evaluate(el=>el.open=true);
+ check((await page.locator('#draft-base').textContent()).includes('Thomas'),'Old baseline preserved');
+ await page.locator('#draft-rebase').click();check(!await page.locator('#manual-propose').isDisabled(),'Explicit comparison allows continuing');
+ await page.locator('#history').click();await page.locator('#undo').click();await page.waitForFunction(()=>document.querySelector('#message').textContent.includes('되돌렸습니다'));
+ check(await page.locator('#draft-warning').isVisible(),'Undo is a changed basis too');
+ // Long and broad searches preserve exact snippets and expose results beyond 150.
+ await page.locator('#search').fill('the');await page.locator('#search-form button').click();await page.locator('#work-more').waitFor();
+ for(let i=0;i<2;i++){const n=await page.locator('.work-result').count();await page.locator('#work-more').click();await page.waitForFunction(n=>document.querySelectorAll('.work-result').length>n,n);}
+ check(await page.locator('.work-result').count()===180,'Access to results after old 150 cap');
+ await page.locator('.work-result').nth(160).focus();await page.keyboard.press('Enter');await page.waitForFunction(()=>window.candocChatContext()?.ref!=null);
+ check(await page.locator('#worklist-progress').textContent().then(s=>s.includes('161/180')),'Exact position beyond old limit');
+ return {result:'PASS',delayed_item_cell_page:true,loading_disables_old_target:true,frozen_sent_target:true,stale_draft_reload_undo:true,search_beyond_150:true};
+}

@@ -19,7 +19,7 @@ def main():
     init = sub.add_parser('init')
     init.add_argument('--zip',type=Path,default=ROOT/'IEEE-1547-2018-document-assets.zip')
     init.add_argument('--data',type=Path,default=ROOT/'data')
-    for name in ['status','suspects','proposals','history','validate','reexport','document','diagnostics','diagnose']:
+    for name in ['status','suspects','proposals','history','validate','reexport','document','diagnostics','diagnose','conversation']:
         sub.add_parser(name)
     repropose = sub.add_parser('repropose', help='Create a new unapproved proposal after inspecting latest data')
     repropose.add_argument('id')
@@ -38,9 +38,10 @@ def main():
     def api(path, payload=None):
         headers = {}
         body = None
-        if payload is not None:
+        if payload is not None or path == '/api/conversation/state':
             session = api('/api/bootstrap')
             headers = {'Content-Type':'application/json','X-Candoc-Token':session['token']}
+        if payload is not None:
             body = dump(payload).encode('utf-8')
         with urlopen(Request(args.url+path, data=body, headers=headers),timeout=90) as r:
             return json.load(r)
@@ -58,6 +59,8 @@ def main():
             result = api('/api/repropose', {'id': args.id, 'revision': args.revision})
         elif args.command == 'diagnose':
             result = api('/api/diagnose', {})
+        elif args.command == 'conversation':
+            result = api('/api/conversation/state')
         elif args.command == 'reexport':
             result = api('/api/export', {})
         else:

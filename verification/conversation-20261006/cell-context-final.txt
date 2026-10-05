@@ -1,0 +1,6 @@
+test_frozen_selected_cell_stale_proposal_and_injection (test_conversation.ConversationTests.test_frozen_selected_cell_stale_proposal_and_injection) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 14.843s
+
+OK

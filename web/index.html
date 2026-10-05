@@ -8,6 +8,7 @@
     <script src="/app.js" defer></script>
     <script src="/chat.js" defer></script>
     <script src="/batch.js" defer></script>
+    <script src="/conversation.js" defer></script>
   </head>
   <body>
     <header>
@@ -16,12 +17,13 @@
         <strong>IEEE 1547–2018</strong><small id="asset">문서를 여는 중…</small>
       </div>
       <div class="head-actions">
+        <button id="conversation-toggle" class="primary">검수 대화</button>
         <button
           id="chat-toggle"
           aria-controls="chat-panel"
           aria-expanded="false"
         >
-          Codex 대화
+          개별 항목 채팅
         </button>
         <button id="refresh">새로고침</button
         ><a href="/api/document" download="document.json">작업 JSON 다운로드</a>
@@ -85,6 +87,34 @@
           <h1>변환 문서</h1>
           <span id="item-count"></span>
         </div>
+        <section id="conversation-panel" aria-label="에이전트 주도 검수">
+          <div class="conversation-settings">
+            <button id="conversation-models" disabled>Codex 연결·모델 조회</button>
+            <label>모델 <select id="conversation-model" disabled><option value="">조회 필요</option></select></label>
+            <label>Reasoning effort <select id="conversation-effort" disabled><option value="">조회 필요</option></select></label>
+            <button id="conversation-configure" disabled>설정 적용</button>
+            <small id="conversation-setting">설정 변경은 다음 턴부터 적용됩니다.</small>
+          </div>
+          <div class="conversation-controls">
+            <button id="conversation-start" class="primary" disabled>검수 시작</button>
+            <button id="conversation-pause" disabled>일시정지·중단</button>
+            <button id="conversation-resume" disabled>대화 재개</button>
+            <button id="conversation-retry" disabled>작업 다시 시도</button>
+            <button id="conversation-previous" disabled>이전 문제</button>
+            <button id="conversation-next" disabled>다음 항목</button>
+          </div>
+          <p id="conversation-status" role="status" aria-live="polite"></p>
+          <p id="conversation-error" class="error" role="alert"></p>
+          <div id="conversation-transcript" aria-label="검수 대화 기록"></div>
+          <section id="conversation-offer" aria-label="대화에서 제시한 정확한 수정안"></section>
+          <form id="conversation-form">
+            <label><input type="checkbox" id="conversation-inspect"/> 화면에서 선택한 문단·셀에 대해 새 질문</label>
+            <small id="conversation-target"></small>
+            <textarea id="conversation-input" rows="2" maxlength="8000" placeholder="왜 그렇게 생각해? / 137쪽은 제외해 / 응 / 그대로 둬 / 보류해"></textarea>
+            <div class="actions"><button id="conversation-send" class="primary" disabled>보내기</button><button id="conversation-check" type="button" hidden>전송 결과 확인·재시도</button></div>
+          </form>
+          <small class="conversation-privacy">검수 시작과 질문은 선택 모델을 실제 호출하며 계정 사용량이 발생합니다. AI는 원본 이미지를 보지 않습니다. 원본 영역은 사용자가 대조하세요. 규칙으로 탐지하지 못한 내용까지 검증한 것은 아닙니다.</small>
+        </section>
         <section id="diagnostic-panel" hidden aria-label="전체 문서 문제 묶음">
           <div class="diagnostic-toolbar">
             <button id="diagnose">전체 문서 진단</button

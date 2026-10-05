@@ -2,6 +2,8 @@
 
 CanDoc의 Python 서버가 해당 PC에 설치된 공식 Codex app-server를 stdio 자식 프로세스로 실행한다. 모델 API를 직접 호출하지 않는다. Paseo 설치·세션·경로는 제품에 필요하지 않다.
 
+현재 기본 화면은 [에이전트 주도 검수 대화](CONVERSATION-REVIEW.md)다. 아래 개별 항목 채팅은 기존 기록과 인터페이스를 유지한다. 기본 대화는 공식 `model/list`에서 모델/effort를 조회하고 매 `turn/start`에 선택값을 명시한다. 모델별 지원 조합을 검증하며 목록 실패 시 대체하지 않는다.
+
 ## 다른 PC에서 설치·실행
 
 1. Python 3.13과 **Codex CLI 0.160.0**을 설치한다. 공식 CLI 설치 경로를 사용하거나 `npm install -g @openai/codex@0.160.0`으로 설치하고 `codex --version`을 확인한다. 다른 버전은 권한 동작을 확인하지 않았으므로 이 구현에서 연결을 차단한다.
@@ -39,9 +41,9 @@ python -m venv .venv
 
 이 PC에서는 Windows/Python 3.13.5/Codex 0.160.0으로 검증했다. 다른 PC·macOS·Linux의 실제 실행은 미검증이다. 코드와 예시에는 이 PC의 사용자 경로나 Paseo 세션 ID가 필요하지 않다.
 
-## 사용과 대화 상태
+## 기존 개별 항목 채팅의 사용과 상태
 
-- `Codex 대화`를 열어 `연결·재개`를 누른다. 연결 단계는 로그인 상태·권한 설정·저장된 thread를 확인하며 사용자 메시지를 보내지 않는다.
+- `개별 항목 채팅`을 열어 `연결·재개`를 누른다. 연결 단계는 로그인 상태·권한 설정·저장된 thread를 확인하며 사용자 메시지를 보내지 않는다.
 - 문단·항목·표 셀을 선택하고 `다음 메시지 대상`의 ID와 revision을 확인한 뒤 보낸다. 메시지마다 고정한 대상도 기록에 표시한다. 이후 선택을 바꿔도 진행 중인 요청의 대상은 바뀌지 않는다.
 - 응답은 SSE로 점진 표시한다. 전송 중/답변 중/중단 중/완료/오류/중단 상태를 구별한다. `중단`은 공식 `turn/interrupt`를 사용하며 완료 통지가 오지 않으면 소유한 프로세스를 종료한다.
 - `제안 확인`에서 기존 승인 화면을 연다. 대화에서 만들어진 것은 pending 제안이다. 원본 영역과 변경 전후를 확인하고 사용자가 승인해야 DB와 문서가 바뀐다.
@@ -52,14 +54,14 @@ python -m venv .venv
 
 ## 데이터와 권한 경계
 
-앱이 노출하는 문서 도구는 `candoc_read_selection`과 `candoc_propose_correction` 두 개다. 모델이 Asset/ref/cell/revision을 도구 인수로 지정할 수 없다. 앱이 전송 시 고정한 값을 사용하며, 다른 thread/turn의 호출, 지원하지 않는 인수, 셀 대화에서의 표 전체 수정, stale revision을 거부한다. 도구에는 승인·거절·되돌림·내보내기·파일·셸·임의 HTTP API가 없다. API 세션 토큰과 서버 주소도 모델 맥락에 넣지 않는다.
+기존 개별 채팅의 문서 도구는 `candoc_read_selection`과 `candoc_propose_correction`이다. 기본 검수 대화에는 같은 broker에 `candoc_review_read`와 `candoc_review_prepare`를 추가한다. 후자는 고정된 진단 묶음의 읽기와 불변 pending 제안 생성만 수행하며 예외 ref가 묶음 범위에 속하는지 검사한다. 모델이 Asset/revision 또는 개별 제안의 ref/cell을 임의 지정할 수 없다. 다른 thread/turn의 호출, 지원하지 않는 인수, 셀 대화에서의 표 전체 수정, stale revision을 거부한다. 도구에는 승인·거절·되돌림·내보내기·파일·셸·임의 HTTP API가 없다. API 세션 토큰과 서버 주소도 모델 맥락에 넣지 않는다.
 
 공식 실행기 기능으로 다음을 적용한다.
 
 1. `thread/start`와 **매 `turn/start`에 `environments: []`**를 지정하여 실행 환경을 주지 않는다. 같은 버전의 공식 구현은 환경이 없으면 셸·apply_patch·로컬 이미지 도구를 등록하지 않는다. `read-only`, 승인 정책 `never`, reviewer `user`도 명시하고 thread 응답의 실제 정책을 확인한다.
 2. 앱/플러그인/MCP/브라우저/컴퓨터 조작/하위 에이전트/훅/메모리/셸을 비활성화한다. 첫 프로세스는 설정과 로그인 상태만 조회하고 종료한다. 상속된 MCP 이름을 알아낸 뒤 두 번째 프로세스에서 모두 비활성화한다. 실제 설정과 `mcpServerStatus/list`에서 비활성 상태·도구 없음까지 재확인한 뒤 연결을 허용한다. 사용자 설정 파일은 수정하지 않는다.
 3. 사용자 스킬 카탈로그를 자동 맥락에 넣지 않는다. 부모 실행 환경의 Paseo 변수와 Codex 세션 변수를 제거한다. 사용자 Codex 홈 위치 설정은 유지하고 인증 처리는 Codex에 맡긴다.
-4. 일부 모델은 공식 V8 중개 도구 `functions.exec/wait`와 시계 유틸리티를 사용한다. 이는 OS 셸이 아니며 Node/파일시스템/네트워크 접근이 없다. 문서에 접근하는 중첩 도구는 위 두 개뿐이다. 별도 사용자 입력·권한·로그인·승인 요청은 앱이 거부한다. `code_mode_host`는 이 중개 경로가 필요한 모델을 위해 켜며, 그 환경에서 `require/process/fetch`와 셸 도구가 없는 것을 실제 실행기로 확인했다.
+4. 일부 모델은 공식 V8 중개 도구 `functions.exec/wait`와 시계 유틸리티를 사용한다. 이는 OS 셸이 아니며 Node/파일시스템/네트워크 접근이 없다. 문서에 접근하는 중첩 도구는 위 broker 도구뿐이다. 별도 사용자 입력·권한·로그인·승인 요청은 앱이 거부한다. `code_mode_host`는 이 중개 경로가 필요한 모델을 위해 켜며, 그 환경에서 `require/process/fetch`와 셸 도구가 없는 것을 실제 실행기로 확인했다.
 5. 버전·권한 설정 불일치, 활성 MCP 잔존, 비정상 실행 이벤트가 있으면 연결을 차단한다. 브라우저에는 임의 JSON-RPC 중계 기능을 제공하지 않는다. 출력은 HTML이 아닌 텍스트로 표시한다.
 
 프롬프트는 교정 목적과 불확실성을 설명할 뿐 권한 경계로 취급하지 않는다. 이 설계는 설치된 공식 Codex와 로컬 사용자/OS를 신뢰한다. app-server 자체의 인증·대화 기록 쓰기까지 OS 전체에서 격리한 것은 아니며, 같은 OS 사용자의 다른 프로그램을 차단하는 인증 체계도 아니다. Windows에서는 소유한 프로세스 트리를 Job Object로 묶어 부모가 먼저 죽어도 자식을 정리한다. macOS/Linux에는 별도 프로세스 그룹을 사용하지만 실제 플랫폼 검증은 남아 있다.
@@ -79,7 +81,7 @@ codex app-server generate-json-schema --experimental --out ./protocol
 
 통신은 `jsonrpc` 헤더 없는 JSONL이다. `initialize` → `initialized`, `account/read`, `config/read`, `thread/start`/`thread/resume`, `mcpServerStatus/list`, `turn/start`/`turn/interrupt`와 `item/agentMessage/delta`, `item/completed`, `turn/completed`, `item/tool/call`을 사용한다. dynamic tools는 experimental API opt-in 대상이다. 실제 생성한 스키마의 필요한 부분을 `tests/fixtures/codex-0.160.0.json`에 보관하고 송신 요청을 검증한다. 필수 권한 게이트는 동일 태그 `rust-v0.160.0`의 [도구 등록 구현 사본](../verification/chat-20261006/upstream/spec_plan.rs)에서도 확인했다.
 
-검증 결과와 변경 파일 목록은 [구현 검증 기록](CHAT-VERIFICATION.md)에 정리한다. 실제 모델 대화는 아직 실행하지 않았으며, 별도 승인된 시험 전까지 모델 응답 품질·계정 모델 접근·사용량을 검증했다고 주장하지 않는다.
+기존 연결·격리 검증은 [구현 검증 기록](CHAT-VERIFICATION.md), 이후 사용자 승인 아래 수행한 실제 모델 3턴과 대화형 승인 검증은 [대화형 검수 기록](CONVERSATION-REVIEW.md)에 정리한다. 이 제한된 시험으로 모든 문서/모델의 대화 품질을 보장하지 않는다.
 
 ## 연속 검수 화면
 

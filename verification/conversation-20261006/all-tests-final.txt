@@ -1,0 +1,106 @@
+test_batch_exclusion_exact_fields_reopen_and_one_undo (test_batch.BatchWorkflow.test_batch_exclusion_exact_fields_reopen_and_one_undo) ... ok
+test_cancel_fail_retry_preserves_completed_groups (test_batch.BatchWorkflow.test_cancel_fail_retry_preserves_completed_groups) ... ok
+test_database_failure_rolls_back_and_export_failure_recovers (test_batch.BatchWorkflow.test_database_failure_rolls_back_and_export_failure_recovers) ... ok
+test_diagnosis_snapshot_change_and_interrupted_restart (test_batch.BatchWorkflow.test_diagnosis_snapshot_change_and_interrupted_restart) ... ok
+test_latest_conflict_all_or_none_and_aba (test_batch.BatchWorkflow.test_latest_conflict_all_or_none_and_aba) ... ok
+test_rediagnose_idempotency_and_keep_defer_preserved_then_recheck (test_batch.BatchWorkflow.test_rediagnose_idempotency_and_keep_defer_preserved_then_recheck) ... ok
+test_review_only_and_chat_context_scope (test_batch.BatchWorkflow.test_review_only_and_chat_context_scope) ... ok
+test_unrelated_change_and_duplicate_click (test_batch.BatchWorkflow.test_unrelated_change_and_duplicate_click) ... ok
+test_margin_digit_parity_chapter_and_origins (test_batch.DetectionRules.test_margin_digit_parity_chapter_and_origins) ... ok
+test_repeated_headings_notes_table_columns_and_associations_are_not_furniture (test_batch.DetectionRules.test_repeated_headings_notes_table_columns_and_associations_are_not_furniture) ... ok
+test_similarity_anchors_and_review_only_structures (test_batch.DetectionRules.test_similarity_anchors_and_review_only_structures) ... ok
+test_child_surviving_crashed_parent_is_reaped (test_chat.ChatWorkflow.test_child_surviving_crashed_parent_is_reaped) ... ok
+test_disconnect_and_server_close_stop_owned_processes (test_chat.ChatWorkflow.test_disconnect_and_server_close_stop_owned_processes) ... ok
+test_duplicate_send_and_changed_payload_are_not_replayed (test_chat.ChatWorkflow.test_duplicate_send_and_changed_payload_are_not_replayed) ... ok
+test_http_sse_auth_and_proposal_approval_are_separate (test_chat.ChatWorkflow.test_http_sse_auth_and_proposal_approval_are_separate) ... 127.0.0.1 - - [06/Oct/2026 07:40:59] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:40:59] "GET /api/chat/state HTTP/1.1" 403 -
+127.0.0.1 - - [06/Oct/2026 07:41:00] "POST /api/chat/connect HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:41:00] "POST /api/chat/message HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:41:01] "GET /api/chat/events?after=0 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:41:01] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:41:04] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:41:05] "POST /api/undo HTTP/1.1" 200 -
+ok
+test_interrupt_missing_completion_kills_owned_child_tree (test_chat.ChatWorkflow.test_interrupt_missing_completion_kills_owned_child_tree) ... ok
+test_login_and_security_mismatches_fail_closed (test_chat.ChatWorkflow.test_login_and_security_mismatches_fail_closed) ... ok
+test_missing_and_unverified_executable_fail_before_model (test_chat.ChatWorkflow.test_missing_and_unverified_executable_fail_before_model) ... ok
+test_model_error_is_not_completion (test_chat.ChatWorkflow.test_model_error_is_not_completion) ... ok
+test_only_blank_missing_thread_can_be_recreated (test_chat.ChatWorkflow.test_only_blank_missing_thread_can_be_recreated) ... ok
+test_portable_settings_and_environment_never_accept_credentials (test_chat.ChatWorkflow.test_portable_settings_and_environment_never_accept_credentials) ... ok
+test_process_crash_and_malformed_stream_are_errors (test_chat.ChatWorkflow.test_process_crash_and_malformed_stream_are_errors) ... ok
+test_proposal_duplicate_tool_and_separate_user_approval (test_chat.ChatWorkflow.test_proposal_duplicate_tool_and_separate_user_approval) ... ok
+test_resume_after_process_and_app_restart (test_chat.ChatWorkflow.test_resume_after_process_and_app_restart) ... ok
+test_stale_context_during_turn_cannot_create_proposal (test_chat.ChatWorkflow.test_stale_context_during_turn_cannot_create_proposal) ... ok
+test_start_timeout_is_uncertain_and_never_resent (test_chat.ChatWorkflow.test_start_timeout_is_uncertain_and_never_resent) ... ok
+test_streaming_and_frozen_cell_selection (test_chat.ChatWorkflow.test_streaming_and_frozen_cell_selection) ... ok
+test_target_validation_minimization_and_no_selection (test_chat.ChatWorkflow.test_target_validation_minimization_and_no_selection) ... ok
+test_terminal_agent_item_without_deltas_is_preserved (test_chat.ChatWorkflow.test_terminal_agent_item_without_deltas_is_preserved) ... ok
+test_tool_attacks_and_foreign_turn_have_no_authority (test_chat.ChatWorkflow.test_tool_attacks_and_foreign_turn_have_no_authority) ... ok
+test_wire_requests_match_generated_official_schema (test_chat.ChatWorkflow.test_wire_requests_match_generated_official_schema) ... ok
+test_cancel_disconnect_and_resume_do_not_replay (test_conversation.ConversationTests.test_cancel_disconnect_and_resume_do_not_replay) ... ok
+test_commit_then_journal_failure_reconciles_from_document_history (test_conversation.ConversationTests.test_commit_then_journal_failure_reconciles_from_document_history) ... ok
+test_concurrent_duplicate_approvals_commit_once (test_conversation.ConversationTests.test_concurrent_duplicate_approvals_commit_once) ... ok
+test_database_failure_rolls_back_no_false_success (test_conversation.ConversationTests.test_database_failure_rolls_back_no_false_success) ... ok
+test_export_failure_and_crash_gap_receipt_reconcile (test_conversation.ConversationTests.test_export_failure_and_crash_gap_receipt_reconcile) ... ok
+test_frozen_selected_cell_stale_proposal_and_injection (test_conversation.ConversationTests.test_frozen_selected_cell_stale_proposal_and_injection) ... ok
+test_keep_defer_next_previous_and_reopen (test_conversation.ConversationTests.test_keep_defer_next_previous_and_reopen) ... ok
+test_model_configuration_changes_only_next_turn (test_conversation.ConversationTests.test_model_configuration_changes_only_next_turn) ... ok
+test_models_official_pagination_effort_on_wire_and_no_fallback (test_conversation.ConversationTests.test_models_official_pagination_effort_on_wire_and_no_fallback) ... ok
+test_old_tab_generation_and_multiple_offers_cannot_approve (test_conversation.ConversationTests.test_old_tab_generation_and_multiple_offers_cannot_approve) ... ok
+test_selection_snapshot_exception_and_inspect_separates_previous_offer (test_conversation.ConversationTests.test_selection_snapshot_exception_and_inspect_separates_previous_offer) ... ok
+test_start_explain_exception_clear_approval_receipt_and_undo (test_conversation.ConversationTests.test_start_explain_exception_clear_approval_receipt_and_undo) ... ok
+test_database_rejection_is_not_reported_as_committed (test_regressions.EvaluationRegressions.test_database_rejection_is_not_reported_as_committed) ... ok
+test_export_failure_keeps_committed_state_and_retry_does_not_reapply (test_regressions.EvaluationRegressions.test_export_failure_keeps_committed_state_and_retry_does_not_reapply) ... ok
+test_export_metadata_failure_remains_a_committed_pending_result (test_regressions.EvaluationRegressions.test_export_metadata_failure_remains_a_committed_pending_result) ... ok
+test_http_and_cli_report_committed_export_pending_and_retry (test_regressions.EvaluationRegressions.test_http_and_cli_report_committed_export_pending_and_retry) ... 127.0.0.1 - - [06/Oct/2026 07:43:48] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:43:52] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:43:52] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:43:52] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:43:52] "POST /api/decision HTTP/1.1" 409 -
+127.0.0.1 - - [06/Oct/2026 07:43:53] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:43:53] "POST /api/export HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:43:54] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:43:54] "POST /api/export HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:43:54] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:43:54] "GET /api/history HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:43:58] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:43:59] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:43:59] "POST /api/repropose HTTP/1.1" 409 -
+127.0.0.1 - - [06/Oct/2026 07:44:01] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:44:02] "POST /api/repropose HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:44:02] "GET /api/bootstrap HTTP/1.1" 200 -
+ok
+test_independent_proposals_survive_other_item_approval (test_regressions.EvaluationRegressions.test_independent_proposals_survive_other_item_approval) ... ok
+test_legacy_database_preserves_corrections_proposals_and_history (test_regressions.EvaluationRegressions.test_legacy_database_preserves_corrections_proposals_and_history) ... ok
+test_parallel_decisions_do_not_lose_updates (test_regressions.EvaluationRegressions.test_parallel_decisions_do_not_lose_updates) ... ok
+test_partial_export_restart_and_latest_snapshot_retry (test_regressions.EvaluationRegressions.test_partial_export_restart_and_latest_snapshot_retry) ... ok
+test_replace_failure_preserves_previous_file_and_cleans_temp (test_regressions.EvaluationRegressions.test_replace_failure_preserves_previous_file_and_cleans_temp) ... ok
+test_review_only_and_aba_changes_are_conflicts (test_regressions.EvaluationRegressions.test_review_only_and_aba_changes_are_conflicts) ... ok
+test_same_item_stale_reproposal_is_new_and_requires_separate_approval (test_regressions.EvaluationRegressions.test_same_item_stale_reproposal_is_new_and_requires_separate_approval) ... ok
+test_capability_matches_existing_backend_constraints (test_review_ux.ReviewUX.test_capability_matches_existing_backend_constraints) ... ok
+test_explicit_whole_judgment_supersedes_older_cell_only_for_display (test_review_ux.ReviewUX.test_explicit_whole_judgment_supersedes_older_cell_only_for_display) ... ok
+test_http_pagination_and_durable_idempotent_creation (test_review_ux.ReviewUX.test_http_pagination_and_durable_idempotent_creation) ... 127.0.0.1 - - [06/Oct/2026 07:44:57] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:44:57] "GET /api/search?q=the HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:44:57] "GET /api/search?q=the&offset=0&limit=150 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:44:57] "GET /api/search?q=the&offset=150&limit=150 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:44:58] "POST /api/propose HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:44:58] "POST /api/propose HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:44:58] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:44:58] "GET /api/document HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:45:00] "POST /api/propose HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:45:00] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 07:45:01] "GET /api/proposals HTTP/1.1" 200 -
+ok
+test_search_exact_cells_context_and_unknown_page (test_review_ux.ReviewUX.test_search_exact_cells_context_and_unknown_page) ... ok
+test_table_judgment_then_cell_defer_and_undo_preserve_history (test_review_ux.ReviewUX.test_table_judgment_then_cell_defer_and_undo_preserve_history) ... ok
+test_01_asset_and_origins (test_workflow.AssetWorkflow.test_01_asset_and_origins) ... ok
+test_02_three_corrections_reopen_and_undo (test_workflow.AssetWorkflow.test_02_three_corrections_reopen_and_undo) ... ok
+test_03_stale_replay_unsupported_and_wrong_asset (test_workflow.AssetWorkflow.test_03_stale_replay_unsupported_and_wrong_asset) ... ok
+test_04_review_scope_undo_and_export_recovery (test_workflow.AssetWorkflow.test_04_review_scope_undo_and_export_recovery) ... ok
+test_05_references_and_immutability_guards (test_workflow.AssetWorkflow.test_05_references_and_immutability_guards) ... ok
+test_06_all_pages_official_html_and_selection (test_workflow.AssetWorkflow.test_06_all_pages_official_html_and_selection) ... ok
+
+----------------------------------------------------------------------
+Ran 65 tests in 441.024s
+
+OK

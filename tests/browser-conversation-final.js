@@ -1,0 +1,28 @@
+async page => {
+ const base='http://127.0.0.1:52742',check=(v,m)=>{if(!v)throw Error(m)};
+ const boot=await(await page.request.get(base+'/api/bootstrap')).json(),headers={'X-Candoc-Token':boot.token};
+ const get=async p=>(await page.request.get(base+'/api/'+p,{headers})).json();
+ const baseline=await get('document');
+ await page.goto(base);await page.locator('#conversation-toggle').click();
+ await page.locator('#conversation-models').click();await page.waitForFunction(()=>document.querySelector('#conversation-model').options.length===2);
+ await page.locator('#conversation-model').selectOption('mock-b');
+ const prior=(await get('conversation/state')).chat.runs.at(-1)?.id;
+ // No settings-apply click: Start must use what is actually selected in the picker.
+ await page.locator('#conversation-start').click();
+ await page.waitForFunction(id=>document.querySelectorAll('.conversation-turn')[document.querySelectorAll('.conversation-turn').length-1]?.dataset.run!==id&&document.querySelector('#conversation-status').textContent.startsWith('판단 대기'),prior,{timeout:60000});
+ let s=await get('conversation/state');check(s.settings.model==='mock-b'&&s.chat.runs.at(-1).target.execution.effort==='high','selected model and effort applied by Start');
+ const first=s.group;
+ for(const size of [{width:1366,height:768},{width:1920,height:1080}]){
+  await page.setViewportSize(size);await page.locator('#crop').waitFor({state:'visible'});
+  check(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'no horizontal overflow');
+  const b=await page.locator('#conversation-send').boundingBox();check(b.y+b.height<=size.height,'send control fits viewport');
+  await page.screenshot({path:`verification/conversation-20261006/final-${size.width}.png`});
+ }
+ const send=async text=>{await page.locator('#conversation-input').fill(text);await page.locator('#conversation-send').click();await page.waitForFunction(()=>!document.querySelector('#conversation-send').disabled,{},{timeout:60000});};
+ await send('다음 항목');s=await get('conversation/state');check(s.group!==first,'natural next advances');
+ await send('이전 문제');s=await get('conversation/state');check(s.group===first,'natural previous returns');
+ check(s.revision===boot.revision,'navigation is not judgment');
+ await page.locator('#conversation-pause').click();await page.waitForFunction(()=>document.querySelector('#conversation-status').textContent.startsWith('일시정지'));
+ check(JSON.stringify(await get('document'))===JSON.stringify(baseline),'document preserved');
+ return {pass:true,startUsesSelection:true,naturalNavigation:true,viewports:[1366,1920],revision:s.revision,validation:await get('validate')};
+}
