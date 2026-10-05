@@ -1,0 +1,13 @@
+{
+  "initialized": true,
+  "version": "0.160.0",
+  "account_type": "chatgpt",
+  "security_mismatches": [
+    "tools.experimental_request_user_input.enabled",
+    "tools.update_plan.enabled"
+  ],
+  "all_mcp_disabled": true,
+  "configured_model": "gpt-6.1-sol",
+  "model_called": false,
+  "credential_files_read_by_app": false
+}

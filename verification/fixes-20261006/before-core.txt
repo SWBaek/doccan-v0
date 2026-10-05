@@ -1,0 +1,42 @@
+test_export_failure_keeps_committed_state_and_retry_does_not_reapply (test_regressions.EvaluationRegressions.test_export_failure_keeps_committed_state_and_retry_does_not_reapply) ... ERROR
+test_independent_proposals_survive_other_item_approval (test_regressions.EvaluationRegressions.test_independent_proposals_survive_other_item_approval) ... ERROR
+
+======================================================================
+ERROR: test_export_failure_keeps_committed_state_and_retry_does_not_reapply (test_regressions.EvaluationRegressions.test_export_failure_keeps_committed_state_and_retry_does_not_reapply)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\candoc-v0\tests\test_regressions.py", line 49, in test_export_failure_keeps_committed_state_and_retry_does_not_reapply
+    result = self.store.decide(proposal['id'], 'approve')
+  File "C:\Projects\candoc-v0\candoc\core.py", line 389, in decide
+    self.export()
+    ~~~~~~~~~~~^^
+  File "C:\Projects\candoc-v0\candoc\core.py", line 253, in export
+    atomic(self.data/'work/document.json', dump(doc))
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1169, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1173, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1234, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "C:\Projects\candoc-v0\tests\test_regressions.py", line 45, in fail_document
+    raise PermissionError('Injected export failure')
+PermissionError: Injected export failure
+
+======================================================================
+ERROR: test_independent_proposals_survive_other_item_approval (test_regressions.EvaluationRegressions.test_independent_proposals_survive_other_item_approval)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\candoc-v0\tests\test_regressions.py", line 77, in test_independent_proposals_survive_other_item_approval
+    self.store.decide(b['id'], 'approve')
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\candoc-v0\candoc\core.py", line 371, in decide
+    raise ValueError('Stale proposal; document changed. Create a new proposal')
+ValueError: Stale proposal; document changed. Create a new proposal
+
+----------------------------------------------------------------------
+Ran 2 tests in 10.239s
+
+FAILED (errors=2)

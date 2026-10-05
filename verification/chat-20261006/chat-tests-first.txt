@@ -1,0 +1,49 @@
+test_disconnect_and_server_close_stop_owned_processes (test_chat.ChatWorkflow.test_disconnect_and_server_close_stop_owned_processes) ... ok
+test_duplicate_send_and_changed_payload_are_not_replayed (test_chat.ChatWorkflow.test_duplicate_send_and_changed_payload_are_not_replayed) ... ok
+test_http_sse_auth_and_proposal_approval_are_separate (test_chat.ChatWorkflow.test_http_sse_auth_and_proposal_approval_are_separate) ... 127.0.0.1 - - [06/Oct/2026 02:01:58] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 02:01:58] "GET /api/chat/state HTTP/1.1" 403 -
+127.0.0.1 - - [06/Oct/2026 02:01:58] "POST /api/chat/connect HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 02:01:58] "POST /api/chat/message HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 02:01:59] "GET /api/chat/events?after=0 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 02:01:59] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 02:02:01] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 02:02:02] "POST /api/undo HTTP/1.1" 200 -
+ok
+test_interrupt_missing_completion_kills_owned_child_tree (test_chat.ChatWorkflow.test_interrupt_missing_completion_kills_owned_child_tree) ... ok
+test_login_and_security_mismatches_fail_closed (test_chat.ChatWorkflow.test_login_and_security_mismatches_fail_closed) ... ok
+test_model_error_is_not_completion (test_chat.ChatWorkflow.test_model_error_is_not_completion) ... ok
+test_portable_settings_and_environment_never_accept_credentials (test_chat.ChatWorkflow.test_portable_settings_and_environment_never_accept_credentials) ... ok
+test_process_crash_and_malformed_stream_are_errors (test_chat.ChatWorkflow.test_process_crash_and_malformed_stream_are_errors) ... ok
+test_proposal_duplicate_tool_and_separate_user_approval (test_chat.ChatWorkflow.test_proposal_duplicate_tool_and_separate_user_approval) ... FAIL
+test_resume_after_process_and_app_restart (test_chat.ChatWorkflow.test_resume_after_process_and_app_restart) ... ok
+test_stale_context_during_turn_cannot_create_proposal (test_chat.ChatWorkflow.test_stale_context_during_turn_cannot_create_proposal) ... ok
+test_start_timeout_is_uncertain_and_never_resent (test_chat.ChatWorkflow.test_start_timeout_is_uncertain_and_never_resent) ... ok
+test_streaming_and_frozen_cell_selection (test_chat.ChatWorkflow.test_streaming_and_frozen_cell_selection) ... ok
+test_target_validation_minimization_and_no_selection (test_chat.ChatWorkflow.test_target_validation_minimization_and_no_selection) ... ok
+test_tool_attacks_and_foreign_turn_have_no_authority (test_chat.ChatWorkflow.test_tool_attacks_and_foreign_turn_have_no_authority) ... FAIL
+
+======================================================================
+FAIL: test_proposal_duplicate_tool_and_separate_user_approval (test_chat.ChatWorkflow.test_proposal_duplicate_tool_and_separate_user_approval)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\candoc-v0\tests\test_chat.py", line 153, in test_proposal_duplicate_tool_and_separate_user_approval
+    self.assertEqual(self.terminal()['status'],'completed')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'interrupted' != 'completed'
+- interrupted
++ completed
+
+
+======================================================================
+FAIL: test_tool_attacks_and_foreign_turn_have_no_authority (test_chat.ChatWorkflow.test_tool_attacks_and_foreign_turn_have_no_authority)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\candoc-v0\tests\test_chat.py", line 172, in test_tool_attacks_and_foreign_turn_have_no_authority
+    self.assertEqual(len(replies),5)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: 0 != 5
+
+----------------------------------------------------------------------
+Ran 15 tests in 34.936s
+
+FAILED (failures=2)

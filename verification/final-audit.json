@@ -1,0 +1,36 @@
+{
+  "time_utc": "2026-10-05T12:19:38.553910+00:00",
+  "production_revision": 0,
+  "production_review_states": {},
+  "production_work_json_equals_original": true,
+  "production_export_matches_api": true,
+  "archive_sha256": "af973df9eca6c22107401ce4ed63034e70b9d61c23aa58f9ddfc6b707c0962c1",
+  "archive_hash_unchanged": true,
+  "extracted_source_bytes_equal_zip": true,
+  "work_artifacts_equal_source": 167,
+  "test_revision": 32,
+  "test_document_restored_to_original": true,
+  "test_reviews_restored": true,
+  "test_pending_proposals": 0,
+  "validation": {
+    "schema": "1.10.0",
+    "pages": 138,
+    "texts": 2937,
+    "tables": 71,
+    "pictures": 29,
+    "references_checked": 6307,
+    "images_checked": 167,
+    "element_bbox_origins": {
+      "BOTTOMLEFT": 3055
+    },
+    "cell_bbox_origins": {
+      "TOPLEFT": 2991
+    },
+    "warnings": [
+      "Overlapping table cells (preserved): #/tables/56"
+    ],
+    "unchanged_source_files": 168,
+    "revision": 0
+  },
+  "suspect_count": 12
+}

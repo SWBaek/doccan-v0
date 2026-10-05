@@ -1,0 +1,15 @@
+{
+  "result": "PASS",
+  "files_checked": 343,
+  "changed": [],
+  "excluded": [
+    "data/work/server.lock (held by original server)"
+  ],
+  "original_server": {
+    "port": 52741,
+    "pid": 33196,
+    "preserved": true
+  },
+  "owned_test_server_stopped": true,
+  "owned_codex_processes_remaining": 0
+}

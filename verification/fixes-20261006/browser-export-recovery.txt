@@ -1,0 +1,39 @@
+
+╔════════════════════════════════════════════════════════════════════╗
+║ Update available for @playwright/cli: 0.1.18 → 0.1.22              ║
+║ Run `npm install -g @playwright/cli@latest` (global) or            ║
+║ `npm install --save-dev @playwright/cli@latest` (local) to update. ║
+╚════════════════════════════════════════════════════════════════════╝
+
+### Result
+{"result":"PASS","reexport_revision":13,"undo_revision":14}
+### Ran Playwright code
+```js
+await (async page => {
+  const base='http://127.0.0.1:52742';
+  const get=async path=>(await page.request.get(base+'/api/'+path)).json();
+  const check=(ok,msg)=>{if(!ok)throw Error(msg);};
+  await page.goto(base+'/#page=7&ref=%23%2Ftables%2F0&cell=0');
+  await page.reload();
+  const before=await get('bootstrap');
+  const count=(await get('history')).length;
+  await page.locator('#export-warning:not([hidden])').waitFor();
+  await page.locator('#reexport').click();
+  await page.waitForFunction(()=>document.getElementById('export-warning').hidden);
+  const after=await get('bootstrap');
+  check(after.revision===before.revision,'Successful reexport does not advance revision');
+  check(after.export.state==='synced','Successful export state');
+  check((await get('history')).length===count,'Successful retry does not add history');
+  await page.reload();
+  await page.waitForFunction(()=>document.getElementById('cell').value==='0');
+  const info=await get('item?ref=%23%2Ftables%2F0&cell=0');
+  check(info.item.data.table_cells[0].text==='Regression approved cell','Approved value survives server reopen and browser reload');
+  await page.locator('#history').click();await page.locator('#undo').click();
+  await page.waitForFunction(()=>document.getElementById('message').textContent.includes('되돌렸습니다'));
+  const restored=await get('item?ref=%23%2Ftables%2F0&cell=0');
+  check(restored.item.data.table_cells[0].text===restored.original.data.table_cells[0].text,'Undo restores original cell');
+  check((await get('bootstrap')).export.state==='synced','Undo exported');
+  return {result:'PASS',reexport_revision:after.revision,undo_revision:(await get('bootstrap')).revision};
+}
+)(page);
+```

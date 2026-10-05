@@ -1,0 +1,7 @@
+test_export_failure_keeps_committed_state_and_retry_does_not_reapply (test_regressions.EvaluationRegressions.test_export_failure_keeps_committed_state_and_retry_does_not_reapply) ... ok
+test_independent_proposals_survive_other_item_approval (test_regressions.EvaluationRegressions.test_independent_proposals_survive_other_item_approval) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 14.014s
+
+OK

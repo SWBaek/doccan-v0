@@ -1,0 +1,57 @@
+### Result
+{"result":"PASS","cell_operations":["cell","keep","defer"],"cell_origin":"TOPLEFT","table_origin":"BOTTOMLEFT"}
+### Ran Playwright code
+```js
+await (async page => {
+  const base='http://127.0.0.1:52742';
+  const get=async path=>(await page.request.get(base+'/api/'+path)).json();
+  const check=(ok,msg)=>{if(!ok)throw Error(msg);};
+  await page.goto(base);
+  await page.reload();
+  await page.setViewportSize({width:1600,height:1000});
+  const baseline=await get('document');
+  const result=[];
+  for(const op of ['cell','keep','defer']) {
+    const s=await get('bootstrap');
+    const cell=baseline.tables[0].data.table_cells[0];
+    const request={asset_id:s.asset.asset_id,revision:s.revision,ref:'#/tables/0',cell:0,op,reason:'Cell approval regression: '+op};
+    if(op==='cell')request.value='Cell test value';
+    const response=await page.request.post(base+'/api/propose',{headers:{'X-Candoc-Token':s.token},data:request});
+    check(response.ok(),'Create cell proposal');
+    const proposal=await response.json();
+    await page.locator('#proposals').click();
+    const card=page.locator(`[data-proposal="${proposal.id}"]`);
+    await card.waitFor();
+    check((await card.innerText()).includes('#/tables/0/cells/0'),'Full cell ID in approval');
+    check((await card.locator('.diff pre').first().textContent())===cell.text,'Cell before content');
+    check((await card.locator('.diff pre').last().textContent())===(request.value??cell.text),'Cell after/keep/defer content');
+    await card.locator('[data-view]').click();
+    await page.waitForFunction(()=>document.getElementById('cell').value==='0');
+    check((await page.locator('#location-note').textContent()).includes('TOPLEFT → TOPLEFT'),'Cell origin');
+    check((await page.locator('#location-note').textContent()).includes('(90.0, 345.6)'),'Cell original location');
+    check((await page.locator('#request-text').inputValue()).includes('표 셀 index: 0'),'Clipboard target maintained');
+    await page.locator('#crop:not([hidden])').waitFor();
+    await page.screenshot({path:`verification/fixes-20261006/cell-${op}.png`});
+    await page.locator('#proposals').click();
+    await page.locator(`[data-approve="${proposal.id}"]`).click();
+    await page.waitForFunction(()=>document.getElementById('dialog-content').textContent.includes('대기 중인 제안이 없습니다'));
+    await page.locator('#close-dialog').click();
+    await page.reload();
+    await page.waitForFunction(()=>document.getElementById('cell').value==='0');
+    const info=await get('item?ref=%23%2Ftables%2F0&cell=0');
+    check(info.reviews['#/tables/0/cells/0'].state===({cell:'corrected_partial',keep:'kept',defer:'deferred'}[op]),'Scoped review state after reload');
+    await page.locator('#history').click();await page.locator('#undo').click();
+    await page.waitForFunction(()=>document.getElementById('message').textContent.includes('되돌렸습니다'));
+    check(JSON.stringify(await get('document'))===JSON.stringify(baseline),'Cell undo preserves full document');
+    result.push(op);
+  }
+  await page.locator('#cell').selectOption('');
+  await page.waitForFunction(()=>document.getElementById('location-note').textContent.includes('BOTTOMLEFT'));
+  check((await page.locator('#location-note').textContent()).includes('(88.7, 344.1)'),'Table BOTTOMLEFT location remains correct');
+  return {result:'PASS',cell_operations:result,cell_origin:'TOPLEFT',table_origin:'BOTTOMLEFT'};
+}
+)(page);
+```
+### Page
+- Page URL: http://127.0.0.1:52742/#page=7&ref=%23%2Ftables%2F0
+- Page Title: CanDoc · 원본 대조 검수

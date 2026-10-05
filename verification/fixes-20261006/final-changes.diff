@@ -1,0 +1,646 @@
+--- before/README.md
++++ README.md
+@@ -48,7 +48,11 @@
+ | `data/work/review.sqlite3` | 확정 문서 revision, 제안, 승인·거절, 검수 상태와 변경 전후 이력 |
+ | `data/work/review.json` | 별도 검수 상태 내보내기 |
+ 
+-승인은 SQLite 트랜잭션으로 확정하고 `document.json`을 원자 교체합니다. 중단으로 내보내기가 뒤처지면 재실행 시 확정 revision에서 복구합니다. 실행 중 `work/document.json`을 수동 편집하면 재실행 시 덮어써지므로 CLI/API로 제안하세요. 작업을 백업하려면 서버를 종료한 뒤 `data` 폴더를 복사하세요. JSON 다운로드는 문서만 내려받으며 이미지는 `work/artifacts`를 함께 보관해야 합니다.
++승인은 SQLite 트랜잭션으로 확정하고 `document.json`과 `review.json`을 각각 원자 교체합니다. 파일 내보내기가 실패해도 이미 확정한 교정은 유지하며, 화면에 **DB 반영 완료 / JSON 내보내기 미완료**와 파일별 revision을 표시합니다. `최신 확정 데이터 재내보내기` 버튼이나 `candoc.cli reexport`로 재시도하세요. 재승인하지 않으며 재내보내기는 교정·이력·revision을 늘리지 않습니다. 재실행 중에도 내보내기가 실패하면 검수 화면을 열어 실패 상태를 확인하고 재시도할 수 있습니다. 화면·API·JSON 다운로드는 DB의 확정 데이터를 표시합니다.
++
++실행 중 `work/document.json`을 수동 편집하면 재실행 시 덮어써지므로 CLI/API로 제안하세요. 작업을 백업하려면 서버를 종료한 뒤 `data` 폴더를 복사하세요. JSON 다운로드는 문서만 내려받으며 이미지는 `work/artifacts`를 함께 보관해야 합니다.
++
++서로 다른 항목의 제안은 다른 제안이 먼저 승인되어도 대상이 변하지 않았으면 승인할 수 있습니다. 같은 항목의 내용·검수 판단·되돌림 이력이 바뀐 제안은 **재검토 필요(stale)**로 표시하며 승인을 막습니다. 최신 내용과 제안 당시 내용을 비교하고 `최신 내용으로 새 제안 만들기`를 누른 뒤, 새 제안을 별도로 승인하세요. 같은 표의 다른 셀도 같은 항목으로 보수적으로 충돌 처리합니다.
+ 
+ ## 지원 범위와 한계
+ 
+@@ -67,6 +71,7 @@
+ - [Asset·고정 스키마 조사](docs/SCHEMA.md)
+ - [에이전트 명령과 승인 규칙](docs/AGENT.md)
+ - [실제 검증 결과](docs/VERIFICATION.md)
++- [2026-10-06 평가 지적 수정과 회귀 검증](docs/FIXES-20261006.md)
+ 
+ ```powershell
+ ./.venv/Scripts/python -m unittest discover -s tests -v
+--- before/candoc/cli.py
++++ candoc/cli.py
+@@ -12,14 +12,18 @@
+ 
+ def main():
+     sys.stdout.reconfigure(encoding='utf-8')
++    sys.stderr.reconfigure(encoding='utf-8')
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument('--url',default='http://127.0.0.1:52741')
+     sub = parser.add_subparsers(dest='command',required=True)
+     init = sub.add_parser('init')
+     init.add_argument('--zip',type=Path,default=ROOT/'IEEE-1547-2018-document-assets.zip')
+     init.add_argument('--data',type=Path,default=ROOT/'data')
+-    for name in ['status','suspects','proposals','history','validate']:
++    for name in ['status','suspects','proposals','history','validate','reexport']:
+         sub.add_parser(name)
++    repropose = sub.add_parser('repropose', help='Create a new unapproved proposal after inspecting latest data')
++    repropose.add_argument('id')
++    repropose.add_argument('--revision', required=True, type=int)
+     get = sub.add_parser('get')
+     get.add_argument('ref')
+     get.add_argument('--cell',type=int)
+@@ -50,11 +54,17 @@
+             result = api('/api/search?'+urlencode({'q':args.query}))
+         elif args.command == 'propose':
+             result = api('/api/propose',json.loads(args.file.read_text('utf-8-sig')))
++        elif args.command == 'repropose':
++            result = api('/api/repropose', {'id': args.id, 'revision': args.revision})
++        elif args.command == 'reexport':
++            result = api('/api/export', {})
+         else:
+             result = api('/api/'+('bootstrap' if args.command == 'status' else args.command))
+             if args.command == 'status':
+                 result.pop('token',None)
+         print(dump(result))
++        if args.command == 'reexport' and result['state'] != 'synced':
++            parser.exit(2, 'Committed data is safe in the database; JSON export remains pending.\n')
+     except HTTPError as e:
+         parser.exit(1,e.read().decode('utf-8')+'\n')
+ 
+--- before/candoc/core.py
++++ candoc/core.py
+@@ -22,6 +22,13 @@
+ TYPE_LABELS = {'text', 'paragraph', 'section_header', 'title', 'page_header', 'page_footer'}
+ 
+ 
++class ProposalConflict(ValueError):
++    """A rejected decision with enough state for clients to reconcile safely."""
++    def __init__(self, message, proposal):
++        super().__init__(message)
++        self.proposal = proposal
++
++
+ def dump(value):
+     return json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False)
+ 
+@@ -29,11 +36,18 @@
+ def atomic(path, content):
+     path = Path(path)
+     tmp = path.with_name(path.name + '.' + uuid.uuid4().hex + '.tmp')
+-    with tmp.open('w', encoding='utf-8', newline='\n') as f:
+-        f.write(content)
+-        f.flush()
+-        os.fsync(f.fileno())
+-    os.replace(tmp, path)
++    try:
++        with tmp.open('w', encoding='utf-8', newline='\n') as f:
++            f.write(content)
++            f.flush()
++            os.fsync(f.fileno())
++        os.replace(tmp, path)
++    finally:
++        # Only this call's temporary file; never remove the previous export.
++        try:
++            tmp.unlink(missing_ok=True)
++        except OSError:
++            pass
+ 
+ 
+ def sha(path):
+@@ -235,9 +249,13 @@
+         self.db.execute('PRAGMA journal_mode=WAL')
+         self.db.executescript('''CREATE TABLE IF NOT EXISTS current (id INTEGER PRIMARY KEY CHECK(id=1), revision INTEGER NOT NULL, document TEXT NOT NULL, reviews TEXT NOT NULL);
+         CREATE TABLE IF NOT EXISTS proposals (id TEXT PRIMARY KEY, payload TEXT NOT NULL);
+-        CREATE TABLE IF NOT EXISTS history (seq INTEGER PRIMARY KEY, payload TEXT NOT NULL);''')
++        CREATE TABLE IF NOT EXISTS history (seq INTEGER PRIMARY KEY, payload TEXT NOT NULL);
++        CREATE TABLE IF NOT EXISTS exports (name TEXT PRIMARY KEY, revision INTEGER, error TEXT);''')
+         with self.db:
+             self.db.execute('INSERT OR IGNORE INTO current VALUES (1,0,?,?)', (dump(self.original), '{}'))
++            self.db.executemany('INSERT OR IGNORE INTO exports VALUES (?,NULL,NULL)',
++                                [('document.json',), ('review.json',)])
++        self._export_metadata_error = None
+         self.export()
+ 
+     def close(self):
+@@ -248,10 +266,38 @@
+         revision, document, reviews = self.db.execute('SELECT revision,document,reviews FROM current').fetchone()
+         return revision, json.loads(document), json.loads(reviews)
+ 
++    def export_status(self):
++        with self.lock:
++            revision = self.db.execute('SELECT revision FROM current WHERE id=1').fetchone()[0]
++            rows = self.db.execute('SELECT name,revision,error FROM exports').fetchall()
++            files = {name: exported for name, exported, _ in rows}
++            errors = {name: error for name, _, error in rows if error}
++            if self._export_metadata_error:
++                errors['status'] = self._export_metadata_error
++            return {'state': 'synced' if not errors and all(v == revision for v in files.values()) else 'pending',
++                    'db_revision': revision, 'files': files, 'errors': errors}
++
+     def export(self):
+-        _, doc, reviews = self.current()
+-        atomic(self.data/'work/document.json', dump(doc))
+-        atomic(self.data/'work/review.json', dump(reviews))
++        """Retry the latest committed snapshot; never approve or replay a change."""
++        with self.lock:
++            revision, doc, reviews = self.current()
++            updates = []
++            for name, value in [('document.json', doc), ('review.json', reviews)]:
++                try:
++                    atomic(self.data/'work'/name, dump(value))
++                    updates.append((name, revision, None))
++                except OSError as exc:
++                    previous = self.db.execute('SELECT revision FROM exports WHERE name=?', (name,)).fetchone()[0]
++                    updates.append((name, previous, str(exc)))
++            try:
++                with self.db:
++                    self.db.executemany('INSERT OR REPLACE INTO exports VALUES (?,?,?)', updates)
++                self._export_metadata_error = None
++            except sqlite3.Error as exc:
++                # Conservative: leave old export revisions, report pending rather
++                # than turn a committed correction into an apparent failed approval.
++                self._export_metadata_error = str(exc)
++            return self.export_status()
+ 
+     def check_original(self):
+         changed = [name for name, digest in self.manifest['source_files'].items() if not (self.source/name).is_file() or sha(self.source/name) != digest]
+@@ -276,8 +322,40 @@
+                 locations.append({'page': prov['page_no'], 'bbox': bbox, 'rect': rect(bbox, page['size']), 'size': page['size'], 'image': '/asset/'+page['image']['uri']})
+         return locations
+ 
++    def _proposal(self, proposal_id):
++        row = self.db.execute('SELECT payload FROM proposals WHERE id=?', (proposal_id,)).fetchone()
++        if not row:
++            raise ValueError('Unknown proposal')
++        return json.loads(row[0])
++
++    def _last_changes(self):
++        # Both apply and undo touch the item. This also detects ABA (changed back
++        # to the same value) and review-only decisions with identical text.
++        touched = {}
++        for seq, payload in self.db.execute('SELECT seq,payload FROM history'):
++            ref = json.loads(payload)['ref']
++            touched[ref] = max(seq, touched.get(ref, -1))
++        return touched
++
++    def _proposal_view(self, proposal, revision, doc, touched):
++        p = copy.deepcopy(proposal)
++        p['current_revision'] = revision
++        if p['status'] == 'pending':
++            ref = p['request']['ref']
++            current_item = resolve(doc, ref)
++            if (p['request']['revision'] > revision or
++                    touched.get(ref, -1) > p['request']['revision'] or current_item != p['before']):
++                p['status'] = 'stale'
++                p['stale_reason'] = '대상 항목의 내용 또는 검수 이력이 바뀌었습니다. 최신 내용으로 재제안이 필요합니다.'
++                p['current_before'] = copy.deepcopy(current_item)
++        return p
++
+     def proposals(self):
+-        return [json.loads(r[0]) for r in self.db.execute('SELECT payload FROM proposals ORDER BY rowid DESC')]
++        with self.lock:
++            revision, doc, _ = self.current()
++            touched = self._last_changes()
++            return [self._proposal_view(json.loads(r[0]), revision, doc, touched)
++                    for r in self.db.execute('SELECT payload FROM proposals ORDER BY rowid DESC')]
+ 
+     def history(self):
+         return [json.loads(r[0]) for r in self.db.execute('SELECT payload FROM history ORDER BY seq DESC')]
+@@ -351,14 +429,33 @@
+                 self.db.execute('INSERT INTO proposals VALUES (?,?)', (p['id'], dump(p)))
+             return p
+ 
++    def repropose(self, proposal_id, expected_revision):
++        """Create a new unapproved proposal from an explicitly inspected revision."""
++        with self.lock:
++            revision, doc, _ = self.current()
++            old = self._proposal(proposal_id)
++            view = self._proposal_view(old, revision, doc, self._last_changes())
++            if expected_revision != revision:
++                raise ProposalConflict('Revision changed; inspect the latest proposal again', view)
++            if view['status'] != 'stale':
++                raise ProposalConflict('Only stale proposals can be reproposed', view)
++            req = {**old['request'], 'revision': revision}
++            scope, before, after = self.prepare(doc, req)
++            new = {'id': uuid.uuid4().hex[:12], 'status': 'pending', 'request': req,
++                   'scope': scope, 'before': before, 'after': after, 'replaces': proposal_id,
++                   'created': datetime.now(timezone.utc).isoformat()}
++            old['status'] = 'superseded'
++            old['superseded_by'] = new['id']
++            with self.db:
++                self.db.execute('INSERT INTO proposals VALUES (?,?)', (new['id'], dump(new)))
++                self.db.execute('UPDATE proposals SET payload=? WHERE id=?', (dump(old), proposal_id))
++            return new
++
+     def decide(self, proposal_id, action):
+         with self.lock:
+-            row = self.db.execute('SELECT payload FROM proposals WHERE id=?', (proposal_id,)).fetchone()
+-            if not row:
+-                raise ValueError('Unknown proposal')
+-            p = json.loads(row[0])
++            p = self._proposal(proposal_id)
+             if p['status'] != 'pending':
+-                raise ValueError('Proposal already decided')
++                raise ProposalConflict('Proposal already decided', p)
+             if action == 'reject':
+                 p['status'] = 'rejected'
+                 with self.db:
+@@ -367,8 +464,9 @@
+             if action != 'approve':
+                 raise ValueError('Unknown decision')
+             revision, doc, reviews = self.current()
+-            if p['request']['revision'] != revision or resolve(doc, p['request']['ref']) != p['before']:
+-                raise ValueError('Stale proposal; document changed. Create a new proposal')
++            view = self._proposal_view(p, revision, doc, self._last_changes())
++            if view['status'] == 'stale':
++                raise ProposalConflict('Stale proposal; inspect latest data and create a new proposal', view)
+             self.check_original()
+             scope, before, after = self.prepare(doc, p['request'])
+             target = resolve(doc, p['request']['ref'])
+@@ -386,8 +484,7 @@
+                 self.db.execute('UPDATE current SET revision=?,document=?,reviews=? WHERE id=1', (revision+1, dump(doc), dump(reviews)))
+                 self.db.execute('UPDATE proposals SET payload=? WHERE id=?', (dump(p), proposal_id))
+                 self.db.execute('INSERT INTO history VALUES (?,?)', (revision+1, dump(event)))
+-            self.export()
+-            return event
++            return {**event, 'committed': True, 'export': self.export()}
+ 
+     def undo(self, expected_revision):
+         with self.lock:
+@@ -410,8 +507,7 @@
+             with self.db:
+                 self.db.execute('UPDATE current SET revision=?,document=?,reviews=? WHERE id=1', (revision+1, dump(doc), dump(event['reviews_before'])))
+                 self.db.execute('INSERT INTO history VALUES (?,?)', (revision+1, dump(reversal)))
+-            self.export()
+-            return reversal
++            return {**reversal, 'committed': True, 'export': self.export()}
+ 
+     def suspects(self):
+         _, doc, reviews = self.current()
+--- before/candoc/server.py
++++ candoc/server.py
+@@ -8,7 +8,7 @@
+ from pathlib import Path
+ from urllib.parse import parse_qs, unquote, urlsplit
+ 
+-from .core import ROOT, Store, dump, local_path, validate, items
++from .core import ROOT, Store, ProposalConflict, dump, local_path, validate, items
+ from .render import render_page
+ 
+ 
+@@ -52,7 +52,9 @@
+                 return self.send(b'', status=204, mime='image/x-icon')
+             revision, doc, reviews = store.current()
+             if path == '/api/bootstrap':
+-                return self.send({'token': token, 'asset': store.manifest, 'revision': revision, 'pages': sorted(map(int, doc['pages'])), 'reviews': reviews, 'counts': {'total': len(items(doc)), 'review_decisions': len(reviews)}, 'unlocated': [v['self_ref'] for v in items(doc) if not v.get('prov')]})
++                return self.send({'token': token, 'asset': store.manifest, 'revision': revision, 'export': store.export_status(), 'pages': sorted(map(int, doc['pages'])), 'reviews': reviews, 'counts': {'total': len(items(doc)), 'review_decisions': len(reviews)}, 'unlocated': [v['self_ref'] for v in items(doc) if not v.get('prov')]})
++            if path == '/api/export-status':
++                return self.send(store.export_status())
+             if path == '/api/page':
+                 page = int(q['page'][0])
+                 if (revision, page) not in cache:
+@@ -80,7 +82,7 @@
+                 query = q.get('q', [''])[0].lower()
+                 return self.send([{'ref': v['self_ref'], 'page': v['prov'][0]['page_no'] if v.get('prov') else None, 'text': v.get('text', v['label'])[:220]} for v in items(doc) if query in v.get('text','').lower() or query in v['self_ref'].lower() or any(query in c['text'].lower() for c in v.get('data',{}).get('table_cells',[]))][:150])
+             if path == '/api/validate':
+-                return self.send({**validate(doc, store.source, images=True), **store.check_original(), 'revision': revision})
++                return self.send({**validate(doc, store.source, images=True), **store.check_original(), 'revision': revision, 'export': store.export_status()})
+             if path == '/api/document':
+                 return self.send(doc)
+             if path.startswith('/asset/'):
+@@ -107,11 +109,18 @@
+                 req = json.loads(self.rfile.read(length))
+                 if self.path == '/api/propose':
+                     return self.send(store.propose(req))
++                if self.path == '/api/repropose':
++                    return self.send(store.repropose(req['id'],req['revision']))
++                if self.path == '/api/export':
++                    return self.send(store.export())
+                 if self.path == '/api/decision':
+                     return self.send(store.decide(req['id'],req['action']))
+                 if self.path == '/api/undo':
+                     return self.send(store.undo(req['revision']))
+                 self.send({'error':'Unknown action'},404)
++            except ProposalConflict as e:
++                self.send({'error': str(e), 'code': 'proposal_conflict', 'proposal': e.proposal,
++                           'export': store.export_status()}, 409)
+             except (ValueError,KeyError,IndexError,TypeError) as e:
+                 self.send({'error':str(e)},400)
+             except Exception as e:
+--- before/docs/AGENT.md
++++ docs/AGENT.md
+@@ -11,6 +11,7 @@
+ ./.venv/Scripts/python -m candoc.cli proposals
+ ./.venv/Scripts/python -m candoc.cli history
+ ./.venv/Scripts/python -m candoc.cli validate
++./.venv/Scripts/python -m candoc.cli reexport
+ ```
+ 
+ `get`은 Asset ID, 현재 revision, 작업 항목, 최초 항목, 검수 상태, 원본 페이지 URI·bbox·TOPLEFT 위치를 반환합니다. 그림/문단/표 모두 같은 self_ref를 사용합니다. 셀은 표 self_ref와 `table_cells`의 0 기반 index를 함께 전달합니다.
+@@ -22,7 +23,15 @@
+ 3. 의심 이유, 정확한 변경 전후, 검증이 남은 부분을 설명합니다. 불명확하면 추측해서 값을 채우지 말고 보류를 제안합니다.
+ 4. 아래 JSON 파일을 만들고 `propose`로 제출합니다. 이것만으로 문서는 바뀌지 않습니다.
+ 5. 사용자가 검수 화면의 제안을 확인하고 승인합니다. CLI는 승인·되돌림 명령을 제공하지 않습니다. 에이전트가 승인 API/UI를 대신 누르거나 DB·작업 JSON을 직접 바꾸지 않습니다. 별도 시험용 사본의 명시적 테스트는 예외입니다.
+-6. 승인 뒤 `get`·`validate`로 결과를 확인합니다. stale revision은 최신 항목을 다시 조회하고 새 제안으로 제출합니다. 과거 승인을 새 변경에 재사용하지 않습니다.
++6. 승인 뒤 `get`·`validate`로 결과와 내보내기 상태를 확인합니다. 반영된 교정의 파일 내보내기 실패는 재승인이 아니라 `reexport`로 복구합니다. `status`/`validate`의 `export.state=pending`이면 DB는 확정되어도 일부 파일은 구버전일 수 있습니다. `reexport`는 최신 확정 데이터를 내보낼 뿐 revision이나 이력을 바꾸지 않습니다. 실패가 남으면 출력에 원인을 표시하고 종료 코드 2를 반환합니다.
++7. `proposals`가 `stale`로 반환한 제안은 `current_before`와 `current_revision`을 다시 확인합니다. 기존 제안의 revision을 덮어쓰지 마세요. UI에서 최신 내용으로 새 제안을 만들거나 아래 명령으로 별도 제안을 만든 뒤 **새 승인을 받아야 합니다**. 기준 revision이 조회 뒤 다시 바뀌면 재제안도 거부됩니다.
++
++```powershell
++# <제안ID>와 revision은 최신 조회에서 확인한 실제 값으로 바꾸세요.
++./.venv/Scripts/python -m candoc.cli repropose <제안ID> --revision 3
++```
++
++재제안은 새 ID·최신 before·재계산한 after를 저장하고 기존 제안을 `superseded`로 연결합니다. 원래 의도한 값은 제안으로만 재사용하며 자동 적용하지 않습니다. 다른 항목의 변경만 있었다면 원래 제안의 대상 스냅샷과 그 이후 이력을 검사해 승인할 수 있습니다. 같은 항목은 값이 원래대로 돌아왔거나 검수 상태만 바뀌었어도 재검토합니다. 같은 표 내 셀 간 충돌도 표 항목 단위로 처리합니다.
+ 
+ 예시 파일 `proposal.json` — **아래 값은 형식 예시이며 실제 교정 지시가 아닙니다.** `revision`은 get의 현재 값으로, value는 사용자가 판단할 정확한 수정안으로 바꾸세요.
+ 
+@@ -53,4 +62,6 @@
+ 
+ 검수 상태는 `unreviewed`(미확인, 저장 기록 없음), `corrected_partial`(지정 부분 교정), `kept`(명시적인 유지), `deferred`(보류)입니다. 셀 교정으로 표 전체의 과거 유지 판단은 무효화합니다. 다른 셀을 자동 검수 완료로 바꾸지 않습니다. undo는 이전 내용과 상태를 복구하고 되돌림 자체도 이력에 남깁니다.
+ 
+-로컬 API는 브라우저와 CLI의 공통 연결입니다. 읽기 경로는 `/api/bootstrap`, `/api/item?ref=...&cell=...`, `/api/page?page=...`, `/api/suspects`, `/api/history`, `/api/validate`; 제안은 `POST /api/propose`입니다. 쓰기에는 bootstrap 세션 토큰 헤더가 필요합니다. 이는 로컬 요청 보호이며 사람의 신원을 증명하는 인증 체계는 아닙니다.
++로컬 API는 브라우저와 CLI의 공통 연결입니다. 읽기 경로는 `/api/bootstrap`, `/api/item?ref=...&cell=...`, `/api/page?page=...`, `/api/suspects`, `/api/history`, `/api/validate`, `/api/export-status`; 제안은 `POST /api/propose`, 재제안은 `POST /api/repropose` (`id`, 확인한 `revision`), 재내보내기는 `POST /api/export` (`{}`)입니다. 쓰기에는 bootstrap 세션 토큰 헤더가 필요합니다. 이는 로컬 요청 보호이며 사람의 신원을 증명하는 인증 체계는 아닙니다.
++
++승인/되돌림 응답의 `committed=true`는 DB 확정을 뜻합니다. `export.state`가 `pending`이면 파일별 내보낸 revision과 오류를 보고 재내보내기하세요. 중복 승인·stale 충돌은 HTTP 409와 현재 제안/내보내기 정보를 반환합니다. 네트워크 응답을 못 받은 경우에도 먼저 조회해서 반영 여부를 확인하고 승인을 자동 재시도하지 마세요. stale은 저장된 원래 제안과 현재 내용·항목 이력으로 계산하는 상태이므로 기존 제안 payload나 승인 근거는 바뀌지 않습니다.
+--- before/web/app.js
++++ web/app.js
+@@ -14,6 +14,8 @@
+   generation = 0;
+ let proposals = [],
+   proposalStamp = "";
++let dialogKind = null;
++let decisionBusy = false;
+ const escapeHTML = (s) =>
+   String(s).replace(
+     /[&<>"']/g,
+@@ -41,17 +43,28 @@
+       : {},
+   );
+   const result = await r.json();
+-  if (!r.ok) throw Error(result.error || r.statusText);
++  if (!r.ok) {
++    const error = Error(result.error || r.statusText);
++    error.details = result;
++    throw error;
++  }
+   return result;
+ }
+ function run(fn) {
+   return (...args) =>
+     Promise.resolve(fn(...args)).catch((e) => message(e.message, true));
+ }
+-function openDialog(title, html) {
++function openDialog(title, html, kind = null) {
++  dialogKind = kind;
+   $("dialog-title").textContent = title;
+   $("dialog-content").innerHTML = html;
++  setDecisionBusy(decisionBusy);
+   if (!$("dialog").open) $("dialog").showModal();
++}
++function setDecisionBusy(value) {
++  decisionBusy = value;
++  document.querySelectorAll("#dialog-content button, #keep, #defer, #reexport, #history, #proposals")
++    .forEach(button => { button.disabled = value; });
+ }
+ function remember() {
+   const q = new URLSearchParams({ page: String(pageNo) });
+@@ -67,6 +80,30 @@
+     `${session.asset.asset_id} · 전체 ${session.pages.length}페이지 · revision ${session.revision}`;
+   $("total").textContent = "/ " + session.pages.length;
+   $("page").max = session.pages.length;
++  showExport(session.export);
++}
++function showExport(status) {
++  // An already-running old backend must be restarted by its owner, not silently
++  // treated as having the new save-state protocol.
++  $("export-warning").hidden = status?.state === "synced";
++  $("reexport").hidden = !status;
++  $("export-detail").textContent = status
++    ? `DB revision ${status.db_revision} 반영 완료 · JSON 내보내기 미완료. ` +
++      Object.entries(status.files)
++        .map(
++          ([name, revision]) =>
++            `${name}: ${revision === null ? "미확인" : `revision ${revision}`}`,
++        )
++        .join(" / ") +
++      ` · ${Object.values(status.errors).join(" / ")}`
++    : "저장 상태 확인을 위해 업데이트된 서버를 재시작해야 합니다.";
++}
++function decisionMessage(result, success) {
++  message(
++    result.export?.state === "pending"
++      ? `revision ${result.seq} DB 반영은 완료됐습니다. JSON 내보내기는 미완료입니다. 재승인하지 말고 재내보내기를 사용하세요.`
++      : success,
++  );
+ }
+ async function loadPage(number, ref = null, cell = null) {
+   const request = ++generation;
+@@ -193,43 +230,57 @@
+ }
+ function diffValue(p, item) {
+   const op = p.request.op;
++  if (p.request.cell !== null && p.request.cell !== undefined)
++    return item.data.table_cells[p.request.cell].text;
+   if (op === "text") return item.text;
+-  if (op === "cell") return item.data.table_cells[p.request.cell].text;
+   if (op === "type")
+     return JSON.stringify({ label: item.label, level: item.level }, null, 2);
+   return JSON.stringify({ label: item.label, text: item.text }, null, 2);
+ }
+-async function showProposals() {
+-  proposals = await api("proposals");
+-  const pending = proposals.filter((p) => p.status === "pending");
++async function showProposals(list = null) {
++  proposals = list || (await api("proposals"));
++  const pending = proposals.filter(
++    (p) => p.status === "pending" || p.status === "stale",
++  );
+   openDialog(
+     "제안 검토 · 승인 전에는 문서가 바뀌지 않습니다",
+     pending.length
+       ? pending
+           .map(
+             (p) =>
+-              `<section class="proposal"><b>${escapeHTML(p.scope)}</b> <span class="status">${escapeHTML(p.request.op)} · 기준 revision ${p.request.revision}</span><p class="reason">${escapeHTML(p.request.reason)}</p><div class="diff"><div><strong>변경 전</strong><pre>${escapeHTML(diffValue(p, p.before))}</pre></div><div><strong>${p.request.op === "keep" ? "유지" : p.request.op === "defer" ? "보류" : "변경 후"}</strong><pre>${escapeHTML(diffValue(p, p.after))}</pre></div></div><p class="muted">이 대상과 제안만 승인합니다. 문서 전체 검수 완료로 처리하지 않습니다.</p><div class="actions"><button data-view="${escapeHTML(p.request.ref)}">원본 확인</button><button class="primary" data-approve="${p.id}">이 제안 승인·적용</button><button data-reject="${p.id}">거절</button></div></section>`,
++              `<section class="proposal" data-proposal="${p.id}" data-status="${p.status}"><b>${escapeHTML(p.scope)}</b> <span class="status">${p.status === "stale" ? "재검토 필요 (stale)" : "승인 대기"} · ${escapeHTML(p.request.op)} · 기준 revision ${p.request.revision}</span><p class="reason">${escapeHTML(p.request.reason)}</p><div class="diff"><div><strong>제안 당시 내용</strong><pre>${escapeHTML(diffValue(p, p.before))}</pre></div><div><strong>${p.request.op === "keep" ? "유지" : p.request.op === "defer" ? "보류" : "변경 후"}</strong><pre>${escapeHTML(diffValue(p, p.after))}</pre></div></div>${p.status === "stale" ? `<p class="stale-note">${escapeHTML(p.stale_reason)}</p><strong>최신 대상 · revision ${p.current_revision}</strong><pre class="latest-value">${escapeHTML(diffValue(p, p.current_before))}</pre><details><summary>최신 항목 JSON</summary><pre>${escapeHTML(JSON.stringify(p.current_before, null, 2))}</pre></details>` : ""}<p class="muted">이 대상과 제안만 승인합니다. 문서 전체 검수 완료로 처리하지 않습니다.</p><div class="actions"><button data-view="${escapeHTML(p.request.ref)}" data-view-cell="${p.request.cell ?? ""}">원본 확인</button>${p.status === "stale" ? `<button data-repropose="${p.id}" data-revision="${p.current_revision}">최신 내용으로 새 제안 만들기</button>` : `<button class="primary" data-approve="${p.id}">이 제안 승인·적용</button>`}<button data-reject="${p.id}">거절</button></div></section>`,
+           )
+           .join("")
+       : "<p>대기 중인 제안이 없습니다. 항목 요청을 복사해 현재 에이전트 채팅에 전달하세요.</p>",
++    "proposals",
+   );
+ }
+ async function refresh() {
+-  const ref = selected?.item.self_ref,
+-    cell = selectedCell;
++  // A save/reexport can finish before the first deep-linked page has loaded.
++  // Preserve that requested ref/cell instead of replacing it with an empty view.
++  const query = new URLSearchParams(location.hash.slice(1));
++  const ref = selected?.item.self_ref ?? query.get("ref");
++  const cell = selected ? selectedCell : query.has("cell") ? Number(query.get("cell")) : null;
++  const targetPage = Number(query.get("page") || pageNo);
+   await bootstrap();
+-  await loadPage(pageNo, ref, cell);
++  await loadPage(targetPage, ref, cell);
+   await poll();
+ }
+ async function poll() {
+   const list = await api("proposals");
+-  $("pending-count").textContent = list.filter(
+-    (p) => p.status === "pending",
+-  ).length;
++  $("pending-count").textContent =
++    list.filter((p) => p.status === "pending").length +
++    (list.some((p) => p.status === "stale")
++      ? ` · 재검토 ${list.filter((p) => p.status === "stale").length}`
++      : "");
+   const stamp = JSON.stringify(list.map((p) => [p.id, p.status]));
+-  if (stamp !== proposalStamp && proposalStamp)
++  if (stamp !== proposalStamp && proposalStamp) {
+     message("교정 제안 목록이 갱신되었습니다. 제안 버튼에서 확인하세요.");
++    if ($("dialog").open && dialogKind === "proposals" && !decisionBusy)
++      await showProposals(list);
++  }
+   proposalStamp = stamp;
++  if (session.export) showExport(await api("export-status"));
+ }
+ $("items").addEventListener(
+   "click",
+@@ -283,7 +334,23 @@
+   );
+ });
+ $("close-dialog").onclick = () => $("dialog").close();
+-$("proposals").onclick = run(showProposals);
++$("proposals").onclick = run(() => showProposals());
++$("reexport").onclick = run(async () => {
++  if (decisionBusy) return;
++  setDecisionBusy(true);
++  try {
++    const result = await api("export", {});
++    await refresh();
++    message(
++      result.state === "synced"
++        ? `revision ${result.db_revision} JSON 내보내기를 완료했습니다. 교정은 중복 적용되지 않았습니다.`
++        : "DB의 교정은 보존되어 있습니다. 내보내기 실패 원인을 해결한 뒤 다시 시도하세요.",
++      result.state !== "synced",
++    );
++  } finally {
++    setDecisionBusy(false);
++  }
++});
+ for (const op of ["keep", "defer"])
+   $(op).onclick = run(async () => {
+     if (!$("reason").value.trim())
+@@ -303,32 +370,80 @@
+   "click",
+   run(async (e) => {
+     const b = e.target.closest("button");
++    if (decisionBusy) return;
+     if (b?.dataset.approve || b?.dataset.reject) {
+       b.disabled = true;
++      setDecisionBusy(true);
+       try {
+-        await api("decision", {
++        const result = await api("decision", {
+           id: b.dataset.approve || b.dataset.reject,
+           action: b.dataset.approve ? "approve" : "reject",
+         });
+         await refresh();
+         await showProposals();
+-        message("판단이 저장되었습니다.");
++        decisionMessage(result, "판단이 저장되었습니다.");
++      } catch (error) {
++        // Even an interrupted response may follow a committed decision. Reconcile
++        // before inviting another action; never retry an approval automatically.
++        try {
++          await refresh();
++          await showProposals();
++        } catch {
++          /* retain original error */
++        }
++        throw error;
+       } finally {
+         b.disabled = false;
++        setDecisionBusy(false);
+       }
+     } else if (b?.dataset.view) {
+       $("dialog").close();
+-      await selectItem(b.dataset.view);
++      await selectItem(
++        b.dataset.view,
++        b.dataset.viewCell === "" || b.dataset.viewCell === undefined
++          ? null
++          : Number(b.dataset.viewCell),
++      );
++    } else if (b?.dataset.repropose) {
++      b.disabled = true;
++      setDecisionBusy(true);
++      try {
++        await api("repropose", {
++          id: b.dataset.repropose,
++          revision: Number(b.dataset.revision),
++        });
++        await refresh();
++        await showProposals();
++        message(
++          "최신 내용으로 새 제안을 만들었습니다. 변경 전후를 확인하고 별도로 승인하세요.",
++        );
++      } catch (error) {
++        try {
++          await refresh();
++          await showProposals();
++        } catch {
++          /* retain original error */
++        }
++        throw error;
++      } finally {
++        b.disabled = false;
++        setDecisionBusy(false);
++      }
+     } else if (b?.id === "undo") {
+       b.disabled = true;
++      setDecisionBusy(true);
+       try {
+         message("변경을 되돌리는 중…");
+-        await api("undo", { revision: session.revision });
++        const result = await api("undo", { revision: session.revision });
+         $("dialog").close();
+         await refresh();
+-        message("마지막 변경을 되돌렸습니다. 되돌림 이력은 남습니다.");
++        decisionMessage(
++          result,
++          "마지막 변경을 되돌렸습니다. 되돌림 이력은 남습니다.",
++        );
+       } finally {
+         b.disabled = false;
++        setDecisionBusy(false);
+       }
+     } else {
+       const result = e.target.closest("[data-result]");
+--- before/web/index.html
++++ web/index.html
+@@ -44,6 +44,10 @@
+       않습니다.
+     </p>
+     <div id="message" role="status" aria-live="polite"></div>
++    <div id="export-warning" role="status" aria-live="polite" hidden>
++      <span id="export-detail"></span>
++      <button id="reexport">최신 확정 데이터 재내보내기</button>
++    </div>
+     <main>
+       <section class="converted panel">
+         <div class="panel-title">
+--- before/web/style.css
++++ web/style.css
+@@ -492,3 +492,18 @@
+     flex: none;
+   }
+ }
++#export-warning {
++  flex-shrink: 0;
++  padding: 10px 24px;
++  background: #fff3d6;
++  color: #704400;
++  display: flex;
++  align-items: center;
++  gap: 12px;
++}
++.proposal[data-status="stale"] {
++  border-color: #c89536;
++}
++.stale-note {
++  color: #825100;
++}

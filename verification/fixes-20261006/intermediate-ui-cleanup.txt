@@ -1,0 +1,13 @@
+
+╔════════════════════════════════════════════════════════════════════╗
+║ Update available for @playwright/cli: 0.1.18 → 0.1.22              ║
+║ Run `npm install -g @playwright/cli@latest` (global) or            ║
+║ `npm install --save-dev @playwright/cli@latest` (local) to update. ║
+╚════════════════════════════════════════════════════════════════════╝
+
+### Result
+"test-only intermediate changes restored"
+### Ran Playwright code
+```js
+await (async page => { await page.reload(); for(let i=0;i<3;i++){ await page.locator('#history').click(); await page.locator('#undo').click(); await page.waitForFunction(()=>!document.getElementById('dialog').open && document.getElementById('message').textContent.includes('되돌렸습니다')); } await page.locator('#proposals').click(); await page.locator('[data-reject]').click(); return 'test-only intermediate changes restored'; })(page);
+```

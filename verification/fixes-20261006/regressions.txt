@@ -1,0 +1,25 @@
+test_database_rejection_is_not_reported_as_committed (test_regressions.EvaluationRegressions.test_database_rejection_is_not_reported_as_committed) ... ok
+test_export_failure_keeps_committed_state_and_retry_does_not_reapply (test_regressions.EvaluationRegressions.test_export_failure_keeps_committed_state_and_retry_does_not_reapply) ... ok
+test_http_and_cli_report_committed_export_pending_and_retry (test_regressions.EvaluationRegressions.test_http_and_cli_report_committed_export_pending_and_retry) ... 127.0.0.1 - - [06/Oct/2026 00:28:21] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 00:28:24] "POST /api/decision HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 00:28:24] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 00:28:24] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 00:28:24] "POST /api/decision HTTP/1.1" 409 -
+127.0.0.1 - - [06/Oct/2026 00:28:25] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 00:28:25] "POST /api/export HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 00:28:26] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 00:28:26] "POST /api/export HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 00:28:26] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 00:28:26] "GET /api/history HTTP/1.1" 200 -
+ok
+test_independent_proposals_survive_other_item_approval (test_regressions.EvaluationRegressions.test_independent_proposals_survive_other_item_approval) ... ok
+test_parallel_decisions_do_not_lose_updates (test_regressions.EvaluationRegressions.test_parallel_decisions_do_not_lose_updates) ... ok
+test_partial_export_restart_and_latest_snapshot_retry (test_regressions.EvaluationRegressions.test_partial_export_restart_and_latest_snapshot_retry) ... ok
+test_replace_failure_preserves_previous_file_and_cleans_temp (test_regressions.EvaluationRegressions.test_replace_failure_preserves_previous_file_and_cleans_temp) ... ok
+test_review_only_and_aba_changes_are_conflicts (test_regressions.EvaluationRegressions.test_review_only_and_aba_changes_are_conflicts) ... ok
+test_same_item_stale_reproposal_is_new_and_requires_separate_approval (test_regressions.EvaluationRegressions.test_same_item_stale_reproposal_is_new_and_requires_separate_approval) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 59.875s
+
+OK

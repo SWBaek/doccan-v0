@@ -1,0 +1,34 @@
+async page => {
+  const base='http://127.0.0.1:52742';
+  const get=async path=>(await page.request.get(base+'/api/'+path)).json();
+  const check=(ok,msg)=>{if(!ok)throw Error(msg);};
+  await page.goto(base+'/#page=7');
+  await page.reload();
+  const before=await get('bootstrap');
+  const count=(await get('history')).length;
+  const proposal=(await get('proposals')).find(p=>p.status==='pending'&&p.request.reason==='CLI export failure');
+  check(!!proposal,'Real CLI proposal exists');
+  await page.locator('#proposals').click();
+  await page.locator(`[data-proposal="${proposal.id}"] [data-view]`).click();
+  await page.waitForFunction(()=>document.getElementById('cell').value==='0');
+  await page.locator('#proposals').click();
+  await page.locator(`[data-approve="${proposal.id}"]`).click();
+  await page.waitForFunction(()=>document.getElementById('dialog-content').textContent.includes('대기 중인 제안이 없습니다'));
+  await page.locator('#close-dialog').click();
+  await page.locator('#export-warning:not([hidden])').waitFor();
+  check((await page.locator('#export-detail').textContent()).includes('DB revision '+(before.revision+1)),'Committed revision exposed');
+  check((await page.locator('#asset').textContent()).includes('revision '+(before.revision+1)),'Header reconciled after failed export');
+  const current=await get('bootstrap');
+  check(current.export.state==='pending','Persistent export status');
+  check((await get('item?ref=%23%2Ftables%2F0')).item.data.table_cells[0].text===proposal.request.value,'UI reads committed correction');
+  check((await get('proposals')).find(p=>p.id===proposal.id).status==='applied','Applied proposal must not invite reapproval');
+  await page.locator('#reexport').click();
+  await page.waitForFunction(()=>document.getElementById('message').textContent.includes('실패 원인을 해결'));
+  check((await get('bootstrap')).revision===before.revision+1,'Failed reexport does not apply twice');
+  check((await get('history')).length===count+1,'One history entry only');
+  await page.reload();
+  await page.locator('#export-warning:not([hidden])').waitFor();
+  await page.waitForFunction(()=>document.getElementById('cell').value==='0');
+  await page.screenshot({path:'verification/fixes-20261006/export-pending.png'});
+  return {result:'PASS',committed_revision:current.revision,export:current.export,history_count:count+1};
+}

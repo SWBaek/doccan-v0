@@ -1,0 +1,17 @@
+[
+  {
+    "id": "67220b45d6cb",
+    "reason": "CLI independent A",
+    "revision": 14
+  },
+  {
+    "id": "1fdf660ea665",
+    "reason": "CLI independent B",
+    "revision": 14
+  },
+  {
+    "id": "897c4aa17874",
+    "reason": "CLI competing C",
+    "revision": 14
+  }
+]

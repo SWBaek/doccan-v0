@@ -1,0 +1,6 @@
+test_02_three_corrections_reopen_and_undo (test_workflow.AssetWorkflow.test_02_three_corrections_reopen_and_undo) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 17.648s
+
+OK

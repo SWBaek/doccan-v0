@@ -1,0 +1,48 @@
+async page => {
+  const base='http://127.0.0.1:52742';
+  const get=async path=>(await page.request.get(base+'/api/'+path)).json();
+  const check=(ok,msg)=>{if(!ok)throw Error(msg);};
+  await page.goto(base);
+  await page.reload();
+  const baseline=await get('document');
+  const before=await get('bootstrap');
+  const list=await get('proposals');
+  const find=reason=>list.find(p=>p.status==='pending'&&p.request.reason===reason);
+  const a=find('CLI independent A'), b=find('CLI independent B'), old=find('CLI competing C');
+  check(a&&b&&old,'All three real CLI proposals exist');
+  await page.locator('#proposals').click();
+  await page.locator(`[data-approve="${a.id}"]`).click();
+  const stale=page.locator(`[data-proposal="${old.id}"][data-status="stale"]`);
+  await stale.waitFor();
+  check(await stale.locator('[data-approve]').count()===0,'Stale proposal cannot be approved');
+  check((await stale.locator('details pre').textContent()).includes('Regression approved A'),'Latest content is presented, not the old snapshot');
+  check(await page.locator(`[data-proposal="${b.id}"][data-status="pending"] [data-approve]`).count()===1,'Unrelated proposal remains approvable');
+  await page.screenshot({path:'verification/fixes-20261006/stale-and-independent.png'});
+  await page.locator(`[data-approve="${b.id}"]`).click();
+  await page.waitForFunction(revision=>document.getElementById('asset').textContent.includes('revision '+revision),before.revision+2);
+  await page.locator(`[data-repropose="${old.id}"]`).waitFor();
+  check((await get('document')).texts[1].text==='Regression approved B','Independent approval retains its originally inspected target');
+  const currentOld=(await get('proposals')).find(p=>p.id===old.id);
+  check(currentOld.request.revision===before.revision,'Original proposal basis was not rewritten');
+  await page.locator(`[data-repropose="${old.id}"]`).click();
+  await page.waitForFunction(()=>document.getElementById('message').textContent.includes('별도로 승인'));
+  const replacement=(await get('proposals')).find(p=>p.replaces===old.id);
+  check(replacement&&replacement.status==='pending','A distinct pending proposal is created');
+  check((await get('bootstrap')).revision===before.revision+2,'Reproposal is not an approval');
+  check(replacement.before.text==='Regression approved A'&&replacement.after.text==='Regression approved A','Latest text preserved by type reproposal');
+  await page.locator(`[data-approve="${replacement.id}"]`).click();
+  await page.waitForFunction(()=>document.getElementById('dialog-content').textContent.includes('대기 중인 제안이 없습니다'));
+  await page.locator('#close-dialog').click();
+  await page.reload();
+  await page.locator('#items .item').first().waitFor();
+  const after=await get('document');
+  check(after.texts[0].text==='Regression approved A'&&after.texts[0].label==='section_header','Explicit replacement approval persisted');
+  check(after.texts[1].text==='Regression approved B','Other accepted item retained');
+  for(let i=0;i<3;i++) {
+    const target=(await get('bootstrap')).revision+1;
+    await page.locator('#history').click();await page.locator('#undo').click();
+    await page.waitForFunction(revision=>document.getElementById('asset').textContent.includes('revision '+revision)&&document.getElementById('message').textContent.includes('되돌렸습니다'),target);
+  }
+  check(JSON.stringify(await get('document'))===JSON.stringify(baseline),'Undo preserves all independent and competing changes');
+  return {result:'PASS',independent_approved:true,stale_explicit:true,new_proposal:replacement.id,separate_approval:true,undo_count:3};
+}

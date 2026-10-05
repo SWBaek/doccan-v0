@@ -1,0 +1,10 @@
+.venv/
+data/
+__pycache__/
+.playwright-cli/
+*.log
+verification/browser-data/
+verification/interrupted-init/
+verification/**/browser-state/
+.candoc-chat/
+config/codex.local.json

@@ -1,0 +1,35 @@
+
+╔════════════════════════════════════════════════════════════════════╗
+║ Update available for @playwright/cli: 0.1.18 → 0.1.22              ║
+║ Run `npm install -g @playwright/cli@latest` (global) or            ║
+║ `npm install --save-dev @playwright/cli@latest` (local) to update. ║
+╚════════════════════════════════════════════════════════════════════╝
+
+### Result
+{"proposal":"7c62343a9570","approvalContainsCellText":false,"selectedCell":"","region":"7페이지 · BOTTOMLEFT → TOPLEFT · (88.7, 344.1) 378.9 × 78.7","expectedCell":"0","expectedText":"Thomas (Tom) Basso"}
+### Ran Playwright code
+```js
+await (async page => {
+  const base='http://127.0.0.1:52742';
+  const get=async path=>(await page.request.get(base+'/api/'+path)).json();
+  await page.goto(base);
+  const s=await get('bootstrap');
+  const cell=(await get('item?ref=%23%2Ftables%2F0&cell=0')).item.data.table_cells[0];
+  const p=await (await page.request.post(base+'/api/propose',{headers:{'X-Candoc-Token':s.token},data:{asset_id:s.asset.asset_id,revision:s.revision,ref:'#/tables/0',op:'keep',cell:0,reason:'Before-fix reproduction on temporary Asset'}})).json();
+  await page.locator('#proposals').click();
+  const card=page.locator('.proposal').filter({has:page.locator(`[data-approve="${p.id}"]`)});
+  await card.waitFor();
+  const approvalContainsCellText=(await card.innerText()).includes(cell.text);
+  await card.locator('[data-view]').click();
+  await page.waitForFunction(()=>document.getElementById('ref').textContent==='#/tables/0');
+  const selectedCell=await page.locator('#cell').inputValue();
+  const region=await page.locator('#location-note').textContent();
+  await page.locator('#proposals').click();
+  await page.locator(`[data-reject="${p.id}"]`).click();
+  return {proposal:p.id,approvalContainsCellText,selectedCell,region,expectedCell:'0',expectedText:cell.text};
+}
+)(page);
+```
+### Page
+- Page URL: http://127.0.0.1:52742/#page=7&ref=%23%2Ftables%2F0
+- Page Title: CanDoc · 원본 대조 검수

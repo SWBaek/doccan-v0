@@ -1,0 +1,73 @@
+{
+  "id": "5148a349197c",
+  "status": "pending",
+  "request": {
+    "asset_id": "ieee1547-bc2986e06854",
+    "revision": 28,
+    "ref": "#/texts/0",
+    "op": "defer",
+    "reason": "CLI UTF-8 연결 시험. 원본 판단이 아니며 시험 제안은 거절한다."
+  },
+  "scope": "#/texts/0",
+  "before": {
+    "self_ref": "#/texts/0",
+    "parent": {
+      "$ref": "#/body"
+    },
+    "children": [],
+    "content_layer": "furniture",
+    "meta": null,
+    "label": "page_header",
+    "prov": [
+      {
+        "page_no": 1,
+        "bbox": {
+          "l": 48.0,
+          "t": 735.0,
+          "r": 235.66666666666666,
+          "b": 720.0,
+          "coord_origin": "BOTTOMLEFT"
+        },
+        "charspan": [
+          0,
+          26
+        ]
+      }
+    ],
+    "orig": "IEEE STANDARDS ASSOCIATION",
+    "text": "IEEE STANDARDS ASSOCIATION",
+    "formatting": null,
+    "hyperlink": null
+  },
+  "after": {
+    "self_ref": "#/texts/0",
+    "parent": {
+      "$ref": "#/body"
+    },
+    "children": [],
+    "content_layer": "furniture",
+    "meta": null,
+    "label": "page_header",
+    "prov": [
+      {
+        "page_no": 1,
+        "bbox": {
+          "l": 48.0,
+          "t": 735.0,
+          "r": 235.66666666666666,
+          "b": 720.0,
+          "coord_origin": "BOTTOMLEFT"
+        },
+        "charspan": [
+          0,
+          26
+        ]
+      }
+    ],
+    "orig": "IEEE STANDARDS ASSOCIATION",
+    "text": "IEEE STANDARDS ASSOCIATION",
+    "formatting": null,
+    "hyperlink": null
+  },
+  "created": "2026-10-05T12:18:12.359374+00:00"
+}

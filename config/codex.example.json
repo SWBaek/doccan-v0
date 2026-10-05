@@ -1,0 +1,6 @@
+{
+  "codex_executable": "codex",
+  "project_dir": "..",
+  "state_dir": "../.candoc-chat",
+  "model": null
+}

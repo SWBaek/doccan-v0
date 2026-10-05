@@ -1,0 +1,6 @@
+test_01_asset_and_origins (test_workflow.AssetWorkflow.test_01_asset_and_origins) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 4.558s
+
+OK

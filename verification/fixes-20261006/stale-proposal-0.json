@@ -1,0 +1,8 @@
+{
+  "op": "text",
+  "ref": "#/texts/0",
+  "value": "Regression approved A",
+  "asset_id": "ieee1547-bc2986e06854",
+  "revision": 14,
+  "reason": "CLI independent A"
+}

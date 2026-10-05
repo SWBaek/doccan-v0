@@ -1,0 +1,16 @@
+{
+  "revision": 13,
+  "export": {
+    "state": "pending",
+    "db_revision": 13,
+    "files": {
+      "document.json": 12,
+      "review.json": 13
+    },
+    "errors": {
+      "document.json": "Injected test-only export failure"
+    }
+  },
+  "file_cell": "Thomas (Tom) Basso",
+  "committed_cell": "Regression approved cell"
+}

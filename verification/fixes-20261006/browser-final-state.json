@@ -1,0 +1,15 @@
+{
+  "revision": 26,
+  "export": {
+    "state": "synced",
+    "db_revision": 26,
+    "files": {
+      "document.json": 26,
+      "review.json": 26
+    },
+    "errors": {}
+  },
+  "pending_or_stale": [],
+  "document_restored_to_source": true,
+  "reviews": {}
+}

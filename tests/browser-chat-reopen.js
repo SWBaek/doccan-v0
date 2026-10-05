@@ -1,0 +1,19 @@
+async page => {
+  const check=(ok,msg)=>{if(!ok)throw Error(msg);};
+  const oldThread=await page.locator('#chat-session').getAttribute('title');
+  check(!!oldThread,'Existing browser session required');
+  await page.reload();
+  await page.locator('#chat-toggle').click();
+  await page.waitForFunction(()=>document.querySelectorAll('.chat-turn').length===4);
+  await page.locator('#chat-connect').click();
+  await page.waitForFunction(()=>document.getElementById('chat-status').dataset.state==='connected');
+  check(await page.locator('#chat-session').getAttribute('title')===oldThread,'Server restart resumes same thread');
+  check(await page.locator('.chat-turn').count()===4,'Server restart does not replay messages');
+  await page.locator('#chat-input').fill('서버 재시작 후 선택 대상 검토');
+  await page.locator('#chat-send').click();
+  await page.waitForFunction(()=>document.querySelectorAll('.chat-turn')[4]?.dataset.status==='completed');
+  await page.locator('#chat-disconnect').click();
+  await page.waitForFunction(()=>document.getElementById('chat-status').dataset.state==='disconnected');
+  await page.locator('#chat-hide').click();
+  return {result:'PASS',server_restart_resume:true,no_replay:true,new_message_after_restart:true};
+}

@@ -1,0 +1,310 @@
+--- before/candoc/server.py
++++ candoc/server.py
+@@ -4,16 +4,24 @@
+ import json
+ import mimetypes
+ import secrets
++import time
+ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+ from pathlib import Path
+ from urllib.parse import parse_qs, unquote, urlsplit
+ 
+ from .core import ROOT, Store, ProposalConflict, dump, local_path, validate, items
+ from .render import render_page
+-
+-
+-def make_server(data, port=52741):
++from .chat import Chat, load_settings
++from .codex_rpc import StdioRPC, CodexError
++
++
++def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
+     store = Store(data)
++    try:
++        chat = Chat(store, chat_settings, rpc_factory=rpc_factory)
++    except Exception:
++        store.close()
++        raise
+     token = secrets.token_urlsafe(32)
+     cache = {}
+ 
+@@ -36,13 +44,46 @@
+             if not self.allowed_host():
+                 return self.send({'error': 'Invalid Host'}, 403)
+             try:
++                if urlsplit(self.path).path.startswith('/api/chat/'):
++                    if self.headers.get('X-Candoc-Token') != token:
++                        return self.send({'error': 'Invalid local session'}, 403)
++                    return self.chat_get()
+                 with store.lock:
+                     self.get()
++            except (BrokenPipeError, ConnectionResetError):
++                return
+             except (ValueError, KeyError, IndexError, TypeError) as e:
+                 self.send({'error': str(e)}, 400)
+             except Exception as e:
+                 self.log_error('%s', e)
+                 self.send({'error': str(e)}, 500)
++
++        def chat_get(self):
++            url = urlsplit(self.path)
++            if url.path == '/api/chat/state':
++                return self.send(chat.state())
++            if url.path != '/api/chat/events':
++                return self.send({'error': 'Not found'}, 404)
++            after = int(parse_qs(url.query).get('after', ['0'])[0])
++            if after < 0:
++                raise ValueError('Invalid event cursor')
++            self.send_response(200)
++            self.send_header('Content-Type', 'text/event-stream; charset=utf-8')
++            self.send_header('Cache-Control', 'no-store')
++            self.send_header('X-Content-Type-Options', 'nosniff')
++            self.send_header('Connection', 'close')
++            self.end_headers()
++            deadline = time.monotonic()+20
++            while not chat.closed and time.monotonic() < deadline:
++                events = chat.events(after, timeout=5)
++                for event in events:
++                    self.wfile.write(('data: '+json.dumps(event, ensure_ascii=False)+'\n\n').encode('utf-8'))
++                    after = event['seq']
++                if not events:
++                    self.wfile.write(b': keepalive\n\n')
++                    if not chat.settings:
++                        break
++                self.wfile.flush()
+ 
+         def get(self):
+             u = urlsplit(self.path)
+@@ -90,7 +131,7 @@
+                 if p.suffix.lower() not in {'.png','.jpg','.jpeg'}:
+                     raise ValueError('Only raster assets are served')
+                 return self.send(p.read_bytes(), mime=mimetypes.guess_type(p.name)[0])
+-            static = {'/': 'index.html', '/app.js':'app.js', '/style.css':'style.css'}
++            static = {'/': 'index.html', '/app.js':'app.js', '/chat.js':'chat.js', '/style.css':'style.css'}
+             if path in static:
+                 p = ROOT/'web'/static[path]
+                 return self.send(p.read_bytes(), mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8'}[p.suffix])
+@@ -107,6 +148,14 @@
+                 if not 0 < length < 200000:
+                     raise ValueError('Invalid request size')
+                 req = json.loads(self.rfile.read(length))
++                if self.path == '/api/chat/connect':
++                    return self.send(chat.connect())
++                if self.path == '/api/chat/message':
++                    return self.send(chat.submit(req))
++                if self.path == '/api/chat/interrupt':
++                    return self.send(chat.interrupt())
++                if self.path == '/api/chat/disconnect':
++                    return self.send(chat.disconnect())
+                 if self.path == '/api/propose':
+                     return self.send(store.propose(req))
+                 if self.path == '/api/repropose':
+@@ -121,18 +170,27 @@
+             except ProposalConflict as e:
+                 self.send({'error': str(e), 'code': 'proposal_conflict', 'proposal': e.proposal,
+                            'export': store.export_status()}, 409)
++            except CodexError as e:
++                self.send({'error': str(e), 'chat': chat.state()}, 503)
+             except (ValueError,KeyError,IndexError,TypeError) as e:
+                 self.send({'error':str(e)},400)
+             except Exception as e:
+                 self.log_error('%s',e)
+                 self.send({'error':str(e)},500)
+ 
++    class ReviewServer(ThreadingHTTPServer):
++        def server_close(self):
++            chat.close()
++            super().server_close()
++
+     try:
+-        server = ThreadingHTTPServer(('127.0.0.1',port),Handler)
++        server = ReviewServer(('127.0.0.1',port),Handler)
+     except OSError:
++        chat.close()
+         store.close()
+         raise
+     server.store = store
++    server.chat = chat
+     return server
+ 
+ 
+@@ -140,8 +198,9 @@
+     parser = argparse.ArgumentParser()
+     parser.add_argument('--data',type=Path,default=ROOT/'data')
+     parser.add_argument('--port',type=int,default=52741)
++    parser.add_argument('--chat-config',type=Path,help='Optional local Codex settings JSON; no credentials')
+     args = parser.parse_args()
+-    server = make_server(args.data,args.port)
++    server = make_server(args.data,args.port,load_settings(args.chat_config))
+     print(f'CanDoc review: http://127.0.0.1:{server.server_port}',flush=True)
+     try:
+         server.serve_forever()
+--- before/docs/AGENT.md
++++ docs/AGENT.md
+@@ -1,4 +1,6 @@
+ # 현재 에이전트 채팅으로 교정하기
++
++내장 Codex 대화는 [별도 연결 안내](CODEX-CHAT.md)를 따릅니다. 내장 실행기는 선택된 대상 조회와 pending 제안 생성만 중개하며 아래 CLI나 승인 API를 실행할 권한을 받지 않습니다. 아래 문서는 사용자가 별도로 사용하는 외부 에이전트/CLI 경로입니다.
+ 
+ 서버를 실행한 상태에서 프로젝트 루트의 명령을 사용합니다. 다른 포트면 `candoc.cli --url http://127.0.0.1:52743 get ...`처럼 지정합니다. 명령 결과는 UTF-8 JSON입니다.
+ 
+--- before/README.md
++++ README.md
+@@ -1,17 +1,25 @@
+ # CanDoc MVP 1
+ 
+-DoclingDocument의 의심 항목을 원본 페이지 이미지와 비교하고, 현재 에이전트 채팅에서 만든 교정 제안을 사용자가 승인하는 로컬 검수 도구입니다. 요약·윤문·재배열이나 PDF 재변환을 하지 않습니다.
++DoclingDocument의 의심 항목을 원본 페이지 이미지와 비교하고, 에이전트가 만든 교정 제안을 사용자가 승인하는 로컬 검수 도구입니다. 검수 화면 안의 Codex 대화 또는 기존 CLI 제안 경로를 사용할 수 있습니다. 요약·윤문·재배열이나 PDF 재변환을 하지 않습니다.
+ 
+ ## 실행
+ 
+ Windows PowerShell, Python 3.13을 권장합니다. 이 PC에서는 Python 3.13.5로 검증했습니다.
+ 
+ ```powershell
+-cd C:/Projects/candoc-v0
++# 프로젝트를 복사한 폴더에서 실행합니다.
+ ./start.ps1
+ ```
+ 
+-브라우저에서 **http://127.0.0.1:52741** 을 엽니다. 터미널을 유지하고 종료할 때 `Ctrl+C`를 누릅니다. 최초 실행은 `.venv`와 Asset을 준비합니다. 의존성 다운로드 외에는 인터넷, 인증, Docker, 변환 서버, 유료 API가 필요하지 않습니다. 포트 변경: `./start.ps1 -Port 52743`.
++브라우저에서 **http://127.0.0.1:52741** 을 엽니다. 터미널을 유지하고 종료할 때 `Ctrl+C`를 누릅니다. 최초 실행은 `.venv`와 Asset을 준비합니다. 기본 문서 검수에는 의존성 다운로드 외에 인터넷, 인증, Docker, 변환 서버가 필요하지 않습니다. 선택 기능인 Codex 대화는 해당 PC에 설치된 Codex와 사용자의 ChatGPT 로그인·인터넷 연결을 사용합니다. 포트 변경: `./start.ps1 -Port 52743`.
++
++Codex 대화를 켜려면 검증된 **Codex CLI 0.160.0**을 설치하고 정상 로그인한 뒤 실행합니다. 새 로그인은 사용자가 터미널에서 직접 수행합니다. API 키를 넣지 않습니다.
++
++```powershell
++./start.ps1 -ChatConfig ./config/codex.example.json
++```
++
++화면의 **Codex 대화 → 연결·재개 → 항목/셀 선택 → 메시지 보내기 → 제안 확인 → 직접 승인** 순서로 사용합니다. 연결만으로 모델 메시지를 보내지는 않습니다. 실행 파일·프로젝트·대화 저장 경로와 다른 PC 설치 절차는 [Codex 대화 안내](docs/CODEX-CHAT.md)를 참고하세요.
+ 
+ 수동 준비가 필요한 경우:
+ 
+@@ -29,7 +37,7 @@
+ 1. **실행**: `./start.ps1`.
+ 2. **문서 열기**: 위 주소에서 1~138페이지를 이동하거나 전체 문서를 검색합니다. 화면에는 현재 페이지와 해당 항목만 올라옵니다.
+ 3. **항목 선택**: 문단·표·그림을 누르면 주황색 원본 영역과 확대 캡처가 나옵니다. 표 셀은 직접 클릭하거나 오른쪽 셀 목록으로 선택합니다. 여러 원본 위치가 있으면 위치 목록으로 전환합니다.
+-4. **에이전트에게 교정 요청**: `에이전트 요청 복사`를 눌러 현재 채팅에 붙여넣고, 의심 이유나 원하는 수정 내용을 덧붙입니다. 복사가 막히면 아래 요청 텍스트를 직접 복사합니다. 에이전트는 [명령 지침](docs/AGENT.md)을 따라 조회·제안합니다.
++4. **에이전트에게 교정 요청**: `Codex 대화`에서 선택 대상을 확인하고 메시지를 보냅니다. 전송한 메시지의 대상은 이후 선택을 바꿔도 유지됩니다. 외부 채팅을 사용하는 경우 기존 `에이전트 요청 복사`와 [CLI 명령 지침](docs/AGENT.md)도 사용할 수 있습니다.
+ 5. **결과 확인**: 상단 `제안`에서 원본과 변경 전후를 확인하고 `이 제안 승인·적용`을 누릅니다. 저장 후 새로고침해 결과를 확인합니다. `변경 이력 → 마지막 적용 되돌리기`로 역순 복구할 수 있습니다.
+ 
+ `의심 후보`는 구조·내용 규칙이 찾은 확인 대상입니다. 자동 오류 판정이나 원본 OCR 대조 결과가 아닙니다. `유지 제안`·`보류 제안`도 사용자의 명시적인 승인 후 저장됩니다. 미확인은 기본 상태이고, 텍스트나 셀 하나를 고쳤다고 항목 전체/문서 전체를 검수 완료로 바꾸지 않습니다.
+--- before/start.ps1
++++ start.ps1
+@@ -1,4 +1,4 @@
+-param([int]$Port = 52741, [string]$Data = "$PSScriptRoot/data")
++param([int]$Port = 52741, [string]$Data = "$PSScriptRoot/data", [string]$ChatConfig = '')
+ $ErrorActionPreference = 'Stop'
+ Set-Location $PSScriptRoot
+ if (!(Test-Path .venv/Scripts/python.exe)) {
+@@ -11,4 +11,6 @@
+     & ./.venv/Scripts/python -m candoc.cli init --data $Data
+     if ($LASTEXITCODE -ne 0) { throw 'Asset initialization failed' }
+ }
+-& ./.venv/Scripts/python -m candoc.server --data $Data --port $Port
++$serverArgs = @('-m', 'candoc.server', '--data', $Data, '--port', $Port)
++if ($ChatConfig) { $serverArgs += @('--chat-config', $ChatConfig) }
++& ./.venv/Scripts/python @serverArgs
+--- before/web/app.js
++++ web/app.js
+@@ -73,7 +73,14 @@
+     if (selectedCell !== null) q.set("cell", String(selectedCell));
+   }
+   history.replaceState(null, "", "#" + q);
+-}
++  window.dispatchEvent(new Event("candoc-selection"));
++}
++window.candocChatContext = () => session ? ({
++  asset_id: session.asset.asset_id,
++  revision: selected?.revision ?? session.revision,
++  ref: selected?.item.self_ref ?? null,
++  cell: selectedCell,
++}) : null;
+ async function bootstrap() {
+   session = await api("bootstrap");
+   $("asset").textContent =
+--- before/web/index.html
++++ web/index.html
+@@ -6,6 +6,7 @@
+     <title>CanDoc · 원본 대조 검수</title>
+     <link rel="stylesheet" href="/style.css" />
+     <script src="/app.js" defer></script>
++    <script src="/chat.js" defer></script>
+   </head>
+   <body>
+     <header>
+@@ -14,6 +15,7 @@
+         <strong>IEEE 1547–2018</strong><small id="asset">문서를 여는 중…</small>
+       </div>
+       <div class="head-actions">
++        <button id="chat-toggle" aria-controls="chat-panel" aria-expanded="false">Codex 대화</button>
+         <button id="refresh">새로고침</button
+         ><a href="/api/document" download="document.json">작업 JSON 다운로드</a>
+       </div>
+@@ -133,6 +135,36 @@
+         </div>
+       </aside>
+     </main>
++    <section id="chat-panel" class="panel" aria-label="Codex 검수 대화" hidden>
++      <div class="panel-title">
++        <h2>Codex 검수 대화</h2>
++        <button id="chat-hide" aria-label="대화 패널 접기">접기</button>
++      </div>
++      <div class="chat-connection">
++        <span id="chat-status" role="status">연결 안 됨</span>
++        <button id="chat-connect">연결·재개</button>
++        <button id="chat-disconnect" disabled>연결 종료</button>
++      </div>
++      <small id="chat-session"></small>
++      <p id="chat-error" class="error" role="alert"></p>
++      <div id="chat-transcript" aria-label="대화 기록"></div>
++      <form id="chat-form">
++        <p id="chat-target" class="muted">문서를 여는 중…</p>
++        <label for="chat-input">검수 요청</label>
++        <textarea id="chat-input" rows="3" maxlength="8000" placeholder="선택한 내용에서 확인할 점이나 교정안을 요청하세요."></textarea>
++        <div class="actions">
++          <button id="chat-send" class="primary" disabled>보내기</button>
++          <button id="chat-interrupt" type="button" disabled>중단</button>
++          <button id="chat-proposals" type="button">제안 확인</button>
++        </div>
++        <div id="chat-retry-area" hidden>
++          <p>전송 결과가 불확실합니다. 같은 메시지 ID로 확인하며 중복 실행하지 않습니다.</p>
++          <button id="chat-retry" type="button">전송 결과 확인·재시도</button>
++          <button id="chat-discard" type="button">재시도 취소</button>
++        </div>
++        <p class="muted chat-privacy">보내기를 누르면 메시지와 선택한 항목·셀의 텍스트가 Codex로 전달되며 계정 사용량이 발생할 수 있습니다. 원본 이미지와 문서 전체는 자동 전송하지 않습니다. 교정은 제안 확인 후 직접 승인하세요.</p>
++      </form>
++    </section>
+     <dialog id="dialog">
+       <div class="dialog-head">
+         <h2 id="dialog-title"></h2>
+--- before/web/style.css
++++ web/style.css
+@@ -507,3 +507,28 @@
+ .stale-note {
+   color: #825100;
+ }
++#chat-panel {
++  position: fixed;
++  right: 18px;
++  bottom: 18px;
++  width: min(460px, calc(100vw - 24px));
++  height: min(780px, calc(100vh - 95px));
++  z-index: 20;
++  display: flex;
++  flex-direction: column;
++  box-shadow: 0 10px 45px #15283e40;
++  border-color: #8da6c0;
++}
++.chat-connection { display: flex; gap: 8px; align-items: center; padding: 10px 14px 4px; }
++#chat-status { margin-right: auto; font-weight: 650; }
++#chat-session { padding: 4px 14px; color: #53677d; overflow-wrap: anywhere; }
++#chat-error { margin: 0; padding: 4px 14px; white-space: pre-wrap; }
++#chat-transcript { flex: 1; min-height: 100px; overflow-y: auto; padding: 10px 14px; }
++#chat-form { border-top: 1px solid #d9e0e8; padding: 10px 14px; }
++#chat-target { margin: 0 0 8px; font-size: 12px; overflow-wrap: anywhere; }
++.chat-turn { padding: 10px 0 16px; border-bottom: 1px solid #e3e9f0; }
++.chat-frozen-target, .chat-run-status { color: #53677d; overflow-wrap: anywhere; }
++.chat-user { background: #e8f1fc; padding: 10px; border-radius: 8px; white-space: pre-wrap; overflow-wrap: anywhere; }
++.chat-answer { font: inherit; white-space: pre-wrap; overflow-wrap: anywhere; background: transparent; padding: 0; }
++.chat-privacy { font-size: 11px; margin-bottom: 0; line-height: 1.5; }
++#chat-retry-area { background: #fff3d6; padding: 8px; font-size: 12px; }

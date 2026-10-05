@@ -1,0 +1,53 @@
+test_01_asset_and_origins (test_workflow.AssetWorkflow.test_01_asset_and_origins) ... ok
+test_02_three_corrections_reopen_and_undo (test_workflow.AssetWorkflow.test_02_three_corrections_reopen_and_undo) ... ERROR
+test_03_stale_replay_unsupported_and_wrong_asset (test_workflow.AssetWorkflow.test_03_stale_replay_unsupported_and_wrong_asset) ... FAIL
+test_04_review_scope_undo_and_export_recovery (test_workflow.AssetWorkflow.test_04_review_scope_undo_and_export_recovery) ... ERROR
+test_05_references_and_immutability_guards (test_workflow.AssetWorkflow.test_05_references_and_immutability_guards) ... FAIL
+test_06_all_pages_official_html_and_selection (test_workflow.AssetWorkflow.test_06_all_pages_official_html_and_selection) ... ok
+
+======================================================================
+ERROR: test_02_three_corrections_reopen_and_undo (test_workflow.AssetWorkflow.test_02_three_corrections_reopen_and_undo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\candoc-v0\tests\test_workflow.py", line 80, in test_02_three_corrections_reopen_and_undo
+    self.store.undo(self.store.current()[0])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\candoc-v0\candoc\core.py", line 395, in undo
+    raise ValueError('Undo conflict')
+ValueError: Undo conflict
+
+======================================================================
+ERROR: test_04_review_scope_undo_and_export_recovery (test_workflow.AssetWorkflow.test_04_review_scope_undo_and_export_recovery)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\candoc-v0\tests\test_workflow.py", line 113, in test_04_review_scope_undo_and_export_recovery
+    self.store.undo(self.store.current()[0])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\candoc-v0\candoc\core.py", line 395, in undo
+    raise ValueError('Undo conflict')
+ValueError: Undo conflict
+
+======================================================================
+FAIL: test_03_stale_replay_unsupported_and_wrong_asset (test_workflow.AssetWorkflow.test_03_stale_replay_unsupported_and_wrong_asset)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\candoc-v0\tests\test_workflow.py", line 102, in test_03_stale_replay_unsupported_and_wrong_asset
+    self.assertEqual(self.store.current()[1],self.original)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'sch[61472 chars]l': 'section_header', 'prov': [{'page_no': 1, [4429093 chars]38}}} != {'sch[61472 chars]l': 'page_header', 'prov': [{'page_no': 1, 'bb[4429092 chars]38}}}
+Diff is 10301213 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_05_references_and_immutability_guards (test_workflow.AssetWorkflow.test_05_references_and_immutability_guards)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\candoc-v0\tests\test_workflow.py", line 140, in test_05_references_and_immutability_guards
+    self.assertEqual(self.store.current()[1],self.original)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'sch[61472 chars]l': 'section_header', 'prov': [{'page_no': 1, [4429086 chars]38}}} != {'sch[61472 chars]l': 'page_header', 'prov': [{'page_no': 1, 'bb[4429092 chars]38}}}
+Diff is 10301200 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 6 tests in 111.248s
+
+FAILED (failures=2, errors=2)

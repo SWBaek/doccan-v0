@@ -1,0 +1,9 @@
+{
+  "op": "cell",
+  "ref": "#/tables/0",
+  "cell": 0,
+  "value": "Regression approved cell",
+  "asset_id": "ieee1547-bc2986e06854",
+  "revision": 12,
+  "reason": "CLI export failure"
+}

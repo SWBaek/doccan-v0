@@ -1,0 +1,11 @@
+test_01_asset_and_origins (test_workflow.AssetWorkflow.test_01_asset_and_origins) ... ok
+test_02_three_corrections_reopen_and_undo (test_workflow.AssetWorkflow.test_02_three_corrections_reopen_and_undo) ... ok
+test_03_stale_replay_unsupported_and_wrong_asset (test_workflow.AssetWorkflow.test_03_stale_replay_unsupported_and_wrong_asset) ... ok
+test_04_review_scope_undo_and_export_recovery (test_workflow.AssetWorkflow.test_04_review_scope_undo_and_export_recovery) ... ok
+test_05_references_and_immutability_guards (test_workflow.AssetWorkflow.test_05_references_and_immutability_guards) ... ok
+test_06_all_pages_official_html_and_selection (test_workflow.AssetWorkflow.test_06_all_pages_official_html_and_selection) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 93.832s
+
+OK

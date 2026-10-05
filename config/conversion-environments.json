@@ -1,0 +1,14 @@
+{
+  "environments": {
+    "docling-user-provided-v1": {
+      "docling": "2.124.0",
+      "docling_serve": "1.32.0",
+      "docling_core": "2.93.0",
+      "docker_image": "ghcr.io/docling-project/docling-serve-cu128:v1.32.0",
+      "interface": "REST API",
+      "evidence": "User-provided project configuration; not a verified running server",
+      "conversion_options": null,
+      "execution_details": null
+    }
+  }
+}
