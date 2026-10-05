@@ -1,0 +1,25 @@
+async page => {
+ const base='http://127.0.0.1:52742',check=(v,m)=>{if(!v)throw Error(m)};
+ const get=async p=>(await page.request.get(base+'/api/'+p)).json();
+ await page.goto(base+'/#page=1');await page.reload();await page.locator('[data-ref="#/texts/0"]').waitFor();
+ const boot=await get('bootstrap');
+ const proposal=await (await page.request.post(base+'/api/propose',{headers:{'X-Candoc-Token':boot.token},data:{asset_id:boot.asset.asset_id,revision:boot.revision,ref:'#/texts/0',op:'text',value:'Delayed proposal-list fixture',reason:'List response must not steal selection'}})).json();
+ await page.locator('[data-ref="#/texts/0"]').click();await page.waitForFunction(()=>window.candocChatContext()?.ref==='#/texts/0');
+ if(await page.locator('#proposal-review').isVisible())await page.locator('#proposal-hide').click();
+ await page.route('**/api/proposals',async route=>{const response=await route.fetch();await page.waitForTimeout(1000);await route.fulfill({response});});
+ await page.locator('#proposals').click();await page.locator('[data-ref="#/texts/1"]').click();await page.waitForFunction(()=>window.candocChatContext()?.ref==='#/texts/1');
+ await page.waitForTimeout(1400);
+ check(await page.evaluate(()=>window.candocChatContext()?.ref)==='#/texts/1','Delayed proposal list cannot overwrite latest selection');
+ check(await page.locator('.item.selected').getAttribute('data-ref')==='#/texts/1','Visible selection retains latest user intent');
+ await page.unroute('**/api/proposals');
+ await page.locator('#proposal-choice').selectOption(proposal.id);await page.waitForFunction(()=>window.candocChatContext()?.ref==='#/texts/0');
+ // UI rejects only leftover pending proposals in this isolated test Asset.
+ for(const p of await get('proposals'))if(['pending','stale'].includes(p.status)){
+   await page.locator('#proposals').click();await page.locator('#proposal-choice').selectOption(p.id);await page.locator(`[data-reject="${p.id}"]`).click();await page.waitForFunction(id=>document.querySelector(`[data-proposal="${id}"][data-status="rejected"]`),p.id);
+ }
+ const state=await get('bootstrap');
+ check(Object.keys(state.reviews).length===0,'All trial judgments undone');
+ check(state.export.state==='synced','Trial exports synchronized');
+ check((await get('proposals')).every(p=>!['pending','stale'].includes(p.status)),'No unfinished fixture proposals');
+ return {result:'PASS',proposal_response_latest_intent:true,trial_reviews_empty:true,export_synced:true,revision:state.revision};
+}

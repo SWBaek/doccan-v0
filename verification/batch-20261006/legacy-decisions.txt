@@ -1,0 +1,75 @@
+### Result
+{"result":"PASS","whole_keep_then_cell_defer":true,"history_not_rewritten":true,"remaining_filter_resume":true,"overlapping_cell":73,"multiple_source_locations":true,"stale_separate_approval":true,"undo":4}
+### Ran Playwright code
+```js
+await (async page => {
+ const base='http://127.0.0.1:52742',check=(v,m)=>{if(!v)throw Error(m)};
+ const get=async p=>(await page.request.get(base+'/api/'+p)).json();
+ await page.goto(base);await page.reload();await page.locator('#items .item').first().waitFor();
+ const boot=await get('bootstrap'),baseline=await get('document');
+ const post=async(p,data)=>(await page.request.post(base+'/api/'+p,{headers:{'X-Candoc-Token':boot.token},data})).json();
+ const approve=async id=>{await page.locator(`[data-approve="${id}"]`).click();await page.waitForFunction(id=>document.querySelector(`[data-proposal="${id}"][data-status="applied"]`),id);await page.waitForFunction(()=>window.candocChatContext()!==null);};
+ const undo=async()=>{await page.locator('#history').click();await page.locator('#undo').click();await page.waitForFunction(()=>!document.querySelector('#dialog').open&&document.querySelector('#message').textContent.includes('되돌렸습니다'));};
+ if(await page.locator('#proposal-review').isVisible())await page.locator('#proposal-hide').click();
+ await page.locator('#suspects').click();await page.locator('[data-queue="#/tables/56"]').waitFor();
+ await page.locator('[data-queue="#/tables/56"]').focus();await page.keyboard.press('Enter');await page.waitForFunction(()=>window.candocChatContext()?.ref==='#/tables/56');
+ check((await page.locator('#edit-limitation').textContent()).includes('표 구조 편집은 지원하지'),'Unsupported structure explained before action');
+ check(await page.locator('#manual-propose').isDisabled(),'Unsupported table edit disabled');
+ const shown=await page.locator('[data-ref="#/tables/56"] [data-cell]').evaluateAll(xs=>xs.map(x=>Number(x.dataset.cell)));
+ const missing=baseline.tables[56].data.table_cells.findIndex((_,i)=>!shown.includes(i));
+ check(missing>=0,'Known overlapping cell absent from grid');
+ await page.locator('#cell').selectOption(String(missing));await page.waitForFunction(i=>window.candocChatContext()?.cell===i,missing);
+ check(await page.locator('#current-value').textContent()===baseline.tables[56].data.table_cells[missing].text,'Overlapping cell accessible via list');
+ await page.locator('#cell').selectOption('');await page.waitForFunction(()=>window.candocChatContext()?.cell===null);
+ if(await page.locator('#draft-warning').isVisible())await page.locator('#draft-rebase').click();
+ await page.locator('#reason').fill('시험: 표 전체 유지');await page.locator('#keep').click();
+ await page.waitForFunction(()=>document.querySelector('#proposal-content .reason')?.textContent.includes('시험: 표 전체 유지'));
+ const whole=(await get('proposals')).find(p=>p.request.reason==='시험: 표 전체 유지'&&p.status==='pending');await approve(whole.id);
+ const savedWhole=(await get('bootstrap')).reviews['#/tables/56'];
+ await page.locator('#proposal-hide').click();await page.locator('#cell').selectOption('0');await page.waitForFunction(()=>window.candocChatContext()?.cell===0);
+ if(await page.locator('#draft-warning').isVisible())await page.locator('#draft-rebase').click();
+ await page.locator('#reason').fill('시험: 셀 0 추가 보류');await page.locator('#defer').click();
+ await page.waitForFunction(()=>document.querySelector('#proposal-content .reason')?.textContent.includes('셀 0 추가 보류'));
+ const cell=(await get('proposals')).find(p=>p.request.reason==='시험: 셀 0 추가 보류'&&p.status==='pending');await approve(cell.id);
+ await page.locator('#proposal-hide').click();await page.locator('#cell').selectOption('');await page.waitForFunction(()=>window.candocChatContext()?.cell===null);
+ check((await page.locator('#review-state').textContent()).includes('보류'),'Whole table display retains later cell defer');
+ check((await page.locator('[data-queue="#/tables/56"]').textContent()).includes('검수: 보류'),'Suspect queue agrees with table summary');
+ check(JSON.stringify((await get('bootstrap')).reviews['#/tables/56'])===JSON.stringify(savedWhole),'Whole-table history not rewritten');
+ await page.locator('#worklist-filter').selectOption('remaining');check(await page.locator('[data-queue="#/tables/56"]').isVisible(),'Deferred cell leaves table in remaining filter');
+ await page.reload();await page.waitForFunction(()=>window.candocChatContext()?.ref==='#/tables/56');
+ check(await page.locator('#worklist-filter').inputValue()==='remaining','Filter and selected candidate restored');
+ await page.screenshot({path:'verification/batch-20261006/legacy-after-table-remaining.png'});
+ // Preserve multiple source locations, without assigning a guessed page to a cell.
+ const multi=baseline.texts.find(t=>t.prov.length>1);
+ check(!!multi,'Fixture has multiple source locations');
+ await page.locator('#search').fill(multi.self_ref);await page.locator('#search-form button').click();await page.locator(`[data-queue="${multi.self_ref}"]`).click();await page.waitForFunction(ref=>window.candocChatContext()?.ref===ref,multi.self_ref);
+ check(await page.locator('#location-label').isVisible(),'Multiple source locations remain accessible');
+ await page.locator('#location').selectOption('1');await page.waitForFunction(()=>document.querySelector('#location').value==='1'&&window.candocChatContext()!==null);
+ check(await page.locator('#page').inputValue()===String(multi.prov[1].page_no),'Explicit source location chosen');
+ await page.reload();await page.waitForFunction(()=>document.querySelector('#location').value==='1'&&window.candocChatContext()!==null);
+ check((await page.locator('#edit-limitation').textContent()).includes('범위 매핑'),'Multi-provenance text restriction visible');
+ await undo();await undo();
+ // Concurrent proposals: the stale one must be replaced and separately approved.
+ const revision=(await get('bootstrap')).revision;
+ const req={asset_id:boot.asset.asset_id,revision,ref:'#/texts/0',op:'text',reason:'Stale UI regression'};
+ const a=await post('propose',{...req,value:'First exact correction'}),b=await post('propose',{...req,value:'Second intended correction'});
+ await page.locator('#proposals').click();await page.locator('#proposal-choice').selectOption(a.id);await approve(a.id);
+ await page.locator('#proposal-choice').selectOption(b.id);await page.locator(`[data-proposal="${b.id}"][data-status="stale"]`).waitFor();
+ check(await page.locator(`[data-approve="${b.id}"]`).count()===0,'No stale approval action');
+ check((await page.locator('.latest-value').textContent())==='First exact correction','Current baseline visible with stale proposal');
+ await page.locator(`[data-repropose="${b.id}"]`).click();await page.waitForFunction(()=>document.querySelector('#message').textContent.includes('별도로 승인'));
+ const replacement=(await get('proposals')).find(p=>p.replaces===b.id);
+ check(replacement.status==='pending'&&replacement.before.text==='First exact correction','Reproposal uses exact latest before');
+ check((await get('bootstrap')).revision===revision+1,'Reproposal alone did not approve');
+ check((await get('proposals')).find(p=>p.id===b.id).request.revision===revision,'Original proposal basis unchanged');
+ await page.screenshot({path:'verification/batch-20261006/legacy-after-reproposal.png'});
+ await approve(replacement.id);await undo();await undo();
+ check(JSON.stringify(await get('document'))===JSON.stringify(baseline),'All exact approvals restored by UI undo');
+ check((await page.locator('#proposal-content .status').textContent()).includes('승인 후 되돌림'),'Historical approval not confused with current committed content');
+ return {result:'PASS',whole_keep_then_cell_defer:true,history_not_rewritten:true,remaining_filter_resume:true,overlapping_cell:missing,multiple_source_locations:true,stale_separate_approval:true,undo:4};
+}
+)(page);
+```
+### Page
+- Page URL: http://127.0.0.1:52742/#page=1&ref=%23%2Ftexts%2F0&loc=0
+- Page Title: CanDoc · 원본 대조 검수

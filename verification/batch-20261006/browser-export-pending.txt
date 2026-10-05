@@ -1,0 +1,23 @@
+### Result
+{"pass":true,"revision":11,"export":{"state":"pending","db_revision":11,"files":{"document.json":10,"review.json":11},"errors":{"document.json":"Injected test-only export failure"}},"historyCount":11}
+### Ran Playwright code
+```js
+await (async page => {
+ const base='http://127.0.0.1:52742',check=(v,m)=>{if(!v)throw Error(m)},get=async p=>(await page.request.get(base+'/api/'+p)).json();
+ await page.goto(base);await page.waitForFunction(()=>document.querySelector('#diagnostic-progress').textContent.includes('개 묶음'));
+ await page.locator('#diagnose').click();await page.waitForFunction(()=>document.querySelector('#diagnostic-status').textContent.includes('진단 완료'));
+ const g=(await get('diagnostics')).groups.find(g=>g.kind==='margin'),refs=g.targets.slice(0,2).map(t=>t.ref),revision=(await get('bootstrap')).revision;
+ await page.locator('#diagnostic-list > summary').click();await page.locator(`[data-group="${g.id}"]`).click();await page.waitForFunction(()=>!document.querySelector('#batch-next').disabled);
+ if(!await page.locator('#diagnostic-targets').evaluate(e=>e.open))await page.locator('#diagnostic-targets > summary').click();
+ await page.locator('[data-include]').evaluateAll((els,refs)=>{for(const e of els)if(!e.disabled&&e.checked!==refs.includes(e.dataset.include))e.click();},refs);
+ await page.locator('#batch-apply').click();await page.locator('#batch-confirm').check();await page.locator('#batch-approve').click();
+ await page.waitForFunction(()=>!document.querySelector('#export-warning').hidden);await page.waitForFunction(()=>document.querySelector('#batch-preview').textContent.includes('처리 결과'));
+ const s=await get('bootstrap');check(s.revision===revision+1&&s.export.state==='pending','DB committed once / export pending');
+ await page.screenshot({path:'verification/batch-20261006/export-pending.png'});
+ return {pass:true,revision:s.revision,export:s.export,historyCount:(await get('history')).length};
+}
+)(page);
+```
+### Page
+- Page URL: http://127.0.0.1:52742/#page=18&ref=%23%2Ftexts%2F158&loc=0
+- Page Title: CanDoc · 원본 대조 검수

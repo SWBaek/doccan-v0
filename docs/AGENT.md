@@ -67,3 +67,29 @@
 로컬 API는 브라우저와 CLI의 공통 연결입니다. 읽기 경로는 `/api/bootstrap`, `/api/item?ref=...&cell=...`, `/api/page?page=...`, `/api/suspects`, `/api/history`, `/api/validate`, `/api/export-status`; 제안은 `POST /api/propose`, 재제안은 `POST /api/repropose` (`id`, 확인한 `revision`), 재내보내기는 `POST /api/export` (`{}`)입니다. 쓰기에는 bootstrap 세션 토큰 헤더가 필요합니다. 이는 로컬 요청 보호이며 사람의 신원을 증명하는 인증 체계는 아닙니다.
 
 승인/되돌림 응답의 `committed=true`는 DB 확정을 뜻합니다. `export.state`가 `pending`이면 파일별 내보낸 revision과 오류를 보고 재내보내기하세요. 중복 승인·stale 충돌은 HTTP 409와 현재 제안/내보내기 정보를 반환합니다. 네트워크 응답을 못 받은 경우에도 먼저 조회해서 반영 여부를 확인하고 승인을 자동 재시도하지 마세요. stale은 저장된 원래 제안과 현재 내용·항목 이력으로 계산하는 상태이므로 기존 제안 payload나 승인 근거는 바뀌지 않습니다.
+
+## 연속 검수 UI와 읽기 API
+
+사용자는 Codex 연결 없이 지원 텍스트/일반 셀의 수정안을 직접 만들 수 있습니다. 사람의 제안도 같은 pending → 정확한 변경 전후 확인 → 명시 승인 경로를 사용합니다. 화면의 초안과 작업 목록은 브라우저 저장소에 있고 확정 문서/검수 이력이 아닙니다. 외부 에이전트는 이 초안을 확정 데이터로 간주하지 않습니다.
+
+`GET /api/item`의 `capability`는 현재 대상의 직접 수정 가능 여부와 제한 이유, `target_version`은 해당 항목의 마지막 적용/되돌림 이력 번호, `review_state`는 셀 판단을 고려한 표시 상태입니다. `reviews`의 저장 기록은 그대로 반환합니다. 표 전체 판단보다 나중인 셀 보류는 표의 표시 상태를 보류로 만듭니다. 더 최근의 명시적인 표 전체 판단은 그 이전 셀 판단을 전체 표시에서 포괄하지만 셀 기록 자체를 지우지 않습니다.
+
+`GET /api/search?q=...`는 호환되는 배열 응답으로 모든 일치 대상을 반환합니다. 셀 일치는 `ref`+`cell`과 `row`/`column`, 실제 일치 부분 주변 `text`를 갖습니다. `offset`과 `limit`(1~150)을 주면 `{items,total,offset,revision}` 페이지 응답입니다. 불명확한 셀 `page`는 null이며 `table_page`는 표를 표시할 위치일 뿐 셀 페이지의 증거가 아닙니다.
+
+`POST /api/propose`의 선택적 `request_id`는 브라우저 등록 재시도의 중복 방지용입니다. 같은 ID/본문이면 이미 생성된 제안을 반환하고, 다른 본문이면 거부합니다. 재실행/승인 후에도 같은 ID는 재생성되지 않습니다. ID 기록은 별도 SQLite 테이블이며 DoclingDocument와 승인 이력 형식은 바뀌지 않습니다. 기존 CLI/AI 요청은 그대로 동작합니다. 승인은 여전히 특정 제안 ID에 대한 별도 동작입니다.
+
+제안 조회의 `undone_revision`은 해당 승인을 되돌린 이력 번호입니다. 역사적 `status=applied`를 바꾸지 않으면서 화면에서는 승인 후 되돌림으로 구분합니다. 이를 현재 문서에 아직 적용 중이라는 뜻으로 읽지 마세요.
+
+## 전체 문서 진단과 묶음 검수
+
+```powershell
+./.venv/Scripts/python -m candoc.cli diagnose
+./.venv/Scripts/python -m candoc.cli diagnostics
+./.venv/Scripts/python -m candoc.cli document
+```
+
+`diagnose`는 현재 revision의 전체 스냅샷 진단을 시작하고 즉시 반환합니다. `diagnostics`로 running/completed/failed/cancelled 상태, 페이지 진척, 그룹 근거와 대상별 현재 판단을 읽습니다. `document`는 확정 문서의 읽기 전용 조회입니다. 규칙은 이미지를 판독하지 않으며 통계적 정확도를 주장하지 않습니다. 기존 개별 제안 CLI와 Codex 실행기를 계속 사용합니다.
+
+UI의 `POST /api/batch-preview`는 `{group, refs, action: apply|keep|defer, request_id}`로 정확한 대상별 변경 전후를 고정합니다. 문서는 변경하지 않습니다. `GET /api/batch?id=...`로 상태를 조회합니다. 사용자만 `POST /api/batch-approve`의 특정 ID를 승인합니다. CLI에는 묶음 승인 명령도 없습니다. 에이전트가 이 API를 대신 호출하지 않습니다. 격리 Asset에서 명시적으로 승인된 자동 시험만 예외입니다.
+
+충돌 시 원래 revision/before를 바꾸지 않습니다. 재진단 후 최신 항목과 원본을 확인해 **새 미리보기와 새 승인**을 받습니다. 중복 승인·중복 클릭은 409, 묶음 내 충돌도 409이며 전체 무적용입니다. DB 확정 후 JSON 실패는 기존 reexport로 복구합니다. 진단/개별 검수 판단은 별도 상태이고, 한 묶음의 대표 사례만 본 것을 전체 대상의 개별 원본 확인으로 해석하지 않습니다.

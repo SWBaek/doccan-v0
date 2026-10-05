@@ -17,6 +17,8 @@ from datetime import datetime, timezone
 from docling_core.types.doc import DoclingDocument
 from PIL import Image
 
+from .review import review_state
+
 ROOT = Path(__file__).resolve().parent.parent
 COLLECTIONS = ('texts', 'tables', 'pictures', 'groups', 'key_value_items', 'form_items')
 TYPE_LABELS = {'text', 'paragraph', 'section_header', 'title', 'page_header', 'page_footer'}
@@ -250,7 +252,8 @@ class Store:
         self.db.executescript('''CREATE TABLE IF NOT EXISTS current (id INTEGER PRIMARY KEY CHECK(id=1), revision INTEGER NOT NULL, document TEXT NOT NULL, reviews TEXT NOT NULL);
         CREATE TABLE IF NOT EXISTS proposals (id TEXT PRIMARY KEY, payload TEXT NOT NULL);
         CREATE TABLE IF NOT EXISTS history (seq INTEGER PRIMARY KEY, payload TEXT NOT NULL);
-        CREATE TABLE IF NOT EXISTS exports (name TEXT PRIMARY KEY, revision INTEGER, error TEXT);''')
+        CREATE TABLE IF NOT EXISTS exports (name TEXT PRIMARY KEY, revision INTEGER, error TEXT);
+        CREATE TABLE IF NOT EXISTS proposal_requests (id TEXT PRIMARY KEY, fingerprint TEXT NOT NULL, proposal TEXT NOT NULL);''')
         with self.db:
             self.db.execute('INSERT OR IGNORE INTO current VALUES (1,0,?,?)', (dump(self.original), '{}'))
             self.db.executemany('INSERT OR IGNORE INTO exports VALUES (?,NULL,NULL)',
@@ -309,7 +312,7 @@ class Store:
         with self.lock:
             revision, doc, reviews = self.current()
             item = resolve(doc, ref)
-            return {'asset_id': self.manifest['asset_id'], 'revision': revision, 'item': item, 'original': resolve(self.original, ref), 'reviews': {k:v for k,v in reviews.items() if k == ref or k.startswith(ref+'/cells/')}, 'locations': self.locations(doc, item)}
+            return {'asset_id': self.manifest['asset_id'], 'revision': revision, 'item': item, 'original': resolve(self.original, ref), 'reviews': {k:v for k,v in reviews.items() if k == ref or k.startswith(ref+'/cells/')}, 'locations': self.locations(doc, item), 'target_version': self._last_changes().get(ref, 0)}
 
     def locations(self, doc, item, cell=None):
         locations = []
@@ -333,8 +336,9 @@ class Store:
         # to the same value) and review-only decisions with identical text.
         touched = {}
         for seq, payload in self.db.execute('SELECT seq,payload FROM history'):
-            ref = json.loads(payload)['ref']
-            touched[ref] = max(seq, touched.get(ref, -1))
+            event = json.loads(payload)
+            for ref in event.get('refs', [event['ref']]):
+                touched[ref] = max(seq, touched.get(ref, -1))
         return touched
 
     def _proposal_view(self, proposal, revision, doc, touched):
@@ -354,8 +358,16 @@ class Store:
         with self.lock:
             revision, doc, _ = self.current()
             touched = self._last_changes()
-            return [self._proposal_view(json.loads(r[0]), revision, doc, touched)
-                    for r in self.db.execute('SELECT payload FROM proposals ORDER BY rowid DESC')]
+            events = self.history()
+            applied = {e['seq']: e['proposal'] for e in events if e['kind'] == 'apply'}
+            undone = {applied[e['undoes']]: e['seq'] for e in events
+                      if e['kind'] == 'undo' and e['undoes'] in applied}
+            result = [self._proposal_view(json.loads(r[0]), revision, doc, touched)
+                      for r in self.db.execute('SELECT payload FROM proposals ORDER BY rowid DESC')]
+            for p in result:
+                if p['id'] in undone:
+                    p['undone_revision'] = undone[p['id']]
+            return result
 
     def history(self):
         return [json.loads(r[0]) for r in self.db.execute('SELECT payload FROM history ORDER BY seq DESC')]
@@ -416,8 +428,17 @@ class Store:
         validate(candidate)
         return scope, copy.deepcopy(item), result
 
-    def propose(self, req):
+    def propose(self, req, request_id=None):
         with self.lock:
+            fingerprint = json.dumps(req, sort_keys=True, ensure_ascii=False)
+            if request_id is not None:
+                if not isinstance(request_id, str) or not 8 <= len(request_id) <= 100:
+                    raise ValueError('Invalid proposal request ID')
+                row = self.db.execute('SELECT fingerprint,proposal FROM proposal_requests WHERE id=?', (request_id,)).fetchone()
+                if row:
+                    if row[0] != fingerprint:
+                        raise ValueError('Request ID reused with different proposal')
+                    return self._proposal(row[1])
             revision, doc, reviews = self.current()
             if req.get('revision') != revision or req.get('asset_id') != self.manifest['asset_id']:
                 raise ValueError('Asset/revision mismatch; fetch current item again')
@@ -427,6 +448,8 @@ class Store:
             p = {'id': uuid.uuid4().hex[:12], 'status': 'pending', 'request': req, 'scope': scope, 'before': before, 'after': after, 'created': datetime.now(timezone.utc).isoformat()}
             with self.db:
                 self.db.execute('INSERT INTO proposals VALUES (?,?)', (p['id'], dump(p)))
+                if request_id is not None:
+                    self.db.execute('INSERT INTO proposal_requests VALUES (?,?,?)', (request_id, fingerprint, p['id']))
             return p
 
     def repropose(self, proposal_id, expected_revision):
@@ -496,15 +519,29 @@ class Store:
             event = next((e for e in events if e['kind'] == 'apply' and e['seq'] not in undone), None)
             if not event:
                 raise ValueError('Nothing to undo')
-            if resolve(doc, event['ref']) != event['after']:
-                raise ValueError('Undo conflict')
+            targets = event.get('batch', [event])
+            if any(resolve(doc, t['ref']) != t['after'] for t in targets):
+                raise ValueError('Undo conflict; nothing changed')
             self.check_original()
-            target = resolve(doc, event['ref'])
-            target.clear()
-            target.update(event['before'])
+            for t in targets:
+                target = resolve(doc, t['ref'])
+                target.clear()
+                target.update(t['before'])
             validate(doc)
             reversal = {'seq': revision+1, 'kind': 'undo', 'undoes': event['seq'], 'ref': event['ref'], 'before': event['after'], 'after': event['before'], 'time': datetime.now(timezone.utc).isoformat()}
+            if 'batch' in event:
+                reversal['refs'] = event['refs']
+                reversal['batch'] = [{'ref': t['ref'], 'before': t['after'], 'after': t['before']} for t in targets]
             with self.db:
+                if 'batch' in event:
+                    for key, value in event['decisions_before'].items():
+                        if value is None:
+                            self.db.execute('DELETE FROM diagnostic_decisions WHERE id=?', (key,))
+                        else:
+                            self.db.execute('INSERT OR REPLACE INTO diagnostic_decisions VALUES(?,?)', (key, dump(value)))
+                    row = self.db.execute('SELECT payload FROM batches WHERE id=?', (event['proposal'],)).fetchone()
+                    payload = json.loads(row[0]); payload['status'] = 'undone'; payload['undone_revision'] = revision+1
+                    self.db.execute('UPDATE batches SET payload=? WHERE id=?', (dump(payload), event['proposal']))
                 self.db.execute('UPDATE current SET revision=?,document=?,reviews=? WHERE id=1', (revision+1, dump(doc), dump(event['reviews_before'])))
                 self.db.execute('INSERT INTO history VALUES (?,?)', (revision+1, dump(reversal)))
             return {**reversal, 'committed': True, 'export': self.export()}
@@ -531,5 +568,5 @@ class Store:
                         break
                     occupied |= positions
             if reasons:
-                found.append({'ref': v['self_ref'], 'page': v['prov'][0]['page_no'] if v.get('prov') else None, 'reasons': reasons, 'review': reviews.get(v['self_ref'], {'state': 'unreviewed'})})
+                found.append({'ref': v['self_ref'], 'page': v['prov'][0]['page_no'] if v.get('prov') else None, 'reasons': reasons, 'review': {'state': review_state(reviews, v['self_ref'])}})
         return found

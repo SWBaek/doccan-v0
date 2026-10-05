@@ -1,0 +1,23 @@
+async page => {
+ const base='http://127.0.0.1:52742',check=(v,m)=>{if(!v)throw Error(m)};
+ const get=async p=>(await page.request.get(base+'/api/'+p)).json();
+ await page.goto(base+'/#page=7&ref=%23%2Ftables%2F0&cell=1');await page.reload();await page.waitForFunction(()=>window.candocChatContext()?.cell===1);
+ if(await page.locator('#proposal-review').isVisible())await page.locator('#proposal-hide').click();
+ if(await page.locator('#draft-warning').isVisible())await page.locator('#draft-rebase').click();
+ const boot=await get('bootstrap');
+ await page.locator('#edit-value').fill('UX export recovery cell');await page.locator('#reason').fill('시험: DB 확정 뒤 내보내기 실패');await page.locator('#manual-propose').click();
+ await page.waitForFunction(()=>document.querySelector('#proposal-content .reason')?.textContent.includes('DB 확정 뒤'));
+ const p=(await get('proposals')).find(p=>p.status==='pending'&&p.request.reason==='시험: DB 확정 뒤 내보내기 실패');
+ await page.locator(`[data-approve="${p.id}"]`).click();await page.waitForFunction(()=>document.querySelector('#export-warning').hidden===false&&document.querySelector('#proposal-content [data-status="applied"]'));
+ const after=await get('bootstrap');
+ check(after.revision===boot.revision+1&&after.export.state==='pending','DB committed and export pending differentiated');
+ check((await get('document')).tables[0].data.table_cells[1].text==='UX export recovery cell','DB current content visible');
+ check((await page.locator('#review-state').textContent()).includes('부분 교정'),'Not marked all reviewed');
+ await page.locator('#reexport').click();await page.waitForFunction(()=>document.querySelector('#message').textContent.includes('내보내기 오류'));
+ check((await get('bootstrap')).revision===after.revision,'Failed export retry never reapproves');
+ await page.reload();await page.waitForFunction(()=>window.candocChatContext()?.cell===1&&document.querySelector('#export-warning').hidden===false);
+ await page.waitForFunction(id=>document.querySelector('#proposal-choice').value===id,p.id);
+ check(await page.locator('#proposal-choice').inputValue()===p.id,'Review proposal and target resume after reload');
+ await page.screenshot({path:'verification/ux-20261006/after-export-pending.png'});
+ return {result:'PASS',revision:after.revision,proposal:p.id,db_committed:true,export_pending:true,partial_only:true};
+}

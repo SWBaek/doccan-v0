@@ -42,3 +42,9 @@
 원본 요소 bbox 3,055건은 BOTTOMLEFT, 셀 bbox 2,991건은 TOPLEFT입니다. 각각 선언된 원점을 읽습니다. BOTTOMLEFT에서는 `top = page_height - t`, `bottom = page_height - b`; TOPLEFT는 그대로 씁니다. 페이지 표시 비율은 page.size 기준이고, 캡처 픽셀은 실제 이미지 width/height와 각각 비례시킵니다. 원점을 모르면 거부합니다. 셀 bbox는 표 상대 좌표로 임의 해석하지 않습니다.
 
 전체 범위 검사에서 표 `#/tables/56`의 셀 범위 겹침 1건이 확인됐습니다. 공식 모델이 받아들이는 최초 구조를 보존하고 별도 경고·의심 후보로 관리합니다. 구조 오류를 자동 복구하지 않습니다.
+
+## 반복 헤더·푸터 묶음 재분류
+
+고정 core 2.93.0의 `items/text.py`에서 page_header/page_footer는 TextItem이며 section_header의 level은 SectionHeaderItem 전용 필드입니다. `items/node.py`의 content_layer는 parent/children과 독립된 필드입니다. 따라서 승인된 leaf 항목의 label, content_layer=furniture, level 제거만 허용하고 트리를 옮기지 않습니다. text/orig/prov/charspan/self_ref/parent/children 및 모든 연결은 그대로 둡니다. 후보 전체를 원시 JSON 사본에 반영해 공식 모델과 추가 참조 검사로 검증하며 model_dump 결과를 저장하지 않습니다.
+
+묶음 제안·진단·판단은 별도 SQLite 테이블에 둡니다. 변경 이력은 기존 apply/undo에 refs와 대상별 before/after를 추가해 한 revision으로 기록합니다. 기존 단일 항목 이력은 변경하지 않습니다. 모든 대상의 스냅샷·변경 이력을 다시 검사한 뒤 하나의 DB 트랜잭션으로 확정합니다. 묶음 판단의 individually_reviewed=false는 DoclingDocument 밖 검수 기록에만 저장합니다.

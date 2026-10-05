@@ -80,3 +80,11 @@ codex app-server generate-json-schema --experimental --out ./protocol
 통신은 `jsonrpc` 헤더 없는 JSONL이다. `initialize` → `initialized`, `account/read`, `config/read`, `thread/start`/`thread/resume`, `mcpServerStatus/list`, `turn/start`/`turn/interrupt`와 `item/agentMessage/delta`, `item/completed`, `turn/completed`, `item/tool/call`을 사용한다. dynamic tools는 experimental API opt-in 대상이다. 실제 생성한 스키마의 필요한 부분을 `tests/fixtures/codex-0.160.0.json`에 보관하고 송신 요청을 검증한다. 필수 권한 게이트는 동일 태그 `rust-v0.160.0`의 [도구 등록 구현 사본](../verification/chat-20261006/upstream/spec_plan.rs)에서도 확인했다.
 
 검증 결과와 변경 파일 목록은 [구현 검증 기록](CHAT-VERIFICATION.md)에 정리한다. 실제 모델 대화는 아직 실행하지 않았으며, 별도 승인된 시험 전까지 모델 응답 품질·계정 모델 접근·사용량을 검증했다고 주장하지 않는다.
+
+## 연속 검수 화면
+
+대화는 변환 영역 아래에 열려 원본과 제안 승인 영역을 덮지 않습니다. 미전송 메시지는 선택한 항목/셀의 초안에 보관합니다. 다른 대상을 선택하면 해당 대상의 초안을 보여 주고, 전송된 메시지는 원래 대상을 유지합니다. 선택을 읽는 동안 전송을 막습니다. 초안 기준이 바뀌면 원본 옆 경고에서 이전 기준을 확인하고 계속할 수 있습니다. **AI는 원본 이미지를 보지 않습니다.**
+
+`제안 확인`은 원본 옆 검토 패널을 엽니다. 사람의 직접 수정 제안과 AI 제안은 같은 검토·승인·이력 경로를 사용합니다. 자세한 재개/초안 제한은 [연속 검수 안내](CONTINUOUS-REVIEW.md)를 참고하세요.
+
+문제 묶음에서 선택한 항목은 전송 시 해당 묶음 ID·제목·의심 이유·선택 항목의 계산 근거와 함께 고정됩니다. 서버가 묶음 소속을 확인합니다. 묶음은 규칙 후보이며 원문으로 검증된 사실이 아닙니다. 원본 이미지는 여전히 모델에 전송하지 않습니다. 기존 도구의 제안 권한은 선택한 한 항목에 제한되며, 묶음 승인이나 다른 항목으로의 권한 확장은 없습니다.

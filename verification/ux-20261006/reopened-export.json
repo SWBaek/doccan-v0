@@ -1,0 +1,14 @@
+{
+  "revision": 21,
+  "export": {
+    "state": "pending",
+    "db_revision": 21,
+    "files": {
+      "document.json": 18,
+      "review.json": 21
+    },
+    "errors": {
+      "document.json": "Injected test-only export failure"
+    }
+  }
+}

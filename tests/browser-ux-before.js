@@ -1,0 +1,29 @@
+async page => {
+ const assert=(v,m)=>{if(!v)throw Error(m)};
+ await page.locator('[data-ref]').first().click();
+ await page.locator('#reason').fill('A의 검수 이유');
+ const refs=await page.locator('[data-ref]').evaluateAll(xs=>xs.map(x=>x.dataset.ref));
+ await page.locator(`[data-ref="${refs[1]}"]`).click();
+ assert(await page.locator('#reason').inputValue()==='A의 검수 이유','Expected baseline reason leak');
+ await page.route('**/api/item?*',async route=>{const url=decodeURIComponent(route.request().url()); if(url.includes('ref='+refs[0]))await page.waitForTimeout(650);await route.continue()});
+ await page.locator(`[data-ref="${refs[0]}"]`).click();
+ await page.locator(`[data-ref="${refs[1]}"]`).click();
+ await page.waitForTimeout(1100);
+ assert(await page.locator('#ref').innerText()===refs[0],'Expected baseline late response');
+ await page.unroute('**/api/item?*');
+ await page.locator('#search').fill('Basso');await page.locator('#search-form button').click();
+ await page.locator('.result').first().waitFor();
+ const search=await page.locator('#dialog-content').innerText();
+ await page.locator('.result[data-result="#/tables/0"]').click();
+ await page.locator('#cell').waitFor();
+ assert(await page.locator('#cell').inputValue()==='','Baseline search only table');
+ await page.locator('#reason').fill('시험 기준 동작: 유지');await page.locator('#keep').click();
+ await page.locator('[data-view]').first().click();
+ assert(!await page.locator('#dialog').isVisible(),'Baseline source closes proposal');
+ await page.locator('#chat-toggle').click();
+ await page.screenshot({path:'verification/ux-20261006/before-laptop.png'});
+ await page.locator('#chat-hide').click();
+ await page.reload(); await page.locator('#cell').waitFor();
+ assert(await page.locator('#reason').inputValue()==='','Baseline no draft recovery');
+ return {reasonLeaks:true,lastSelectionOverwritten:true,searchOnlyTable:search,sourceClosesProposal:true,draftLostOnReload:true,manualEditor:await page.locator('#edit-value').count()};
+}

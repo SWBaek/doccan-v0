@@ -278,7 +278,7 @@ class Chat:
                 self._disconnect('error', 'Codex 프로세스가 종료됐습니다. 다시 연결하면 저장된 대화를 재개합니다.')
 
     def snapshot(self, context):
-        if not isinstance(context, dict) or set(context) != {'asset_id', 'revision', 'ref', 'cell'}:
+        if not isinstance(context, dict) or set(context) not in ({'asset_id', 'revision', 'ref', 'cell'}, {'asset_id', 'revision', 'ref', 'cell', 'group_id'}):
             raise ValueError('대화 대상 형식이 올바르지 않습니다.')
         with self.store.lock:
             revision, doc, _ = self.store.current()
@@ -286,6 +286,14 @@ class Chat:
                 raise ValueError('문서 revision이 바뀌었습니다. 새로고침한 뒤 내용을 확인하고 다시 보내세요.')
             target = {**context, 'document': doc.get('name'), 'schema_version': doc['version']}
             ref, cell = context['ref'], context['cell']
+            if context.get('group_id') is not None:
+                batch = getattr(self.store, 'batch', None)
+                if batch is None: raise ValueError('진단 서비스 없음')
+                group = batch._group(context['group_id'])
+                if ref not in {t['ref'] for t in group['targets']}: raise ValueError('선택 항목이 문제 묶음과 다릅니다.')
+                member = next(t for t in group['targets'] if t['ref']==ref)
+                target['diagnostic_group'] = {k: group[k] for k in ('id','title','reason','kind')}
+                target['diagnostic_group'].update(target_count=len(group['targets']), selected_evidence=member['evidence'], suggested=member['suggested'], limitation='규칙 의심 후보. 원본 자동 판독 아님. 제안은 현재 선택 한 항목만 가능.')
             if ref is None:
                 if cell is not None:
                     raise ValueError('항목 없는 셀 선택입니다.')

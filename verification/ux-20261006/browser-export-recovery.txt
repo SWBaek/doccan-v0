@@ -1,0 +1,23 @@
+### Result
+{"result":"PASS","recovered_revision":21,"history_unchanged":true,"undo":true}
+### Ran Playwright code
+```js
+await (async page => {
+ const base='http://127.0.0.1:52742',check=(v,m)=>{if(!v)throw Error(m)};
+ const get=async p=>(await page.request.get(base+'/api/'+p)).json();
+ await page.reload();await page.waitForFunction(()=>window.candocChatContext()?.cell===1);
+ const before=await get('bootstrap'),history=(await get('history')).length;
+ check(before.export.state==='pending','Export state survives server restart');
+ await page.locator('#reexport').click();await page.waitForFunction(()=>document.querySelector('#export-warning').hidden===true);
+ const after=await get('bootstrap');
+ check(after.revision===before.revision&&(await get('history')).length===history,'Recovery has no extra decision');
+ check(after.export.state==='synced','Latest DB snapshot exported');
+ check((await get('document')).tables[0].data.table_cells[1].text==='UX export recovery cell','Confirmed correction preserved');
+ await page.locator('#history').click();await page.locator('#undo').click();await page.waitForFunction(()=>document.querySelector('#message').textContent.includes('되돌렸습니다'));
+ check((await get('document')).tables[0].data.table_cells[1].text!=='UX export recovery cell','Undo after recovery');
+ return {result:'PASS',recovered_revision:after.revision,history_unchanged:true,undo:true};
+}
+)(page);
+```
+### Events
+- New console entries: .playwright-cli\console-2026-10-05T20-42-04-718Z.log#L7-L8

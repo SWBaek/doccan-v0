@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import mimetypes
 import secrets
@@ -11,6 +12,8 @@ from urllib.parse import parse_qs, unquote, urlsplit
 
 from .core import ROOT, Store, ProposalConflict, dump, local_path, validate, items
 from .render import render_page
+from .review import edit_capability, search_items, review_state
+from .batch import BatchReview
 from .chat import Chat, load_settings
 from .codex_rpc import StdioRPC, CodexError
 
@@ -22,6 +25,7 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
     except Exception:
         store.close()
         raise
+    batch = BatchReview(store)
     token = secrets.token_urlsafe(32)
     cache = {}
 
@@ -93,7 +97,11 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
                 return self.send(b'', status=204, mime='image/x-icon')
             revision, doc, reviews = store.current()
             if path == '/api/bootstrap':
-                return self.send({'token': token, 'asset': store.manifest, 'revision': revision, 'export': store.export_status(), 'pages': sorted(map(int, doc['pages'])), 'reviews': reviews, 'counts': {'total': len(items(doc)), 'review_decisions': len(reviews)}, 'unlocated': [v['self_ref'] for v in items(doc) if not v.get('prov')]})
+                return self.send({'token': token, 'workspace_id': hashlib.sha256(str(store.data).encode()).hexdigest()[:16], 'asset': store.manifest, 'revision': revision, 'export': store.export_status(), 'pages': sorted(map(int, doc['pages'])), 'reviews': reviews, 'counts': {'total': len(items(doc)), 'review_decisions': len(reviews)}, 'unlocated': [v['self_ref'] for v in items(doc) if not v.get('prov')]})
+            if path == '/api/diagnostics':
+                return self.send(batch.state())
+            if path == '/api/batch':
+                return self.send(batch.view(q['id'][0]))
             if path == '/api/export-status':
                 return self.send(store.export_status())
             if path == '/api/page':
@@ -112,6 +120,8 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
                         raise ValueError('Invalid cell')
                     info['cell'] = cell
                     info['locations'] = store.locations(doc,info['item'],cell)
+                info['capability'] = edit_capability(info['item'], info.get('cell'))
+                info['review_state'] = review_state(info['reviews'], q['ref'][0], info.get('cell'))
                 return self.send(info)
             if path == '/api/proposals':
                 return self.send(store.proposals())
@@ -120,8 +130,15 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
             if path == '/api/suspects':
                 return self.send(store.suspects())
             if path == '/api/search':
-                query = q.get('q', [''])[0].lower()
-                return self.send([{'ref': v['self_ref'], 'page': v['prov'][0]['page_no'] if v.get('prov') else None, 'text': v.get('text', v['label'])[:220]} for v in items(doc) if query in v.get('text','').lower() or query in v['self_ref'].lower() or any(query in c['text'].lower() for c in v.get('data',{}).get('table_cells',[]))][:150])
+                found = search_items(items(doc), q.get('q', [''])[0])
+                if 'offset' not in q:
+                    return self.send(found)  # CLI-compatible list, no silent truncation.
+                offset = int(q['offset'][0])
+                limit = int(q.get('limit', ['60'])[0])
+                if offset < 0 or not 1 <= limit <= 150:
+                    raise ValueError('Invalid search range')
+                return self.send({'items': found[offset:offset+limit], 'total': len(found),
+                                  'offset': offset, 'revision': revision})
             if path == '/api/validate':
                 return self.send({**validate(doc, store.source, images=True), **store.check_original(), 'revision': revision, 'export': store.export_status()})
             if path == '/api/document':
@@ -131,7 +148,7 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
                 if p.suffix.lower() not in {'.png','.jpg','.jpeg'}:
                     raise ValueError('Only raster assets are served')
                 return self.send(p.read_bytes(), mime=mimetypes.guess_type(p.name)[0])
-            static = {'/': 'index.html', '/app.js':'app.js', '/chat.js':'chat.js', '/style.css':'style.css'}
+            static = {'/': 'index.html', '/app.js':'app.js', '/chat.js':'chat.js', '/style.css':'style.css', '/batch.js':'batch.js'}
             if path in static:
                 p = ROOT/'web'/static[path]
                 return self.send(p.read_bytes(), mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8'}[p.suffix])
@@ -156,8 +173,16 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
                     return self.send(chat.interrupt())
                 if self.path == '/api/chat/disconnect':
                     return self.send(chat.disconnect())
+                if self.path == '/api/diagnose':
+                    return self.send(batch.start())
+                if self.path == '/api/diagnose-cancel':
+                    return self.send(batch.cancel())
+                if self.path == '/api/batch-preview':
+                    return self.send(batch.preview(req))
+                if self.path == '/api/batch-approve':
+                    return self.send(batch.approve(req['id']))
                 if self.path == '/api/propose':
-                    return self.send(store.propose(req))
+                    return self.send(store.propose({k:v for k,v in req.items() if k != 'request_id'}, req.get('request_id')))
                 if self.path == '/api/repropose':
                     return self.send(store.repropose(req['id'],req['revision']))
                 if self.path == '/api/export':
@@ -180,6 +205,7 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
 
     class ReviewServer(ThreadingHTTPServer):
         def server_close(self):
+            batch.close()
             chat.close()
             super().server_close()
 
@@ -191,6 +217,8 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
         raise
     server.store = store
     server.chat = chat
+    server.batch = batch
+    store.batch = batch
     return server
 
 

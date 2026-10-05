@@ -1,0 +1,21 @@
+async page => {
+ const base='http://127.0.0.1:52742',check=(v,m)=>{if(!v)throw Error(m)};
+ await page.goto(base);await page.waitForFunction(()=>document.querySelector('#diagnostic-progress').textContent.includes('개 묶음'));await page.locator('#issues').click();
+ await page.locator('#diagnose').click();await page.waitForFunction(()=>document.querySelector('#diagnostic-status').textContent.includes('진단 완료'));
+ await page.locator('#diagnostic-list > summary').click();await page.locator('[data-group]').first().click();await page.waitForFunction(()=>!document.querySelector('#batch-next').disabled);
+ await page.setViewportSize({width:1920,height:1080});
+ await page.waitForFunction(()=>[...document.querySelectorAll('[data-representative]')].every(c=>[...c.getContext('2d').getImageData(0,0,c.width,c.height).data].some((v,i)=>i%4===3&&v>0)));
+ await page.screenshot({path:'verification/batch-20261006/overview-desktop.png'});
+ if(!await page.locator('#diagnostic-targets').evaluate(e=>e.open))await page.locator('#diagnostic-targets > summary').click();
+ const box=page.locator('[data-include]').nth(3),ref=await box.getAttribute('data-include');await box.uncheck();
+ await page.locator(`.diagnostic-target [data-inspect="${ref}"]`).click();await page.waitForFunction(ref=>window.candocChatContext()?.ref===ref,ref);await page.waitForFunction(()=>!document.querySelector('#batch-next').disabled);
+ await page.locator('#diagnostic-scroll').evaluate(el=>{el.scrollTop=1000;el.dispatchEvent(new Event('scroll'));});const scroll=await page.locator('#diagnostic-scroll').evaluate(el=>el.scrollTop);
+ await page.reload();await page.waitForFunction(ref=>window.candocChatContext()?.ref===ref,ref);await page.locator(`[data-include="${ref}"]`).waitFor({state:'attached'});
+ check(!await page.locator(`[data-include="${ref}"]`).isChecked(),'Excluded target survives reopen');check(await page.locator('#diagnostic-targets').evaluate(e=>e.open),'Expanded targets survive reopen');
+ const after=await page.locator('#diagnostic-scroll').evaluate(el=>el.scrollTop);check(Math.abs(after-scroll)<60,'Group scroll restored');
+ // Moving to document/legacy search hides group UI but keeps its selection.
+ await page.locator('#document-view').click();check(await page.locator('#items').isVisible(),'Legacy document accessible');await page.locator('#issues').click();check(await page.locator('#diagnostic-panel').isVisible(),'Back to group');
+ check((await page.evaluate(()=>window.candocChatContext())).ref===ref,'Source selection retained between views');
+ await page.setViewportSize({width:1366,height:768});
+ return {pass:true,ref,scroll,restoredScroll:after,exceptionRestored:true,thumbnailsDrawn:true,documentReturnContext:true};
+}

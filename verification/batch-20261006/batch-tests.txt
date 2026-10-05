@@ -1,0 +1,15 @@
+test_batch_exclusion_exact_fields_reopen_and_one_undo (test_batch.BatchWorkflow.test_batch_exclusion_exact_fields_reopen_and_one_undo) ... ok
+test_cancel_fail_retry_preserves_completed_groups (test_batch.BatchWorkflow.test_cancel_fail_retry_preserves_completed_groups) ... ok
+test_database_failure_rolls_back_and_export_failure_recovers (test_batch.BatchWorkflow.test_database_failure_rolls_back_and_export_failure_recovers) ... ok
+test_latest_conflict_all_or_none_and_aba (test_batch.BatchWorkflow.test_latest_conflict_all_or_none_and_aba) ... ok
+test_rediagnose_idempotency_and_keep_defer_preserved_then_recheck (test_batch.BatchWorkflow.test_rediagnose_idempotency_and_keep_defer_preserved_then_recheck) ... ok
+test_review_only_and_chat_context_scope (test_batch.BatchWorkflow.test_review_only_and_chat_context_scope) ... ok
+test_unrelated_change_and_duplicate_click (test_batch.BatchWorkflow.test_unrelated_change_and_duplicate_click) ... ok
+test_margin_digit_parity_chapter_and_origins (test_batch.DetectionRules.test_margin_digit_parity_chapter_and_origins) ... ok
+test_repeated_headings_notes_table_columns_and_associations_are_not_furniture (test_batch.DetectionRules.test_repeated_headings_notes_table_columns_and_associations_are_not_furniture) ... ok
+test_similarity_anchors_and_review_only_structures (test_batch.DetectionRules.test_similarity_anchors_and_review_only_structures) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 47.218s
+
+OK

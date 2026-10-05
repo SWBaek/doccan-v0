@@ -1,0 +1,32 @@
+### Result
+{"result":"PASS","accepted_response_lost":true,"target_draft_cleared":true,"duplicate_turns":0}
+### Ran Playwright code
+```js
+await (async page => {
+ const base='http://127.0.0.1:52742',check=(v,m)=>{if(!v)throw Error(m)};
+ await page.goto(base+'/#page=7&ref=%23%2Ftables%2F0&cell=2');await page.reload();await page.waitForFunction(()=>window.candocChatContext()?.cell===2);
+ await page.locator('#chat-toggle').click();await page.locator('#chat-connect').click();await page.waitForFunction(()=>document.querySelector('#chat-status').dataset.state==='connected');
+ if(await page.locator('#draft-warning').isVisible())await page.locator('#draft-rebase').click();
+ const prior=await page.locator('.chat-turn').count();
+ let intercepted=false;
+ await page.route('**/api/chat/message',async route=>{intercepted=true;await route.fetch();await route.abort('failed');});
+ await page.locator('#chat-input').fill('[slow] 응답 유실 중복 전송 시험');await page.locator('#chat-send').click();
+ await page.waitForFunction(n=>document.querySelectorAll('.chat-turn').length===n+1&&document.querySelector('#chat-input').value==='',prior);
+ check(intercepted,'Accepted request response was lost');
+ check(await page.locator('#chat-retry-area').isHidden(),'Confirmed send removed uncertain retry');
+ check(await page.locator('#chat-send').isDisabled(),'Active turn prevents duplicate send');
+ await page.unroute('**/api/chat/message');
+ await page.locator('#chat-interrupt').click();await page.waitForFunction(n=>document.querySelectorAll('.chat-turn')[n]?.dataset.status==='interrupted',prior);
+ await page.locator('#chat-disconnect').click();await page.waitForFunction(()=>document.querySelector('#chat-status').dataset.state==='disconnected');
+ await page.reload();await page.waitForFunction(()=>window.candocChatContext()?.cell===2);
+ check(await page.locator('#chat-input').inputValue()==='','Confirmed sent draft stays cleared on reload');
+ check(await page.locator('.chat-turn').count()===prior+1,'Exactly one new turn');
+ return {result:'PASS',accepted_response_lost:true,target_draft_cleared:true,duplicate_turns:0};
+}
+)(page);
+```
+### Page
+- Page URL: http://127.0.0.1:52742/#page=7&ref=%23%2Ftables%2F0&cell=2&loc=0
+- Page Title: CanDoc · 원본 대조 검수
+### Events
+- New console entries: .playwright-cli\console-2026-10-05T20-42-04-718Z.log#L12

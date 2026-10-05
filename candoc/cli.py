@@ -19,7 +19,7 @@ def main():
     init = sub.add_parser('init')
     init.add_argument('--zip',type=Path,default=ROOT/'IEEE-1547-2018-document-assets.zip')
     init.add_argument('--data',type=Path,default=ROOT/'data')
-    for name in ['status','suspects','proposals','history','validate','reexport']:
+    for name in ['status','suspects','proposals','history','validate','reexport','document','diagnostics','diagnose']:
         sub.add_parser(name)
     repropose = sub.add_parser('repropose', help='Create a new unapproved proposal after inspecting latest data')
     repropose.add_argument('id')
@@ -56,6 +56,8 @@ def main():
             result = api('/api/propose',json.loads(args.file.read_text('utf-8-sig')))
         elif args.command == 'repropose':
             result = api('/api/repropose', {'id': args.id, 'revision': args.revision})
+        elif args.command == 'diagnose':
+            result = api('/api/diagnose', {})
         elif args.command == 'reexport':
             result = api('/api/export', {})
         else:

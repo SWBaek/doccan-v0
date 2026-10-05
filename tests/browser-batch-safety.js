@@ -1,0 +1,39 @@
+async page => {
+ const base='http://127.0.0.1:52742',check=(v,m)=>{if(!v)throw Error(m)},get=async p=>(await page.request.get(base+'/api/'+p)).json();
+ const boot=await get('bootstrap'),baseline=await get('document');
+ const post=async(p,data)=>page.request.post(base+'/api/'+p,{headers:{'X-Candoc-Token':boot.token},data});
+ async function diagnose(){await page.locator('#diagnose').click();await page.waitForFunction(()=>document.querySelector('#diagnostic-status').textContent.includes('진단 완료'));await page.waitForFunction(()=>!document.querySelector('#diagnose').disabled);return get('diagnostics');}
+ async function select(g){if(!await page.locator('#diagnostic-list').evaluate(e=>e.open))await page.locator('#diagnostic-list > summary').click();await page.locator(`[data-group="${g.id}"]`).click();await page.waitForFunction(()=>!document.querySelector('#batch-next').disabled);}
+ async function subset(refs){if(!await page.locator('#diagnostic-targets').evaluate(e=>e.open))await page.locator('#diagnostic-targets > summary').click();await page.locator('[data-include]').evaluateAll((els,refs)=>{for(const e of els)if(!e.disabled&&e.checked!==refs.includes(e.dataset.include))e.click();},refs);}
+ async function preview(action){await page.locator('#batch-'+action).click();await page.locator('#batch-confirm').waitFor();return page.evaluate(()=>JSON.parse(localStorage.getItem(Object.keys(localStorage).find(k=>k.startsWith('candoc-batch-v1:')))).preview);}
+ async function approve(){await page.locator('#batch-confirm').check();await page.locator('#batch-approve').click();}
+ async function undo(){await page.locator('#history').click();await page.locator('#undo').click();await page.waitForFunction(()=>document.querySelector('#message').textContent.includes('되돌렸습니다'));}
+ await page.goto(base);await page.waitForFunction(()=>document.querySelector('#diagnostic-progress').textContent.includes('개 묶음'));
+ let d=await diagnose(),g=d.groups.find(g=>g.kind==='margin'),refs=g.targets.slice(0,2).map(t=>t.ref);await select(g);await subset(refs);
+ const pending=await preview('apply');
+ const change=await (await post('propose',{asset_id:boot.asset.asset_id,revision:(await get('bootstrap')).revision,ref:refs[0],op:'keep',reason:'Isolated concurrent change'})).json();await post('decision',{id:change.id,action:'approve'});
+ const conflictRevision=(await get('bootstrap')).revision;await approve();await page.waitForFunction(()=>document.querySelector('#batch-preview').textContent.includes('충돌'));
+ check((await get('bootstrap')).revision===conflictRevision,'Conflict changes nothing');check(await page.locator('#batch-recheck').isVisible(),'Explicit re-review path');
+ await page.screenshot({path:'verification/batch-20261006/conflict.png'});await undo();
+ // Retry the stale group via a new diagnosis and new exact preview, never revision overwrite.
+ d=await diagnose();g=d.groups.find(x=>x.id===g.id);await select(g);await subset(refs);
+ let lostPreview=false;await page.route('**/api/batch-preview',async route=>{if(!lostPreview){lostPreview=true;await route.fetch();await route.abort('failed');}else await route.continue();});
+ await page.locator('#batch-apply').click();await page.locator('#batch-preview-retry').waitFor();await page.locator('#batch-preview-retry').click();await page.locator('#batch-confirm').waitFor();await page.unroute('**/api/batch-preview');
+ const exact=await page.evaluate(()=>JSON.parse(localStorage.getItem(Object.keys(localStorage).find(k=>k.startsWith('candoc-batch-v1:')))).preview);
+ let lostApproval=false;await page.route('**/api/batch-approve',async route=>{if(!lostApproval){lostApproval=true;await route.fetch();await route.abort('failed');}else await route.continue();});
+ const beforeApprove=(await get('bootstrap')).revision;await approve();await page.waitForFunction(()=>document.querySelector('#message').textContent.includes('반영된 것을 확인'));await page.unroute('**/api/batch-approve');
+ check((await get('bootstrap')).revision===beforeApprove+1,'Lost response commits once');check((await post('batch-approve',{id:exact})).status()===409,'Duplicate approval rejected');await undo();
+ // Preserve explicit group keep/defer decisions across diagnosis and reload.
+ d=await diagnose();g=d.groups.find(x=>x.id===g.id);await select(g);await subset([refs[0]]);await preview('keep');await approve();await page.waitForFunction(()=>document.querySelector('#batch-preview').textContent.includes('처리 결과'));
+ d=await diagnose();g=d.groups.find(x=>x.id===g.id);await select(g);await subset([refs[1]]);await preview('defer');await approve();await page.waitForFunction(()=>document.querySelector('#batch-preview').textContent.includes('처리 결과'));
+ d=await diagnose();check(d.groups.length===5,'No duplicate groups');g=d.groups.find(x=>x.id===g.id);check(g.targets.find(t=>t.ref===refs[0]).state==='kept','Keep preserved');check(g.targets.find(t=>t.ref===refs[1]).state==='deferred','Defer preserved');
+ await page.reload();await page.waitForFunction(()=>document.querySelector('#diagnostic-progress').textContent.includes('유지 1'));check((await page.locator('#diagnostic-progress').innerText()).includes('보류 1'),'Reload judgments');
+ // Unsupported table structure is review-only; cells use TOPLEFT, independently of item bbox.
+ const tg=d.groups.find(x=>x.kind==='table_overlap');await select(tg);check(await page.locator('#batch-apply').isDisabled(),'No invented table repair');
+ await page.waitForFunction(()=>window.candocChatContext()?.ref==='#/tables/56');
+ const cell=tg.targets[0].evidence.overlapping_cells[0][0];await page.locator('#cell').selectOption(String(cell));await page.waitForFunction(c=>window.candocChatContext()?.cell===c,cell);await page.locator('#crop').waitFor({state:'visible'});
+ const info=await get('item?ref='+encodeURIComponent('#/tables/56')+'&cell='+cell);check(info.locations[0].bbox.coord_origin==='TOPLEFT','Cell origin declaration');check(info.locations[0].rect.y===info.locations[0].bbox.t,'Cell TOPLEFT unchanged');
+ await page.screenshot({path:'verification/batch-20261006/table-review.png'});
+ await undo();await undo();check(JSON.stringify(await get('document'))===JSON.stringify(baseline),'All test changes undone');
+ return {pass:true,staleBatch:pending,recoveredBatch:exact,conflictAllOrNone:true,lostPreview:true,lostApproval:true,duplicate409:true,keepDeferPreserved:true,tableCell:cell,topLeftVerified:true,revision:(await get('bootstrap')).revision};
+}

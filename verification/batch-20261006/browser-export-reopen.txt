@@ -1,0 +1,15 @@
+### Result
+{"pass":true,"revision":11,"export":{"state":"pending","db_revision":11,"files":{"document.json":10,"review.json":11},"errors":{"document.json":"Injected test-only export failure"}},"historyCount":11}
+### Ran Playwright code
+```js
+await (async page => {
+ const base='http://127.0.0.1:52742',check=(v,m)=>{if(!v)throw Error(m)},get=async p=>(await page.request.get(base+'/api/'+p)).json();
+ await page.reload();await page.locator('#export-warning').waitFor({state:'visible'});
+ const s=await get('bootstrap'),history=(await get('history')).length;check(s.export.state==='pending','Restart retained pending state');
+ // Fault file is removed by the test operator after this script's preceding restart check.
+ return {pass:true,revision:s.revision,export:s.export,historyCount:history};
+}
+)(page);
+```
+### Events
+- New console entries: .playwright-cli\console-2026-10-05T21-48-17-222Z.log#L8-L9

@@ -1,0 +1,1717 @@
+[
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\manifest.json",
+    "sha": "B5E4B15156DC37B1EECD75AD5A88482EC9509B6DA8C0EE802E1479048C3DB68D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source-links.json",
+    "sha": "353F5CE9029D3A25E44B8003573CCAFB2A0BC1A2A02F00BD7B5F7FC1083FF796",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\document.json",
+    "sha": "BC2986E0685472527DEBF1C85129A17041501F8441270C0E69069732CA91CCFF",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\0395a2698706d90bbfdc937ade39a92a5717dfc4cd459822f682e765240cc7f0.png",
+    "sha": "0395A2698706D90BBFDC937ADE39A92A5717DFC4CD459822F682E765240CC7F0",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\04ddc27d47efc2803aafed46137f21ede5022fb6a78c8d09fb5b9b34119bfc66.png",
+    "sha": "04DDC27D47EFC2803AAFED46137F21EDE5022FB6A78C8D09FB5B9B34119BFC66",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\060b031bf3acfe17a1ba321a77f234f498fb563bdf46da0b8ca637016bfea797.png",
+    "sha": "060B031BF3ACFE17A1BA321A77F234F498FB563BDF46DA0B8CA637016BFEA797",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\07bf51ffa998cd4cbdafb88dc3ed075681c0db3907a25ee572c792f518bfad39.png",
+    "sha": "07BF51FFA998CD4CBDAFB88DC3ED075681C0DB3907A25EE572C792F518BFAD39",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\09592532df4b23383558997f13dbf47acccf41bd10cdda54d0c479e90020c424.png",
+    "sha": "09592532DF4B23383558997F13DBF47ACCCF41BD10CDDA54D0C479E90020C424",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\09b82c6f2783ae57d2cd538e0eea4335e426e6d3118c277cebf9c7eed1db9f91.png",
+    "sha": "09B82C6F2783AE57D2CD538E0EEA4335E426E6D3118C277CEBF9C7EED1DB9F91",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\0a7c700455710ff4d1589347f8a5ef791d732bc2057970f8fef34315fecd452f.png",
+    "sha": "0A7C700455710FF4D1589347F8A5EF791D732BC2057970F8FEF34315FECD452F",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\0bc3e3832ecaf718c77c3d7e070134568dfee0bffc0698cb102c3fb7ecc62204.png",
+    "sha": "0BC3E3832ECAF718C77C3D7E070134568DFEE0BFFC0698CB102C3FB7ECC62204",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\0eeee55ab58bf18f3c1ea0ad8bf17af7995398219609e3e4a9960701a01a10b8.png",
+    "sha": "0EEEE55AB58BF18F3C1EA0AD8BF17AF7995398219609E3E4A9960701A01A10B8",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\123d98929ef4a2f3a2e56cfbadf9d9ffb9dcb8649570318e716c3622501a4afa.png",
+    "sha": "123D98929EF4A2F3A2E56CFBADF9D9FFB9DCB8649570318E716C3622501A4AFA",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\12635cae6d838629f579b5afa706bf1edda38484114a8da72c7d47ae1e3c5397.png",
+    "sha": "12635CAE6D838629F579B5AFA706BF1EDDA38484114A8DA72C7D47AE1E3C5397",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\149e2b217e81a9310a54558072868be5d0e3cdfc1657d22da195522108392318.png",
+    "sha": "149E2B217E81A9310A54558072868BE5D0E3CDFC1657D22DA195522108392318",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\164085c7e7724f4c163a8d494dd97fe644bf0604b925dd4d3a7faf009a039f48.png",
+    "sha": "164085C7E7724F4C163A8D494DD97FE644BF0604B925DD4D3A7FAF009A039F48",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\1649ca03445b1191e66bdcbfde5f52a98d47ffba364fa12812b54eecc6e142ec.png",
+    "sha": "1649CA03445B1191E66BDCBFDE5F52A98D47FFBA364FA12812B54EECC6E142EC",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\164a0448218f33523b89835ef23d8767219b5793c29e7e6180a8b2bd4cc47f66.png",
+    "sha": "164A0448218F33523B89835EF23D8767219B5793C29E7E6180A8B2BD4CC47F66",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\1a6bf85be358286d91e97c8738efe638fe1e9db3c34e75780cd4281b4c5a0b7b.png",
+    "sha": "1A6BF85BE358286D91E97C8738EFE638FE1E9DB3C34E75780CD4281B4C5A0B7B",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\1abb244f696004db3a96e1051f07c8c33ea3d2bdc03ad46a7c7ba9d7e1798409.png",
+    "sha": "1ABB244F696004DB3A96E1051F07C8C33EA3D2BDC03AD46A7C7BA9D7E1798409",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\1cac226d2fed7bc76129a2bfc2f5206264a0590e7dec9190c9a0feeeb9d053b6.png",
+    "sha": "1CAC226D2FED7BC76129A2BFC2F5206264A0590E7DEC9190C9A0FEEEB9D053B6",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\1cea2f70bc4b6b2db0a08c55fbcd574703bfacd9059b1df9dbbaf049a77fd32a.png",
+    "sha": "1CEA2F70BC4B6B2DB0A08C55FBCD574703BFACD9059B1DF9DBBAF049A77FD32A",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\1d93f653528e1761b27c35ed6c51997585fe77d096d96a5f33f7007e68a9ed0b.png",
+    "sha": "1D93F653528E1761B27C35ED6C51997585FE77D096D96A5F33F7007E68A9ED0B",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\1e1953a953bc9f53d49c9039f2374a59380482aea8b2a69b1d439e189c460f6d.png",
+    "sha": "1E1953A953BC9F53D49C9039F2374A59380482AEA8B2A69B1D439E189C460F6D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\1e3777323b79d5b55c850cea7993fc625df71be080b379df6fe9d212f1e5ac9a.png",
+    "sha": "1E3777323B79D5B55C850CEA7993FC625DF71BE080B379DF6FE9D212F1E5AC9A",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\20545d67aaf7c5475b0a759e771b526746444cbe45b8502b698bbee4ed13f05a.png",
+    "sha": "20545D67AAF7C5475B0A759E771B526746444CBE45B8502B698BBEE4ED13F05A",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\21c2bca12ec8792bfdd3df099a91af06ca83eb480862dddf7554c8cdace76e42.png",
+    "sha": "21C2BCA12EC8792BFDD3DF099A91AF06CA83EB480862DDDF7554C8CDACE76E42",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\23f5fbda42d77550667b1c193c8d7f6517cfcd49cc9d7acddb3439c6bdb70e1f.png",
+    "sha": "23F5FBDA42D77550667B1C193C8D7F6517CFCD49CC9D7ACDDB3439C6BDB70E1F",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\257a644adb2691b85cf6a811c54448190ea78176566209f9a4f848b9fab09f7d.png",
+    "sha": "257A644ADB2691B85CF6A811C54448190EA78176566209F9A4F848B9FAB09F7D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\274ad1fa42f25f516b5aa1923cdbde5334f59cb42a5bec9a666febcc199ab1e9.png",
+    "sha": "274AD1FA42F25F516B5AA1923CDBDE5334F59CB42A5BEC9A666FEBCC199AB1E9",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\2835b8358e1c1d19aa4cbffb813c62b35ffaf53f11db46f2bab5f20c191ba4f8.png",
+    "sha": "2835B8358E1C1D19AA4CBFFB813C62B35FFAF53F11DB46F2BAB5F20C191BA4F8",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\2f494a4703a80cde08faa09298885da35b2a27df8dc5a49fc7bd5e9d9034a588.png",
+    "sha": "2F494A4703A80CDE08FAA09298885DA35B2A27DF8DC5A49FC7BD5E9D9034A588",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\30d87e2b9770c09bb0807bc42b328181de9fae2f8c3a36331243c87de748aa9d.png",
+    "sha": "30D87E2B9770C09BB0807BC42B328181DE9FAE2F8C3A36331243C87DE748AA9D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\32b788a6cb4e34a6b6c79f19936144ac35d59320fff3fe04687319931ee90277.png",
+    "sha": "32B788A6CB4E34A6B6C79F19936144AC35D59320FFF3FE04687319931EE90277",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\32d6ca48b0214c2fa646e19775314b60da33d8d7278042cb2586bf5cb9df503f.png",
+    "sha": "32D6CA48B0214C2FA646E19775314B60DA33D8D7278042CB2586BF5CB9DF503F",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\35419ec91483a78e1b652ef62aa7350de81c925a645ef0f66eb2bfac22b43af8.png",
+    "sha": "35419EC91483A78E1B652EF62AA7350DE81C925A645EF0F66EB2BFAC22B43AF8",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\3794e323e23b90b88fea23ce6e78ca66002766f22fe2d6e93c652f1f5f525bf0.png",
+    "sha": "3794E323E23B90B88FEA23CE6E78CA66002766F22FE2D6E93C652F1F5F525BF0",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\380bdfca8bd2b24d8628370cd05e92dcedf700e03e26339ec14024c592b48123.png",
+    "sha": "380BDFCA8BD2B24D8628370CD05E92DCEDF700E03E26339EC14024C592B48123",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\39a135bd3e4f26259d917f3a87e11844cc7c59a12cea1b985d00cbe5d0de2a58.png",
+    "sha": "39A135BD3E4F26259D917F3A87E11844CC7C59A12CEA1B985D00CBE5D0DE2A58",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\3a8b595748868dc2dc79fb744f0a698942816a793cbf88f423d5e8b8a7926c8e.png",
+    "sha": "3A8B595748868DC2DC79FB744F0A698942816A793CBF88F423D5E8B8A7926C8E",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\3af1de930f5b06d9ebe24a5a9f827158abf4a382ab4b669e5afc8d0baee7e101.png",
+    "sha": "3AF1DE930F5B06D9EBE24A5A9F827158ABF4A382AB4B669E5AFC8D0BAEE7E101",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\3b8abcc805df57e1ca68003f37a32a8188dde94a675713b8bf48795182fda5c8.png",
+    "sha": "3B8ABCC805DF57E1CA68003F37A32A8188DDE94A675713B8BF48795182FDA5C8",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\3ba40d5edef7ed4cec7ef224ab3f1aefbc7aa4ea4d57faeab78f824e876fa9f7.png",
+    "sha": "3BA40D5EDEF7ED4CEC7EF224AB3F1AEFBC7AA4EA4D57FAEAB78F824E876FA9F7",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\3beaafed5a01a0894ba3dd80516084847e92eb2d243bba6a9df0d3183d44b9ef.png",
+    "sha": "3BEAAFED5A01A0894BA3DD80516084847E92EB2D243BBA6A9DF0D3183D44B9EF",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\3d9038cc9b698d98bb5ee5662b2e0a598d414c5a0d85a06ed9fd32ec0b862ce6.png",
+    "sha": "3D9038CC9B698D98BB5EE5662B2E0A598D414C5A0D85A06ED9FD32EC0B862CE6",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\3dde888b4158a0bf10a8d3556cec91003a77f69baf107d0cc94539dc9ac50da3.png",
+    "sha": "3DDE888B4158A0BF10A8D3556CEC91003A77F69BAF107D0CC94539DC9AC50DA3",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\3ee739a80a8e8f77e10176d29ebdc562f0b8e45f5aff70bec8eb67507e31287f.png",
+    "sha": "3EE739A80A8E8F77E10176D29EBDC562F0B8E45F5AFF70BEC8EB67507E31287F",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\433eefb67efd846d454197ca96ccf937c5333d162bef3af60aabe01449213693.png",
+    "sha": "433EEFB67EFD846D454197CA96CCF937C5333D162BEF3AF60AABE01449213693",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\4347e6cf3ab2ec55f1b22506d7e0101c88067c6796ab7feb724e552a09e12065.png",
+    "sha": "4347E6CF3AB2EC55F1B22506D7E0101C88067C6796AB7FEB724E552A09E12065",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\44280884da7b08f70ad392e178bd3e7241136420b478b0c1ade1a0e7ecc03e07.png",
+    "sha": "44280884DA7B08F70AD392E178BD3E7241136420B478B0C1ADE1A0E7ECC03E07",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\4480425e5f96575e7d2d1931284cf49e7a068e60fbd22c456023ecbc1eb7a22c.png",
+    "sha": "4480425E5F96575E7D2D1931284CF49E7A068E60FBD22C456023ECBC1EB7A22C",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\4765d3ab5716af4ae99d7fb40199fb3c439a4e190df885e420c76798aaa72495.png",
+    "sha": "4765D3AB5716AF4AE99D7FB40199FB3C439A4E190DF885E420C76798AAA72495",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\489b105894364a384d38cfa7435c9dfea5a509b1f59afa499a06f0b684fafe7d.png",
+    "sha": "489B105894364A384D38CFA7435C9DFEA5A509B1F59AFA499A06F0B684FAFE7D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\48aa0308053a0b112fdefbc3d9ea1ecff721bd812925deba23b82ab8a0c99cfc.png",
+    "sha": "48AA0308053A0B112FDEFBC3D9EA1ECFF721BD812925DEBA23B82AB8A0C99CFC",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\4912745e0b52c02394015e4ef6b3dd2f90c37e734086992c51079e30c9fcfe67.png",
+    "sha": "4912745E0B52C02394015E4EF6B3DD2F90C37E734086992C51079E30C9FCFE67",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\4d6ba01e7f6333f0163e18550fc6422d09b7dc3976eedbb8de6279e6bfe76564.png",
+    "sha": "4D6BA01E7F6333F0163E18550FC6422D09B7DC3976EEDBB8DE6279E6BFE76564",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\4f0dd5a70ae170ccde80ee16766a2ecfd994e06654fdf10577227d653bd25fd6.png",
+    "sha": "4F0DD5A70AE170CCDE80EE16766A2ECFD994E06654FDF10577227D653BD25FD6",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\4ff85a7612686ab6cc6169a5b569bf61c7ec03a395e380b076ddccba5d8ec803.png",
+    "sha": "4FF85A7612686AB6CC6169A5B569BF61C7EC03A395E380B076DDCCBA5D8EC803",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\51abeb6d4bc3cd72d9a577d245554e9bf95357488de69bbed78e3ab132c395af.png",
+    "sha": "51ABEB6D4BC3CD72D9A577D245554E9BF95357488DE69BBED78E3AB132C395AF",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\54ff6e4adeb67ec6314d2e3a1710d5f570d0b5107df4d07a5a1e87231046734d.png",
+    "sha": "54FF6E4ADEB67EC6314D2E3A1710D5F570D0B5107DF4D07A5A1E87231046734D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\553b3306274531d903f04eddd98a9c86a445dbb034909ab4bd47bbfcae22b530.png",
+    "sha": "553B3306274531D903F04EDDD98A9C86A445DBB034909AB4BD47BBFCAE22B530",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\55e1e8449d0fd2a52ba3806e3594eee48f15356f2d8fe76e830fab5f2908702a.png",
+    "sha": "55E1E8449D0FD2A52BA3806E3594EEE48F15356F2D8FE76E830FAB5F2908702A",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\5653ad3b1b5b7a155d34e0e2788181e759052288d55d08705723c8b5faf398bf.png",
+    "sha": "5653AD3B1B5B7A155D34E0E2788181E759052288D55D08705723C8B5FAF398BF",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\578371c597370da935756fb96b331ee3d62c0bc4d52a3769ce20cb3db8c5f712.png",
+    "sha": "578371C597370DA935756FB96B331EE3D62C0BC4D52A3769CE20CB3DB8C5F712",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\58b935dc48ff99354ffcaec1398ad005bc15bf4282662c973e9696eef955c802.png",
+    "sha": "58B935DC48FF99354FFCAEC1398AD005BC15BF4282662C973E9696EEF955C802",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\5d3dd7c03c2bf42dbcc2e01c9a3731feac91b092aabd75e7cd3c6f0b00386659.png",
+    "sha": "5D3DD7C03C2BF42DBCC2E01C9A3731FEAC91B092AABD75E7CD3C6F0B00386659",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\5d9c71c7e27112babe0722f5ccdf9d2886e996e68f47a0857968fb1960ea3acf.png",
+    "sha": "5D9C71C7E27112BABE0722F5CCDF9D2886E996E68F47A0857968FB1960EA3ACF",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\5dc4b2dc1d72382707fd7e76ad2162352b497a46de1d0f5566e48da020315b1c.png",
+    "sha": "5DC4B2DC1D72382707FD7E76AD2162352B497A46DE1D0F5566E48DA020315B1C",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\5eb434c24a586f408cda736d427dab1b0cbf11bd1697785d5fe066c1dce3ce42.png",
+    "sha": "5EB434C24A586F408CDA736D427DAB1B0CBF11BD1697785D5FE066C1DCE3CE42",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\5ec7d3596138dc465148d818de54817d2678f7da5dba86fad7d99045a00a57fc.png",
+    "sha": "5EC7D3596138DC465148D818DE54817D2678F7DA5DBA86FAD7D99045A00A57FC",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\641892e5343b0ffab187830e230561b0c7c404812f1e6794b3335ae2c8fc9c83.png",
+    "sha": "641892E5343B0FFAB187830E230561B0C7C404812F1E6794B3335AE2C8FC9C83",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\64e1c84fc1f9a09f35f9dbd792861a2242900ee76b0288bb37fc01c9ddac4c38.png",
+    "sha": "64E1C84FC1F9A09F35F9DBD792861A2242900EE76B0288BB37FC01C9DDAC4C38",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\674b7332db11e9101c90fb0cc7560cd0bba3af80a12ab4dad19a25883ef839a1.png",
+    "sha": "674B7332DB11E9101C90FB0CC7560CD0BBA3AF80A12AB4DAD19A25883EF839A1",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\686f30ad6f97d666f5b6eba4941f6c1672e091526eedb56613465c8f388443a8.png",
+    "sha": "686F30AD6F97D666F5B6EBA4941F6C1672E091526EEDB56613465C8F388443A8",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\6a8e9c02dd95bde658982ceb1bd1276b7c1eeb75f9a380206cc660f4205a3301.png",
+    "sha": "6A8E9C02DD95BDE658982CEB1BD1276B7C1EEB75F9A380206CC660F4205A3301",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\6acaeb5b11ac75169f257423dfc286466513881e681ece57fc3e7278e6e930f7.png",
+    "sha": "6ACAEB5B11AC75169F257423DFC286466513881E681ECE57FC3E7278E6E930F7",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\6b3b7c71f09402230375c1b40308716919976c80aca1f10e055a677bf2f84abc.png",
+    "sha": "6B3B7C71F09402230375C1B40308716919976C80ACA1F10E055A677BF2F84ABC",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\6c33c508570518a50e5484aeb180d74be0f46823eb1f399a52cde340b3d3a61d.png",
+    "sha": "6C33C508570518A50E5484AEB180D74BE0F46823EB1F399A52CDE340B3D3A61D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\6def10665b9e1868b3233921cebe7236965aac957c404a8fabacbf5fc34f1a99.png",
+    "sha": "6DEF10665B9E1868B3233921CEBE7236965AAC957C404A8FABACBF5FC34F1A99",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\6df5b29a6fc5fd8a8aa8be2ad25f433c62977e837146e92977ba5634df6ab0a5.png",
+    "sha": "6DF5B29A6FC5FD8A8AA8BE2AD25F433C62977E837146E92977BA5634DF6AB0A5",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\6e43957160ef7f44e759544908024d58563394c68d9c447eb6043c594bd41924.png",
+    "sha": "6E43957160EF7F44E759544908024D58563394C68D9C447EB6043C594BD41924",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\6ebf6e259e7377f0773b604393d3ddeb606ec05d5e18c94b8438d152fccb9159.png",
+    "sha": "6EBF6E259E7377F0773B604393D3DDEB606EC05D5E18C94B8438D152FCCB9159",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\6fbd9a10703be2c09d78f7eb4a2895a15b7a64cb53d8ada2ab2a6fa3d9bbf328.png",
+    "sha": "6FBD9A10703BE2C09D78F7EB4A2895A15B7A64CB53D8ADA2AB2A6FA3D9BBF328",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\702a7e2671210f8b1d9554049ad75f9694ef198b9bb16f6c7e5fdffbb28b473f.png",
+    "sha": "702A7E2671210F8B1D9554049AD75F9694EF198B9BB16F6C7E5FDFFBB28B473F",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\73750a4b7ba55a198dd979044260cd9b5b9b8fae813127d5221bba6d357af3f7.png",
+    "sha": "73750A4B7BA55A198DD979044260CD9B5B9B8FAE813127D5221BBA6D357AF3F7",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\75b2e259a5f53902b7f06674d643338e6036a5d8fd36f3a1ba434b060f9ae8dd.png",
+    "sha": "75B2E259A5F53902B7F06674D643338E6036A5D8FD36F3A1BA434B060F9AE8DD",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\79015be3b11af8162af4eb284a7d4181f76ed6e9ab9beba514925ab016e74c24.png",
+    "sha": "79015BE3B11AF8162AF4EB284A7D4181F76ED6E9AB9BEBA514925AB016E74C24",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\793f828eb873dd849203b3c4509df807237555dc6603062bb40608d698226c44.png",
+    "sha": "793F828EB873DD849203B3C4509DF807237555DC6603062BB40608D698226C44",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\7bd3bc148b28ec1a2a81de6bc2fa824c4804380747b698d978723d6eb3bade05.png",
+    "sha": "7BD3BC148B28EC1A2A81DE6BC2FA824C4804380747B698D978723D6EB3BADE05",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\7c3561eb169dc8db73a44249e0d033cbc487ecbed514caf4d0c4c8d78bf22f35.png",
+    "sha": "7C3561EB169DC8DB73A44249E0D033CBC487ECBED514CAF4D0C4C8D78BF22F35",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\7c412cc4ab300a93fc69215bd716086f3b4c74391620c41e7fd4d34d0f69f006.png",
+    "sha": "7C412CC4AB300A93FC69215BD716086F3B4C74391620C41E7FD4D34D0F69F006",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\7d771ff5873fc74acf90e142d51f24c9d51d888d4801b9d6f6a2f5ef6e70c5cd.png",
+    "sha": "7D771FF5873FC74ACF90E142D51F24C9D51D888D4801B9D6F6A2F5EF6E70C5CD",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\7dc34245208bbf9906627d7496e091e542ca1d94b4f24c0d401014bc2c28729a.png",
+    "sha": "7DC34245208BBF9906627D7496E091E542CA1D94B4F24C0D401014BC2C28729A",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\7e409a86dbafd64c4cc8e281dee03e4192d409d09164b1ba0b4b3fa4087060ea.png",
+    "sha": "7E409A86DBAFD64C4CC8E281DEE03E4192D409D09164B1BA0B4B3FA4087060EA",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\80007d5050e0c9647e8a13fd29c4e81cf709ecc60238caed67e97559e5825b80.png",
+    "sha": "80007D5050E0C9647E8A13FD29C4E81CF709ECC60238CAED67E97559E5825B80",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\80467199cae481ac29943b3628690606b8578cf7ca5673ae743e41af50578a9d.png",
+    "sha": "80467199CAE481AC29943B3628690606B8578CF7CA5673AE743E41AF50578A9D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\80bbe8d15018e77770850980766cf052790d51de8535a6fe5b4ae88e1562319e.png",
+    "sha": "80BBE8D15018E77770850980766CF052790D51DE8535A6FE5B4AE88E1562319E",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\80dbe68b51ebbe629b50848f013b082cda5afd942bbe44c0919dd7bc8f922619.png",
+    "sha": "80DBE68B51EBBE629B50848F013B082CDA5AFD942BBE44C0919DD7BC8F922619",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\815dee84cc003fa590db4ebf7c3bbc22a57983c2ba68ac58fc9c14c3a8b040ad.png",
+    "sha": "815DEE84CC003FA590DB4EBF7C3BBC22A57983C2BA68AC58FC9C14C3A8B040AD",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\870efab2034fb6704a1891aac1667b366caa5b5c53d744174dd91f1757c27688.png",
+    "sha": "870EFAB2034FB6704A1891AAC1667B366CAA5B5C53D744174DD91F1757C27688",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\8a8f536603b449c0526254eb488aafeebd8e2d8bad78873f183e69eee1ba9df9.png",
+    "sha": "8A8F536603B449C0526254EB488AAFEEBD8E2D8BAD78873F183E69EEE1BA9DF9",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\8b4f1a33e44609f622049a99b8956cbd273e76ed0bc4c5ecd6b02d3a1f98773f.png",
+    "sha": "8B4F1A33E44609F622049A99B8956CBD273E76ED0BC4C5ECD6B02D3A1F98773F",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\8bb655c8f8ea39f501d6da7b61b6a8f30b3ddae069c883c09f9d4d94554ddb1a.png",
+    "sha": "8BB655C8F8EA39F501D6DA7B61B6A8F30B3DDAE069C883C09F9D4D94554DDB1A",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\92415b5740d03ea6cfef418d3537beb1a5efcda3f6b46d9f9dd53c8f6da43a97.png",
+    "sha": "92415B5740D03EA6CFEF418D3537BEB1A5EFCDA3F6B46D9F9DD53C8F6DA43A97",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\9275fbe266ee3527ab5a829c3aa2bbc8d9d501e54585e97a5a39243c4f326f14.png",
+    "sha": "9275FBE266EE3527AB5A829C3AA2BBC8D9D501E54585E97A5A39243C4F326F14",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\95e0d1c595151f1b6e1ab992f42e0809e2a0cfe3301e0166a82cd8741ec94dac.png",
+    "sha": "95E0D1C595151F1B6E1AB992F42E0809E2A0CFE3301E0166A82CD8741EC94DAC",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\96c4250d27b193e4d15180918f55cc6aee24d0c3b150bae27b98f7ef54e72a63.png",
+    "sha": "96C4250D27B193E4D15180918F55CC6AEE24D0C3B150BAE27B98F7EF54E72A63",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\9768429efd6139257d0e6815be073270215b6b9b7a1cfd7bef1f29e41c7b3fff.png",
+    "sha": "9768429EFD6139257D0E6815BE073270215B6B9B7A1CFD7BEF1F29E41C7B3FFF",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\97c1409e4a3f6da27f77e60bc602690852d09ab1512410eb5cc29c7b4f2f32b4.png",
+    "sha": "97C1409E4A3F6DA27F77E60BC602690852D09AB1512410EB5CC29C7B4F2F32B4",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\9a0047e344e70148346fb3503dfa8614c4ddd5f7b9d4fc881f0d9724fc3a6a3b.png",
+    "sha": "9A0047E344E70148346FB3503DFA8614C4DDD5F7B9D4FC881F0D9724FC3A6A3B",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\9a38902bae80e4f63e141a4cbffd71c821929927c20420732960d722a4e6b508.png",
+    "sha": "9A38902BAE80E4F63E141A4CBFFD71C821929927C20420732960D722A4E6B508",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\a05d9aea72c1ea618a14bf99622b9e67d17006b8a16ddba11a067bc240aae2b4.png",
+    "sha": "A05D9AEA72C1EA618A14BF99622B9E67D17006B8A16DDBA11A067BC240AAE2B4",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\a0d828c0b6fc45483241d3f038700ce27d4dcb4a437ae9ae6060165861b8031e.png",
+    "sha": "A0D828C0B6FC45483241D3F038700CE27D4DCB4A437AE9AE6060165861B8031E",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\a5cc62132b2566576f88a7a0581ad357948b243417e3997e0bc472d9076a9e81.png",
+    "sha": "A5CC62132B2566576F88A7A0581AD357948B243417E3997E0BC472D9076A9E81",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\a7211c42031197681d1f794b6e307ad589200d2db9daed9dda39da93c5276290.png",
+    "sha": "A7211C42031197681D1F794B6E307AD589200D2DB9DAED9DDA39DA93C5276290",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\a771e782c6941b11c838c02cef361a11ffbb08f16c950f13cc9537672aedca64.png",
+    "sha": "A771E782C6941B11C838C02CEF361A11FFBB08F16C950F13CC9537672AEDCA64",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\a8ba602a7179f50b45e768a6754d9797f311ef0badb239711e5b1864d59fdd27.png",
+    "sha": "A8BA602A7179F50B45E768A6754D9797F311EF0BADB239711E5B1864D59FDD27",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\a9e074522578a3d18a5c223b785211490f09e1e6c80466e247575fec8808dbc9.png",
+    "sha": "A9E074522578A3D18A5C223B785211490F09E1E6C80466E247575FEC8808DBC9",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\aa50b73c7a36d92fdee013e83a438336edca938031adbebb8a2c2c81d63ef380.png",
+    "sha": "AA50B73C7A36D92FDEE013E83A438336EDCA938031ADBEBB8A2C2C81D63EF380",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\ad78df5f2f80c542ee74b451ecd5570f8fca2d6c6d83f52eade33321e0f6a0ed.png",
+    "sha": "AD78DF5F2F80C542EE74B451ECD5570F8FCA2D6C6D83F52EADE33321E0F6A0ED",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\af0e7f480362e645e811d4a75b377dd994d2574146d6e73d57888e65f7bbdb25.png",
+    "sha": "AF0E7F480362E645E811D4A75B377DD994D2574146D6E73D57888E65F7BBDB25",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\b087fc3b2bc8eb5328f6ccea41d3344c24a436183a61418feb0bedb5d4a9c257.png",
+    "sha": "B087FC3B2BC8EB5328F6CCEA41D3344C24A436183A61418FEB0BEDB5D4A9C257",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\b2994496738cd7b997bb5ec56f46287461321d60988024c2859e92ab315ae1e0.png",
+    "sha": "B2994496738CD7B997BB5EC56F46287461321D60988024C2859E92AB315AE1E0",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\b2c1d0bce4454aed5b98c3be731d41086447bb3bf14f232dafca04327b92821b.png",
+    "sha": "B2C1D0BCE4454AED5B98C3BE731D41086447BB3BF14F232DAFCA04327B92821B",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\b2e4e2179bd31d7aa633c4dd0350220c45cb61cf851139508a91edc876b09409.png",
+    "sha": "B2E4E2179BD31D7AA633C4DD0350220C45CB61CF851139508A91EDC876B09409",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\b546d477e8f19a31a95a27e25bc8c17c76b5aafadc4b06f96a1c0b65642e6bf0.png",
+    "sha": "B546D477E8F19A31A95A27E25BC8C17C76B5AAFADC4B06F96A1C0B65642E6BF0",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\b5ed54f8888dcb86503a6e78714e431754c4028963c67b3fa1979f46ccd94a16.png",
+    "sha": "B5ED54F8888DCB86503A6E78714E431754C4028963C67B3FA1979F46CCD94A16",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\b60d552027e6e757771b498fbf4914221ce97149ef284454afffe7d2da84c883.png",
+    "sha": "B60D552027E6E757771B498FBF4914221CE97149EF284454AFFFE7D2DA84C883",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\b81382df5e5dc4849cfe190c5a3b523984a04c749fa9672799a9dbac4ba50ace.png",
+    "sha": "B81382DF5E5DC4849CFE190C5A3B523984A04C749FA9672799A9DBAC4BA50ACE",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\b9d30f7b024e4598ab1013084a9b55be451053c9e5e91fe4a303a6d7b565c187.png",
+    "sha": "B9D30F7B024E4598AB1013084A9B55BE451053C9E5E91FE4A303A6D7B565C187",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\b9daa08e762e759ee01e2f47300f137632f017d641281df2ebca2ede35ab18bb.png",
+    "sha": "B9DAA08E762E759EE01E2F47300F137632F017D641281DF2EBCA2EDE35AB18BB",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\bac811e94fcfd31ffe163cc115a69a54bff87e46adec442296929627bfa6369a.png",
+    "sha": "BAC811E94FCFD31FFE163CC115A69A54BFF87E46ADEC442296929627BFA6369A",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\bafc97b8b2d2dbf73a01ad559a5d5f7c71dd1dcf037072a2ea71ba5648781d8b.png",
+    "sha": "BAFC97B8B2D2DBF73A01AD559A5D5F7C71DD1DCF037072A2EA71BA5648781D8B",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\bb35ada45d31fd92ffbfd059b6112cd235c9016e37fa87e9656c8d4f3599387d.png",
+    "sha": "BB35ADA45D31FD92FFBFD059B6112CD235C9016E37FA87E9656C8D4F3599387D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\c027736cb9d07cc37b582e30d610d9a6775df6cf23fd8d129cdd06d140c230dd.png",
+    "sha": "C027736CB9D07CC37B582E30D610D9A6775DF6CF23FD8D129CDD06D140C230DD",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\c470412dc92c6581bbf2c360627256e7e263df9a7187fedd9382fb91f4ca800e.png",
+    "sha": "C470412DC92C6581BBF2C360627256E7E263DF9A7187FEDD9382FB91F4CA800E",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\c7326e37080c380665184b519c2acd89bf2ef50dd5f56d7b3780b9a595f6cfb6.png",
+    "sha": "C7326E37080C380665184B519C2ACD89BF2EF50DD5F56D7B3780B9A595F6CFB6",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\c9728b7425bb3bcb44b0cf95073e9a2d2f1ace31a999c4425d04883a13c2b277.png",
+    "sha": "C9728B7425BB3BCB44B0CF95073E9A2D2F1ACE31A999C4425D04883A13C2B277",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\cb92df3d9af1b19622a651a7d911991fa9d8a83a9e3a86e2b841bc4c591853fa.png",
+    "sha": "CB92DF3D9AF1B19622A651A7D911991FA9D8A83A9E3A86E2B841BC4C591853FA",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\cf9bb13b55aed57d81a1ada7f8efe903a5039b3104f0cc2d62f3a7c2a490fad6.png",
+    "sha": "CF9BB13B55AED57D81A1ADA7F8EFE903A5039B3104F0CC2D62F3A7C2A490FAD6",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\cf9fa5d9b40f895c352a228440f67c1dcc610144cfaa4fa8c98453838e5f7c6e.png",
+    "sha": "CF9FA5D9B40F895C352A228440F67C1DCC610144CFAA4FA8C98453838E5F7C6E",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\cfd99db9d2be82cc502268e3ddd2f16ce8ff0e34f10221c5778f913517638240.png",
+    "sha": "CFD99DB9D2BE82CC502268E3DDD2F16CE8FF0E34F10221C5778F913517638240",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\d06881c77ec780feff08eb45a5ccc101fc88336bd5a83b80792bf7151485ff77.png",
+    "sha": "D06881C77EC780FEFF08EB45A5CCC101FC88336BD5A83B80792BF7151485FF77",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\d07740dcdb6a6240b80ea36964dd03b2fb550674dda7b118620d02d49288ffdb.png",
+    "sha": "D07740DCDB6A6240B80EA36964DD03B2FB550674DDA7B118620D02D49288FFDB",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\d8435e1bf481795e5b9b166ca5786fc7bfe6274087708476d73a6c4c50eb0b4c.png",
+    "sha": "D8435E1BF481795E5B9B166CA5786FC7BFE6274087708476D73A6C4C50EB0B4C",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\da3d26b74ba6ad38d198e97c7c59b0e638293ca8a60e0e483dd731c41bf1ef3d.png",
+    "sha": "DA3D26B74BA6AD38D198E97C7C59B0E638293CA8A60E0E483DD731C41BF1EF3D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\db9931bf87c0ef900b830d322a619ec227d320aaca6ec2e7b69f9b102ef503c2.png",
+    "sha": "DB9931BF87C0EF900B830D322A619EC227D320AACA6EC2E7B69F9B102EF503C2",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\dc065d3786b606c399e00f1ff8879d0d3b0307c822d3d6009fcd9122bf4b0a55.png",
+    "sha": "DC065D3786B606C399E00F1FF8879D0D3B0307C822D3D6009FCD9122BF4B0A55",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\ddb7b6078452637790e669fb5f7ce3739de1a73f0f0bef6fe61d1a0c6e00e2bd.png",
+    "sha": "DDB7B6078452637790E669FB5F7CE3739DE1A73F0F0BEF6FE61D1A0C6E00E2BD",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\de1f4444a534bd0fa98fe1b290e9e3914a8f1fa5eac2b942ccdbe371ae939eb9.png",
+    "sha": "DE1F4444A534BD0FA98FE1B290E9E3914A8F1FA5EAC2B942CCDBE371AE939EB9",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\de4ed50936087118d580199c4768cd3ec9186cba8663fecba0f793cb28622792.png",
+    "sha": "DE4ED50936087118D580199C4768CD3EC9186CBA8663FECBA0F793CB28622792",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\e164e925365ac1af6d4c51504a95620ba9e28c79038e2091c9e3efe71c5b4354.png",
+    "sha": "E164E925365AC1AF6D4C51504A95620BA9E28C79038E2091C9E3EFE71C5B4354",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\e23b4557fcb111642361ea3479b12dbc7c8c8cf6fe4b03c4b6b36a8eabac5ebb.png",
+    "sha": "E23B4557FCB111642361EA3479B12DBC7C8C8CF6FE4B03C4B6B36A8EABAC5EBB",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\e24643992cc5c4a172306962d2cee8ab1bbc6ea8382d5f243c252be9793b1d06.png",
+    "sha": "E24643992CC5C4A172306962D2CEE8AB1BBC6EA8382D5F243C252BE9793B1D06",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\e34e56076085194c279b4d59bdcffcb464726e7dbd87022bb61079bdec1e4b4f.png",
+    "sha": "E34E56076085194C279B4D59BDCFFCB464726E7DBD87022BB61079BDEC1E4B4F",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\e5d6c89bae2733b1549fd4e558285fd9e77b04a2f12cf8e23d48205655dbd7f9.png",
+    "sha": "E5D6C89BAE2733B1549FD4E558285FD9E77B04A2F12CF8E23D48205655DBD7F9",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\e618894e226d78c013cd1617e04a39377409ec9c88c975bb1c57e30e90aef1c8.png",
+    "sha": "E618894E226D78C013CD1617E04A39377409EC9C88C975BB1C57E30E90AEF1C8",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\e6b99bf301c1eb1f00803ab4f3616bff499c13936a04f7a2e7b534c804cdafcb.png",
+    "sha": "E6B99BF301C1EB1F00803AB4F3616BFF499C13936A04F7A2E7B534C804CDAFCB",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\e6f46da3b1c16f9c2720f42c6314ef571e8241a2b18a047b81947f9e8545dc34.png",
+    "sha": "E6F46DA3B1C16F9C2720F42C6314EF571E8241A2B18A047B81947F9E8545DC34",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\ed7bb36b6a58a2a171bef7ec7862d6ef4000930edf56ba2e5882fa7441143d57.png",
+    "sha": "ED7BB36B6A58A2A171BEF7EC7862D6EF4000930EDF56BA2E5882FA7441143D57",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\f01e814a092b06d845e3168d195b900c419bb3e5988f1fc06800c17fb5914a3c.png",
+    "sha": "F01E814A092B06D845E3168D195B900C419BB3E5988F1FC06800C17FB5914A3C",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\f0e2003f3fd7f3b791af17e46e937a1bf4c80836f29ae89bc83a194fc32998ef.png",
+    "sha": "F0E2003F3FD7F3B791AF17E46E937A1BF4C80836F29AE89BC83A194FC32998EF",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\f1658e567acd5636f4058826c8b8f2f4343acd58199569a8026bc55519957782.png",
+    "sha": "F1658E567ACD5636F4058826C8B8F2F4343ACD58199569A8026BC55519957782",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\f2831da14c4fc794c065a25802c5ca59c16f216df2bbeaecb3fe3d3a8f9a7f5b.png",
+    "sha": "F2831DA14C4FC794C065A25802C5CA59C16F216DF2BBEAECB3FE3D3A8F9A7F5B",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\f298ec9429a6e9578fb2df05f2d748ea7101446ab078106801de92cad6d8c287.png",
+    "sha": "F298EC9429A6E9578FB2DF05F2D748EA7101446AB078106801DE92CAD6D8C287",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\f5aae9a952b5b88b0e5d387f71daa28c69b868f173edcb74aab71a3d2e9491c5.png",
+    "sha": "F5AAE9A952B5B88B0E5D387F71DAA28C69B868F173EDCB74AAB71A3D2E9491C5",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\f62c9704a2a0992e716c62b3f07e983057be84e44e3230442ac413dc5f2066d0.png",
+    "sha": "F62C9704A2A0992E716C62B3F07E983057BE84E44E3230442AC413DC5F2066D0",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\f866d2f0495b5d138059bbdee2fc62dc168a8bc28ed9c633e9cbd0c417290506.png",
+    "sha": "F866D2F0495B5D138059BBDEE2FC62DC168A8BC28ED9C633E9CBD0C417290506",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\f8e500c73b361a0fe1214b66e4048cbe82d5dd498142576a1afd659752dae095.png",
+    "sha": "F8E500C73B361A0FE1214B66E4048CBE82D5DD498142576A1AFD659752DAE095",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\source\\artifacts\\f9e351158cb588b0a3f49c60e673bca64fe417f2ea4963ca2ad0309e7da2142e.png",
+    "sha": "F9E351158CB588B0A3F49C60E673BCA64FE417F2EA4963CA2AD0309E7DA2142E",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\document.json",
+    "sha": "95C956B9B7B42B8D7A098F4311A2BC75D1B4F38D787C986FD8367A98F35C099C",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\review.json",
+    "sha": "44136FA355B3678A1146AD16F7E8649E94FB4FC21FE77E8310C060F61CAAFF8A",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\review.sqlite3",
+    "sha": "EFFDCE8160477E809D0336BC9B18B475452F3E599479716B31ACCFF52E67B339",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\review.sqlite3-shm",
+    "sha": "FD4C9FDA9CD3F9AE7C962B0DDF37232294D55580E1AA165AA06129B8549389EB",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\review.sqlite3-wal",
+    "sha": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\0395a2698706d90bbfdc937ade39a92a5717dfc4cd459822f682e765240cc7f0.png",
+    "sha": "0395A2698706D90BBFDC937ADE39A92A5717DFC4CD459822F682E765240CC7F0",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\04ddc27d47efc2803aafed46137f21ede5022fb6a78c8d09fb5b9b34119bfc66.png",
+    "sha": "04DDC27D47EFC2803AAFED46137F21EDE5022FB6A78C8D09FB5B9B34119BFC66",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\060b031bf3acfe17a1ba321a77f234f498fb563bdf46da0b8ca637016bfea797.png",
+    "sha": "060B031BF3ACFE17A1BA321A77F234F498FB563BDF46DA0B8CA637016BFEA797",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\07bf51ffa998cd4cbdafb88dc3ed075681c0db3907a25ee572c792f518bfad39.png",
+    "sha": "07BF51FFA998CD4CBDAFB88DC3ED075681C0DB3907A25EE572C792F518BFAD39",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\09592532df4b23383558997f13dbf47acccf41bd10cdda54d0c479e90020c424.png",
+    "sha": "09592532DF4B23383558997F13DBF47ACCCF41BD10CDDA54D0C479E90020C424",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\09b82c6f2783ae57d2cd538e0eea4335e426e6d3118c277cebf9c7eed1db9f91.png",
+    "sha": "09B82C6F2783AE57D2CD538E0EEA4335E426E6D3118C277CEBF9C7EED1DB9F91",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\0a7c700455710ff4d1589347f8a5ef791d732bc2057970f8fef34315fecd452f.png",
+    "sha": "0A7C700455710FF4D1589347F8A5EF791D732BC2057970F8FEF34315FECD452F",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\0bc3e3832ecaf718c77c3d7e070134568dfee0bffc0698cb102c3fb7ecc62204.png",
+    "sha": "0BC3E3832ECAF718C77C3D7E070134568DFEE0BFFC0698CB102C3FB7ECC62204",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\0eeee55ab58bf18f3c1ea0ad8bf17af7995398219609e3e4a9960701a01a10b8.png",
+    "sha": "0EEEE55AB58BF18F3C1EA0AD8BF17AF7995398219609E3E4A9960701A01A10B8",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\123d98929ef4a2f3a2e56cfbadf9d9ffb9dcb8649570318e716c3622501a4afa.png",
+    "sha": "123D98929EF4A2F3A2E56CFBADF9D9FFB9DCB8649570318E716C3622501A4AFA",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\12635cae6d838629f579b5afa706bf1edda38484114a8da72c7d47ae1e3c5397.png",
+    "sha": "12635CAE6D838629F579B5AFA706BF1EDDA38484114A8DA72C7D47AE1E3C5397",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\149e2b217e81a9310a54558072868be5d0e3cdfc1657d22da195522108392318.png",
+    "sha": "149E2B217E81A9310A54558072868BE5D0E3CDFC1657D22DA195522108392318",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\164085c7e7724f4c163a8d494dd97fe644bf0604b925dd4d3a7faf009a039f48.png",
+    "sha": "164085C7E7724F4C163A8D494DD97FE644BF0604B925DD4D3A7FAF009A039F48",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\1649ca03445b1191e66bdcbfde5f52a98d47ffba364fa12812b54eecc6e142ec.png",
+    "sha": "1649CA03445B1191E66BDCBFDE5F52A98D47FFBA364FA12812B54EECC6E142EC",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\164a0448218f33523b89835ef23d8767219b5793c29e7e6180a8b2bd4cc47f66.png",
+    "sha": "164A0448218F33523B89835EF23D8767219B5793C29E7E6180A8B2BD4CC47F66",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\1a6bf85be358286d91e97c8738efe638fe1e9db3c34e75780cd4281b4c5a0b7b.png",
+    "sha": "1A6BF85BE358286D91E97C8738EFE638FE1E9DB3C34E75780CD4281B4C5A0B7B",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\1abb244f696004db3a96e1051f07c8c33ea3d2bdc03ad46a7c7ba9d7e1798409.png",
+    "sha": "1ABB244F696004DB3A96E1051F07C8C33EA3D2BDC03AD46A7C7BA9D7E1798409",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\1cac226d2fed7bc76129a2bfc2f5206264a0590e7dec9190c9a0feeeb9d053b6.png",
+    "sha": "1CAC226D2FED7BC76129A2BFC2F5206264A0590E7DEC9190C9A0FEEEB9D053B6",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\1cea2f70bc4b6b2db0a08c55fbcd574703bfacd9059b1df9dbbaf049a77fd32a.png",
+    "sha": "1CEA2F70BC4B6B2DB0A08C55FBCD574703BFACD9059B1DF9DBBAF049A77FD32A",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\1d93f653528e1761b27c35ed6c51997585fe77d096d96a5f33f7007e68a9ed0b.png",
+    "sha": "1D93F653528E1761B27C35ED6C51997585FE77D096D96A5F33F7007E68A9ED0B",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\1e1953a953bc9f53d49c9039f2374a59380482aea8b2a69b1d439e189c460f6d.png",
+    "sha": "1E1953A953BC9F53D49C9039F2374A59380482AEA8B2A69B1D439E189C460F6D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\1e3777323b79d5b55c850cea7993fc625df71be080b379df6fe9d212f1e5ac9a.png",
+    "sha": "1E3777323B79D5B55C850CEA7993FC625DF71BE080B379DF6FE9D212F1E5AC9A",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\20545d67aaf7c5475b0a759e771b526746444cbe45b8502b698bbee4ed13f05a.png",
+    "sha": "20545D67AAF7C5475B0A759E771B526746444CBE45B8502B698BBEE4ED13F05A",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\21c2bca12ec8792bfdd3df099a91af06ca83eb480862dddf7554c8cdace76e42.png",
+    "sha": "21C2BCA12EC8792BFDD3DF099A91AF06CA83EB480862DDDF7554C8CDACE76E42",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\23f5fbda42d77550667b1c193c8d7f6517cfcd49cc9d7acddb3439c6bdb70e1f.png",
+    "sha": "23F5FBDA42D77550667B1C193C8D7F6517CFCD49CC9D7ACDDB3439C6BDB70E1F",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\257a644adb2691b85cf6a811c54448190ea78176566209f9a4f848b9fab09f7d.png",
+    "sha": "257A644ADB2691B85CF6A811C54448190EA78176566209F9A4F848B9FAB09F7D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\274ad1fa42f25f516b5aa1923cdbde5334f59cb42a5bec9a666febcc199ab1e9.png",
+    "sha": "274AD1FA42F25F516B5AA1923CDBDE5334F59CB42A5BEC9A666FEBCC199AB1E9",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\2835b8358e1c1d19aa4cbffb813c62b35ffaf53f11db46f2bab5f20c191ba4f8.png",
+    "sha": "2835B8358E1C1D19AA4CBFFB813C62B35FFAF53F11DB46F2BAB5F20C191BA4F8",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\2f494a4703a80cde08faa09298885da35b2a27df8dc5a49fc7bd5e9d9034a588.png",
+    "sha": "2F494A4703A80CDE08FAA09298885DA35B2A27DF8DC5A49FC7BD5E9D9034A588",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\30d87e2b9770c09bb0807bc42b328181de9fae2f8c3a36331243c87de748aa9d.png",
+    "sha": "30D87E2B9770C09BB0807BC42B328181DE9FAE2F8C3A36331243C87DE748AA9D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\32b788a6cb4e34a6b6c79f19936144ac35d59320fff3fe04687319931ee90277.png",
+    "sha": "32B788A6CB4E34A6B6C79F19936144AC35D59320FFF3FE04687319931EE90277",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\32d6ca48b0214c2fa646e19775314b60da33d8d7278042cb2586bf5cb9df503f.png",
+    "sha": "32D6CA48B0214C2FA646E19775314B60DA33D8D7278042CB2586BF5CB9DF503F",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\35419ec91483a78e1b652ef62aa7350de81c925a645ef0f66eb2bfac22b43af8.png",
+    "sha": "35419EC91483A78E1B652EF62AA7350DE81C925A645EF0F66EB2BFAC22B43AF8",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\3794e323e23b90b88fea23ce6e78ca66002766f22fe2d6e93c652f1f5f525bf0.png",
+    "sha": "3794E323E23B90B88FEA23CE6E78CA66002766F22FE2D6E93C652F1F5F525BF0",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\380bdfca8bd2b24d8628370cd05e92dcedf700e03e26339ec14024c592b48123.png",
+    "sha": "380BDFCA8BD2B24D8628370CD05E92DCEDF700E03E26339EC14024C592B48123",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\39a135bd3e4f26259d917f3a87e11844cc7c59a12cea1b985d00cbe5d0de2a58.png",
+    "sha": "39A135BD3E4F26259D917F3A87E11844CC7C59A12CEA1B985D00CBE5D0DE2A58",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\3a8b595748868dc2dc79fb744f0a698942816a793cbf88f423d5e8b8a7926c8e.png",
+    "sha": "3A8B595748868DC2DC79FB744F0A698942816A793CBF88F423D5E8B8A7926C8E",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\3af1de930f5b06d9ebe24a5a9f827158abf4a382ab4b669e5afc8d0baee7e101.png",
+    "sha": "3AF1DE930F5B06D9EBE24A5A9F827158ABF4A382AB4B669E5AFC8D0BAEE7E101",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\3b8abcc805df57e1ca68003f37a32a8188dde94a675713b8bf48795182fda5c8.png",
+    "sha": "3B8ABCC805DF57E1CA68003F37A32A8188DDE94A675713B8BF48795182FDA5C8",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\3ba40d5edef7ed4cec7ef224ab3f1aefbc7aa4ea4d57faeab78f824e876fa9f7.png",
+    "sha": "3BA40D5EDEF7ED4CEC7EF224AB3F1AEFBC7AA4EA4D57FAEAB78F824E876FA9F7",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\3beaafed5a01a0894ba3dd80516084847e92eb2d243bba6a9df0d3183d44b9ef.png",
+    "sha": "3BEAAFED5A01A0894BA3DD80516084847E92EB2D243BBA6A9DF0D3183D44B9EF",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\3d9038cc9b698d98bb5ee5662b2e0a598d414c5a0d85a06ed9fd32ec0b862ce6.png",
+    "sha": "3D9038CC9B698D98BB5EE5662B2E0A598D414C5A0D85A06ED9FD32EC0B862CE6",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\3dde888b4158a0bf10a8d3556cec91003a77f69baf107d0cc94539dc9ac50da3.png",
+    "sha": "3DDE888B4158A0BF10A8D3556CEC91003A77F69BAF107D0CC94539DC9AC50DA3",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\3ee739a80a8e8f77e10176d29ebdc562f0b8e45f5aff70bec8eb67507e31287f.png",
+    "sha": "3EE739A80A8E8F77E10176D29EBDC562F0B8E45F5AFF70BEC8EB67507E31287F",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\433eefb67efd846d454197ca96ccf937c5333d162bef3af60aabe01449213693.png",
+    "sha": "433EEFB67EFD846D454197CA96CCF937C5333D162BEF3AF60AABE01449213693",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\4347e6cf3ab2ec55f1b22506d7e0101c88067c6796ab7feb724e552a09e12065.png",
+    "sha": "4347E6CF3AB2EC55F1B22506D7E0101C88067C6796AB7FEB724E552A09E12065",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\44280884da7b08f70ad392e178bd3e7241136420b478b0c1ade1a0e7ecc03e07.png",
+    "sha": "44280884DA7B08F70AD392E178BD3E7241136420B478B0C1ADE1A0E7ECC03E07",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\4480425e5f96575e7d2d1931284cf49e7a068e60fbd22c456023ecbc1eb7a22c.png",
+    "sha": "4480425E5F96575E7D2D1931284CF49E7A068E60FBD22C456023ECBC1EB7A22C",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\4765d3ab5716af4ae99d7fb40199fb3c439a4e190df885e420c76798aaa72495.png",
+    "sha": "4765D3AB5716AF4AE99D7FB40199FB3C439A4E190DF885E420C76798AAA72495",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\489b105894364a384d38cfa7435c9dfea5a509b1f59afa499a06f0b684fafe7d.png",
+    "sha": "489B105894364A384D38CFA7435C9DFEA5A509B1F59AFA499A06F0B684FAFE7D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\48aa0308053a0b112fdefbc3d9ea1ecff721bd812925deba23b82ab8a0c99cfc.png",
+    "sha": "48AA0308053A0B112FDEFBC3D9EA1ECFF721BD812925DEBA23B82AB8A0C99CFC",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\4912745e0b52c02394015e4ef6b3dd2f90c37e734086992c51079e30c9fcfe67.png",
+    "sha": "4912745E0B52C02394015E4EF6B3DD2F90C37E734086992C51079E30C9FCFE67",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\4d6ba01e7f6333f0163e18550fc6422d09b7dc3976eedbb8de6279e6bfe76564.png",
+    "sha": "4D6BA01E7F6333F0163E18550FC6422D09B7DC3976EEDBB8DE6279E6BFE76564",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\4f0dd5a70ae170ccde80ee16766a2ecfd994e06654fdf10577227d653bd25fd6.png",
+    "sha": "4F0DD5A70AE170CCDE80EE16766A2ECFD994E06654FDF10577227D653BD25FD6",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\4ff85a7612686ab6cc6169a5b569bf61c7ec03a395e380b076ddccba5d8ec803.png",
+    "sha": "4FF85A7612686AB6CC6169A5B569BF61C7EC03A395E380B076DDCCBA5D8EC803",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\51abeb6d4bc3cd72d9a577d245554e9bf95357488de69bbed78e3ab132c395af.png",
+    "sha": "51ABEB6D4BC3CD72D9A577D245554E9BF95357488DE69BBED78E3AB132C395AF",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\54ff6e4adeb67ec6314d2e3a1710d5f570d0b5107df4d07a5a1e87231046734d.png",
+    "sha": "54FF6E4ADEB67EC6314D2E3A1710D5F570D0B5107DF4D07A5A1E87231046734D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\553b3306274531d903f04eddd98a9c86a445dbb034909ab4bd47bbfcae22b530.png",
+    "sha": "553B3306274531D903F04EDDD98A9C86A445DBB034909AB4BD47BBFCAE22B530",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\55e1e8449d0fd2a52ba3806e3594eee48f15356f2d8fe76e830fab5f2908702a.png",
+    "sha": "55E1E8449D0FD2A52BA3806E3594EEE48F15356F2D8FE76E830FAB5F2908702A",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\5653ad3b1b5b7a155d34e0e2788181e759052288d55d08705723c8b5faf398bf.png",
+    "sha": "5653AD3B1B5B7A155D34E0E2788181E759052288D55D08705723C8B5FAF398BF",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\578371c597370da935756fb96b331ee3d62c0bc4d52a3769ce20cb3db8c5f712.png",
+    "sha": "578371C597370DA935756FB96B331EE3D62C0BC4D52A3769CE20CB3DB8C5F712",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\58b935dc48ff99354ffcaec1398ad005bc15bf4282662c973e9696eef955c802.png",
+    "sha": "58B935DC48FF99354FFCAEC1398AD005BC15BF4282662C973E9696EEF955C802",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\5d3dd7c03c2bf42dbcc2e01c9a3731feac91b092aabd75e7cd3c6f0b00386659.png",
+    "sha": "5D3DD7C03C2BF42DBCC2E01C9A3731FEAC91B092AABD75E7CD3C6F0B00386659",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\5d9c71c7e27112babe0722f5ccdf9d2886e996e68f47a0857968fb1960ea3acf.png",
+    "sha": "5D9C71C7E27112BABE0722F5CCDF9D2886E996E68F47A0857968FB1960EA3ACF",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\5dc4b2dc1d72382707fd7e76ad2162352b497a46de1d0f5566e48da020315b1c.png",
+    "sha": "5DC4B2DC1D72382707FD7E76AD2162352B497A46DE1D0F5566E48DA020315B1C",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\5eb434c24a586f408cda736d427dab1b0cbf11bd1697785d5fe066c1dce3ce42.png",
+    "sha": "5EB434C24A586F408CDA736D427DAB1B0CBF11BD1697785D5FE066C1DCE3CE42",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\5ec7d3596138dc465148d818de54817d2678f7da5dba86fad7d99045a00a57fc.png",
+    "sha": "5EC7D3596138DC465148D818DE54817D2678F7DA5DBA86FAD7D99045A00A57FC",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\641892e5343b0ffab187830e230561b0c7c404812f1e6794b3335ae2c8fc9c83.png",
+    "sha": "641892E5343B0FFAB187830E230561B0C7C404812F1E6794B3335AE2C8FC9C83",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\64e1c84fc1f9a09f35f9dbd792861a2242900ee76b0288bb37fc01c9ddac4c38.png",
+    "sha": "64E1C84FC1F9A09F35F9DBD792861A2242900EE76B0288BB37FC01C9DDAC4C38",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\674b7332db11e9101c90fb0cc7560cd0bba3af80a12ab4dad19a25883ef839a1.png",
+    "sha": "674B7332DB11E9101C90FB0CC7560CD0BBA3AF80A12AB4DAD19A25883EF839A1",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\686f30ad6f97d666f5b6eba4941f6c1672e091526eedb56613465c8f388443a8.png",
+    "sha": "686F30AD6F97D666F5B6EBA4941F6C1672E091526EEDB56613465C8F388443A8",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\6a8e9c02dd95bde658982ceb1bd1276b7c1eeb75f9a380206cc660f4205a3301.png",
+    "sha": "6A8E9C02DD95BDE658982CEB1BD1276B7C1EEB75F9A380206CC660F4205A3301",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\6acaeb5b11ac75169f257423dfc286466513881e681ece57fc3e7278e6e930f7.png",
+    "sha": "6ACAEB5B11AC75169F257423DFC286466513881E681ECE57FC3E7278E6E930F7",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\6b3b7c71f09402230375c1b40308716919976c80aca1f10e055a677bf2f84abc.png",
+    "sha": "6B3B7C71F09402230375C1B40308716919976C80ACA1F10E055A677BF2F84ABC",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\6c33c508570518a50e5484aeb180d74be0f46823eb1f399a52cde340b3d3a61d.png",
+    "sha": "6C33C508570518A50E5484AEB180D74BE0F46823EB1F399A52CDE340B3D3A61D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\6def10665b9e1868b3233921cebe7236965aac957c404a8fabacbf5fc34f1a99.png",
+    "sha": "6DEF10665B9E1868B3233921CEBE7236965AAC957C404A8FABACBF5FC34F1A99",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\6df5b29a6fc5fd8a8aa8be2ad25f433c62977e837146e92977ba5634df6ab0a5.png",
+    "sha": "6DF5B29A6FC5FD8A8AA8BE2AD25F433C62977E837146E92977BA5634DF6AB0A5",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\6e43957160ef7f44e759544908024d58563394c68d9c447eb6043c594bd41924.png",
+    "sha": "6E43957160EF7F44E759544908024D58563394C68D9C447EB6043C594BD41924",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\6ebf6e259e7377f0773b604393d3ddeb606ec05d5e18c94b8438d152fccb9159.png",
+    "sha": "6EBF6E259E7377F0773B604393D3DDEB606EC05D5E18C94B8438D152FCCB9159",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\6fbd9a10703be2c09d78f7eb4a2895a15b7a64cb53d8ada2ab2a6fa3d9bbf328.png",
+    "sha": "6FBD9A10703BE2C09D78F7EB4A2895A15B7A64CB53D8ADA2AB2A6FA3D9BBF328",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\702a7e2671210f8b1d9554049ad75f9694ef198b9bb16f6c7e5fdffbb28b473f.png",
+    "sha": "702A7E2671210F8B1D9554049AD75F9694EF198B9BB16F6C7E5FDFFBB28B473F",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\73750a4b7ba55a198dd979044260cd9b5b9b8fae813127d5221bba6d357af3f7.png",
+    "sha": "73750A4B7BA55A198DD979044260CD9B5B9B8FAE813127D5221BBA6D357AF3F7",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\75b2e259a5f53902b7f06674d643338e6036a5d8fd36f3a1ba434b060f9ae8dd.png",
+    "sha": "75B2E259A5F53902B7F06674D643338E6036A5D8FD36F3A1BA434B060F9AE8DD",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\79015be3b11af8162af4eb284a7d4181f76ed6e9ab9beba514925ab016e74c24.png",
+    "sha": "79015BE3B11AF8162AF4EB284A7D4181F76ED6E9AB9BEBA514925AB016E74C24",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\793f828eb873dd849203b3c4509df807237555dc6603062bb40608d698226c44.png",
+    "sha": "793F828EB873DD849203B3C4509DF807237555DC6603062BB40608D698226C44",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\7bd3bc148b28ec1a2a81de6bc2fa824c4804380747b698d978723d6eb3bade05.png",
+    "sha": "7BD3BC148B28EC1A2A81DE6BC2FA824C4804380747B698D978723D6EB3BADE05",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\7c3561eb169dc8db73a44249e0d033cbc487ecbed514caf4d0c4c8d78bf22f35.png",
+    "sha": "7C3561EB169DC8DB73A44249E0D033CBC487ECBED514CAF4D0C4C8D78BF22F35",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\7c412cc4ab300a93fc69215bd716086f3b4c74391620c41e7fd4d34d0f69f006.png",
+    "sha": "7C412CC4AB300A93FC69215BD716086F3B4C74391620C41E7FD4D34D0F69F006",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\7d771ff5873fc74acf90e142d51f24c9d51d888d4801b9d6f6a2f5ef6e70c5cd.png",
+    "sha": "7D771FF5873FC74ACF90E142D51F24C9D51D888D4801B9D6F6A2F5EF6E70C5CD",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\7dc34245208bbf9906627d7496e091e542ca1d94b4f24c0d401014bc2c28729a.png",
+    "sha": "7DC34245208BBF9906627D7496E091E542CA1D94B4F24C0D401014BC2C28729A",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\7e409a86dbafd64c4cc8e281dee03e4192d409d09164b1ba0b4b3fa4087060ea.png",
+    "sha": "7E409A86DBAFD64C4CC8E281DEE03E4192D409D09164B1BA0B4B3FA4087060EA",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\80007d5050e0c9647e8a13fd29c4e81cf709ecc60238caed67e97559e5825b80.png",
+    "sha": "80007D5050E0C9647E8A13FD29C4E81CF709ECC60238CAED67E97559E5825B80",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\80467199cae481ac29943b3628690606b8578cf7ca5673ae743e41af50578a9d.png",
+    "sha": "80467199CAE481AC29943B3628690606B8578CF7CA5673AE743E41AF50578A9D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\80bbe8d15018e77770850980766cf052790d51de8535a6fe5b4ae88e1562319e.png",
+    "sha": "80BBE8D15018E77770850980766CF052790D51DE8535A6FE5B4AE88E1562319E",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\80dbe68b51ebbe629b50848f013b082cda5afd942bbe44c0919dd7bc8f922619.png",
+    "sha": "80DBE68B51EBBE629B50848F013B082CDA5AFD942BBE44C0919DD7BC8F922619",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\815dee84cc003fa590db4ebf7c3bbc22a57983c2ba68ac58fc9c14c3a8b040ad.png",
+    "sha": "815DEE84CC003FA590DB4EBF7C3BBC22A57983C2BA68AC58FC9C14C3A8B040AD",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\870efab2034fb6704a1891aac1667b366caa5b5c53d744174dd91f1757c27688.png",
+    "sha": "870EFAB2034FB6704A1891AAC1667B366CAA5B5C53D744174DD91F1757C27688",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\8a8f536603b449c0526254eb488aafeebd8e2d8bad78873f183e69eee1ba9df9.png",
+    "sha": "8A8F536603B449C0526254EB488AAFEEBD8E2D8BAD78873F183E69EEE1BA9DF9",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\8b4f1a33e44609f622049a99b8956cbd273e76ed0bc4c5ecd6b02d3a1f98773f.png",
+    "sha": "8B4F1A33E44609F622049A99B8956CBD273E76ED0BC4C5ECD6B02D3A1F98773F",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\8bb655c8f8ea39f501d6da7b61b6a8f30b3ddae069c883c09f9d4d94554ddb1a.png",
+    "sha": "8BB655C8F8EA39F501D6DA7B61B6A8F30B3DDAE069C883C09F9D4D94554DDB1A",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\92415b5740d03ea6cfef418d3537beb1a5efcda3f6b46d9f9dd53c8f6da43a97.png",
+    "sha": "92415B5740D03EA6CFEF418D3537BEB1A5EFCDA3F6B46D9F9DD53C8F6DA43A97",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\9275fbe266ee3527ab5a829c3aa2bbc8d9d501e54585e97a5a39243c4f326f14.png",
+    "sha": "9275FBE266EE3527AB5A829C3AA2BBC8D9D501E54585E97A5A39243C4F326F14",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\95e0d1c595151f1b6e1ab992f42e0809e2a0cfe3301e0166a82cd8741ec94dac.png",
+    "sha": "95E0D1C595151F1B6E1AB992F42E0809E2A0CFE3301E0166A82CD8741EC94DAC",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\96c4250d27b193e4d15180918f55cc6aee24d0c3b150bae27b98f7ef54e72a63.png",
+    "sha": "96C4250D27B193E4D15180918F55CC6AEE24D0C3B150BAE27B98F7EF54E72A63",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\9768429efd6139257d0e6815be073270215b6b9b7a1cfd7bef1f29e41c7b3fff.png",
+    "sha": "9768429EFD6139257D0E6815BE073270215B6B9B7A1CFD7BEF1F29E41C7B3FFF",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\97c1409e4a3f6da27f77e60bc602690852d09ab1512410eb5cc29c7b4f2f32b4.png",
+    "sha": "97C1409E4A3F6DA27F77E60BC602690852D09AB1512410EB5CC29C7B4F2F32B4",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\9a0047e344e70148346fb3503dfa8614c4ddd5f7b9d4fc881f0d9724fc3a6a3b.png",
+    "sha": "9A0047E344E70148346FB3503DFA8614C4DDD5F7B9D4FC881F0D9724FC3A6A3B",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\9a38902bae80e4f63e141a4cbffd71c821929927c20420732960d722a4e6b508.png",
+    "sha": "9A38902BAE80E4F63E141A4CBFFD71C821929927C20420732960D722A4E6B508",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\a05d9aea72c1ea618a14bf99622b9e67d17006b8a16ddba11a067bc240aae2b4.png",
+    "sha": "A05D9AEA72C1EA618A14BF99622B9E67D17006B8A16DDBA11A067BC240AAE2B4",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\a0d828c0b6fc45483241d3f038700ce27d4dcb4a437ae9ae6060165861b8031e.png",
+    "sha": "A0D828C0B6FC45483241D3F038700CE27D4DCB4A437AE9AE6060165861B8031E",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\a5cc62132b2566576f88a7a0581ad357948b243417e3997e0bc472d9076a9e81.png",
+    "sha": "A5CC62132B2566576F88A7A0581AD357948B243417E3997E0BC472D9076A9E81",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\a7211c42031197681d1f794b6e307ad589200d2db9daed9dda39da93c5276290.png",
+    "sha": "A7211C42031197681D1F794B6E307AD589200D2DB9DAED9DDA39DA93C5276290",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\a771e782c6941b11c838c02cef361a11ffbb08f16c950f13cc9537672aedca64.png",
+    "sha": "A771E782C6941B11C838C02CEF361A11FFBB08F16C950F13CC9537672AEDCA64",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\a8ba602a7179f50b45e768a6754d9797f311ef0badb239711e5b1864d59fdd27.png",
+    "sha": "A8BA602A7179F50B45E768A6754D9797F311EF0BADB239711E5B1864D59FDD27",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\a9e074522578a3d18a5c223b785211490f09e1e6c80466e247575fec8808dbc9.png",
+    "sha": "A9E074522578A3D18A5C223B785211490F09E1E6C80466E247575FEC8808DBC9",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\aa50b73c7a36d92fdee013e83a438336edca938031adbebb8a2c2c81d63ef380.png",
+    "sha": "AA50B73C7A36D92FDEE013E83A438336EDCA938031ADBEBB8A2C2C81D63EF380",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\ad78df5f2f80c542ee74b451ecd5570f8fca2d6c6d83f52eade33321e0f6a0ed.png",
+    "sha": "AD78DF5F2F80C542EE74B451ECD5570F8FCA2D6C6D83F52EADE33321E0F6A0ED",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\af0e7f480362e645e811d4a75b377dd994d2574146d6e73d57888e65f7bbdb25.png",
+    "sha": "AF0E7F480362E645E811D4A75B377DD994D2574146D6E73D57888E65F7BBDB25",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\b087fc3b2bc8eb5328f6ccea41d3344c24a436183a61418feb0bedb5d4a9c257.png",
+    "sha": "B087FC3B2BC8EB5328F6CCEA41D3344C24A436183A61418FEB0BEDB5D4A9C257",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\b2994496738cd7b997bb5ec56f46287461321d60988024c2859e92ab315ae1e0.png",
+    "sha": "B2994496738CD7B997BB5EC56F46287461321D60988024C2859E92AB315AE1E0",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\b2c1d0bce4454aed5b98c3be731d41086447bb3bf14f232dafca04327b92821b.png",
+    "sha": "B2C1D0BCE4454AED5B98C3BE731D41086447BB3BF14F232DAFCA04327B92821B",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\b2e4e2179bd31d7aa633c4dd0350220c45cb61cf851139508a91edc876b09409.png",
+    "sha": "B2E4E2179BD31D7AA633C4DD0350220C45CB61CF851139508A91EDC876B09409",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\b546d477e8f19a31a95a27e25bc8c17c76b5aafadc4b06f96a1c0b65642e6bf0.png",
+    "sha": "B546D477E8F19A31A95A27E25BC8C17C76B5AAFADC4B06F96A1C0B65642E6BF0",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\b5ed54f8888dcb86503a6e78714e431754c4028963c67b3fa1979f46ccd94a16.png",
+    "sha": "B5ED54F8888DCB86503A6E78714E431754C4028963C67B3FA1979F46CCD94A16",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\b60d552027e6e757771b498fbf4914221ce97149ef284454afffe7d2da84c883.png",
+    "sha": "B60D552027E6E757771B498FBF4914221CE97149EF284454AFFFE7D2DA84C883",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\b81382df5e5dc4849cfe190c5a3b523984a04c749fa9672799a9dbac4ba50ace.png",
+    "sha": "B81382DF5E5DC4849CFE190C5A3B523984A04C749FA9672799A9DBAC4BA50ACE",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\b9d30f7b024e4598ab1013084a9b55be451053c9e5e91fe4a303a6d7b565c187.png",
+    "sha": "B9D30F7B024E4598AB1013084A9B55BE451053C9E5E91FE4A303A6D7B565C187",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\b9daa08e762e759ee01e2f47300f137632f017d641281df2ebca2ede35ab18bb.png",
+    "sha": "B9DAA08E762E759EE01E2F47300F137632F017D641281DF2EBCA2EDE35AB18BB",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\bac811e94fcfd31ffe163cc115a69a54bff87e46adec442296929627bfa6369a.png",
+    "sha": "BAC811E94FCFD31FFE163CC115A69A54BFF87E46ADEC442296929627BFA6369A",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\bafc97b8b2d2dbf73a01ad559a5d5f7c71dd1dcf037072a2ea71ba5648781d8b.png",
+    "sha": "BAFC97B8B2D2DBF73A01AD559A5D5F7C71DD1DCF037072A2EA71BA5648781D8B",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\bb35ada45d31fd92ffbfd059b6112cd235c9016e37fa87e9656c8d4f3599387d.png",
+    "sha": "BB35ADA45D31FD92FFBFD059B6112CD235C9016E37FA87E9656C8D4F3599387D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\c027736cb9d07cc37b582e30d610d9a6775df6cf23fd8d129cdd06d140c230dd.png",
+    "sha": "C027736CB9D07CC37B582E30D610D9A6775DF6CF23FD8D129CDD06D140C230DD",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\c470412dc92c6581bbf2c360627256e7e263df9a7187fedd9382fb91f4ca800e.png",
+    "sha": "C470412DC92C6581BBF2C360627256E7E263DF9A7187FEDD9382FB91F4CA800E",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\c7326e37080c380665184b519c2acd89bf2ef50dd5f56d7b3780b9a595f6cfb6.png",
+    "sha": "C7326E37080C380665184B519C2ACD89BF2EF50DD5F56D7B3780B9A595F6CFB6",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\c9728b7425bb3bcb44b0cf95073e9a2d2f1ace31a999c4425d04883a13c2b277.png",
+    "sha": "C9728B7425BB3BCB44B0CF95073E9A2D2F1ACE31A999C4425D04883A13C2B277",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\cb92df3d9af1b19622a651a7d911991fa9d8a83a9e3a86e2b841bc4c591853fa.png",
+    "sha": "CB92DF3D9AF1B19622A651A7D911991FA9D8A83A9E3A86E2B841BC4C591853FA",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\cf9bb13b55aed57d81a1ada7f8efe903a5039b3104f0cc2d62f3a7c2a490fad6.png",
+    "sha": "CF9BB13B55AED57D81A1ADA7F8EFE903A5039B3104F0CC2D62F3A7C2A490FAD6",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\cf9fa5d9b40f895c352a228440f67c1dcc610144cfaa4fa8c98453838e5f7c6e.png",
+    "sha": "CF9FA5D9B40F895C352A228440F67C1DCC610144CFAA4FA8C98453838E5F7C6E",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\cfd99db9d2be82cc502268e3ddd2f16ce8ff0e34f10221c5778f913517638240.png",
+    "sha": "CFD99DB9D2BE82CC502268E3DDD2F16CE8FF0E34F10221C5778F913517638240",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\d06881c77ec780feff08eb45a5ccc101fc88336bd5a83b80792bf7151485ff77.png",
+    "sha": "D06881C77EC780FEFF08EB45A5CCC101FC88336BD5A83B80792BF7151485FF77",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\d07740dcdb6a6240b80ea36964dd03b2fb550674dda7b118620d02d49288ffdb.png",
+    "sha": "D07740DCDB6A6240B80EA36964DD03B2FB550674DDA7B118620D02D49288FFDB",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\d8435e1bf481795e5b9b166ca5786fc7bfe6274087708476d73a6c4c50eb0b4c.png",
+    "sha": "D8435E1BF481795E5B9B166CA5786FC7BFE6274087708476D73A6C4C50EB0B4C",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\da3d26b74ba6ad38d198e97c7c59b0e638293ca8a60e0e483dd731c41bf1ef3d.png",
+    "sha": "DA3D26B74BA6AD38D198E97C7C59B0E638293CA8A60E0E483DD731C41BF1EF3D",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\db9931bf87c0ef900b830d322a619ec227d320aaca6ec2e7b69f9b102ef503c2.png",
+    "sha": "DB9931BF87C0EF900B830D322A619EC227D320AACA6EC2E7B69F9B102EF503C2",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\dc065d3786b606c399e00f1ff8879d0d3b0307c822d3d6009fcd9122bf4b0a55.png",
+    "sha": "DC065D3786B606C399E00F1FF8879D0D3B0307C822D3D6009FCD9122BF4B0A55",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\ddb7b6078452637790e669fb5f7ce3739de1a73f0f0bef6fe61d1a0c6e00e2bd.png",
+    "sha": "DDB7B6078452637790E669FB5F7CE3739DE1A73F0F0BEF6FE61D1A0C6E00E2BD",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\de1f4444a534bd0fa98fe1b290e9e3914a8f1fa5eac2b942ccdbe371ae939eb9.png",
+    "sha": "DE1F4444A534BD0FA98FE1B290E9E3914A8F1FA5EAC2B942CCDBE371AE939EB9",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\de4ed50936087118d580199c4768cd3ec9186cba8663fecba0f793cb28622792.png",
+    "sha": "DE4ED50936087118D580199C4768CD3EC9186CBA8663FECBA0F793CB28622792",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\e164e925365ac1af6d4c51504a95620ba9e28c79038e2091c9e3efe71c5b4354.png",
+    "sha": "E164E925365AC1AF6D4C51504A95620BA9E28C79038E2091C9E3EFE71C5B4354",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\e23b4557fcb111642361ea3479b12dbc7c8c8cf6fe4b03c4b6b36a8eabac5ebb.png",
+    "sha": "E23B4557FCB111642361EA3479B12DBC7C8C8CF6FE4B03C4B6B36A8EABAC5EBB",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\e24643992cc5c4a172306962d2cee8ab1bbc6ea8382d5f243c252be9793b1d06.png",
+    "sha": "E24643992CC5C4A172306962D2CEE8AB1BBC6EA8382D5F243C252BE9793B1D06",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\e34e56076085194c279b4d59bdcffcb464726e7dbd87022bb61079bdec1e4b4f.png",
+    "sha": "E34E56076085194C279B4D59BDCFFCB464726E7DBD87022BB61079BDEC1E4B4F",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\e5d6c89bae2733b1549fd4e558285fd9e77b04a2f12cf8e23d48205655dbd7f9.png",
+    "sha": "E5D6C89BAE2733B1549FD4E558285FD9E77B04A2F12CF8E23D48205655DBD7F9",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\e618894e226d78c013cd1617e04a39377409ec9c88c975bb1c57e30e90aef1c8.png",
+    "sha": "E618894E226D78C013CD1617E04A39377409EC9C88C975BB1C57E30E90AEF1C8",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\e6b99bf301c1eb1f00803ab4f3616bff499c13936a04f7a2e7b534c804cdafcb.png",
+    "sha": "E6B99BF301C1EB1F00803AB4F3616BFF499C13936A04F7A2E7B534C804CDAFCB",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\e6f46da3b1c16f9c2720f42c6314ef571e8241a2b18a047b81947f9e8545dc34.png",
+    "sha": "E6F46DA3B1C16F9C2720F42C6314EF571E8241A2B18A047B81947F9E8545DC34",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\ed7bb36b6a58a2a171bef7ec7862d6ef4000930edf56ba2e5882fa7441143d57.png",
+    "sha": "ED7BB36B6A58A2A171BEF7EC7862D6EF4000930EDF56BA2E5882FA7441143D57",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\f01e814a092b06d845e3168d195b900c419bb3e5988f1fc06800c17fb5914a3c.png",
+    "sha": "F01E814A092B06D845E3168D195B900C419BB3E5988F1FC06800C17FB5914A3C",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\f0e2003f3fd7f3b791af17e46e937a1bf4c80836f29ae89bc83a194fc32998ef.png",
+    "sha": "F0E2003F3FD7F3B791AF17E46E937A1BF4C80836F29AE89BC83A194FC32998EF",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\f1658e567acd5636f4058826c8b8f2f4343acd58199569a8026bc55519957782.png",
+    "sha": "F1658E567ACD5636F4058826C8B8F2F4343ACD58199569A8026BC55519957782",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\f2831da14c4fc794c065a25802c5ca59c16f216df2bbeaecb3fe3d3a8f9a7f5b.png",
+    "sha": "F2831DA14C4FC794C065A25802C5CA59C16F216DF2BBEAECB3FE3D3A8F9A7F5B",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\f298ec9429a6e9578fb2df05f2d748ea7101446ab078106801de92cad6d8c287.png",
+    "sha": "F298EC9429A6E9578FB2DF05F2D748EA7101446AB078106801DE92CAD6D8C287",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\f5aae9a952b5b88b0e5d387f71daa28c69b868f173edcb74aab71a3d2e9491c5.png",
+    "sha": "F5AAE9A952B5B88B0E5D387F71DAA28C69B868F173EDCB74AAB71A3D2E9491C5",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\f62c9704a2a0992e716c62b3f07e983057be84e44e3230442ac413dc5f2066d0.png",
+    "sha": "F62C9704A2A0992E716C62B3F07E983057BE84E44E3230442AC413DC5F2066D0",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\f866d2f0495b5d138059bbdee2fc62dc168a8bc28ed9c633e9cbd0c417290506.png",
+    "sha": "F866D2F0495B5D138059BBDEE2FC62DC168A8BC28ED9C633E9CBD0C417290506",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\f8e500c73b361a0fe1214b66e4048cbe82d5dd498142576a1afd659752dae095.png",
+    "sha": "F8E500C73B361A0FE1214B66E4048CBE82D5DD498142576A1AFD659752DAE095",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\data\\work\\artifacts\\f9e351158cb588b0a3f49c60e673bca64fe417f2ea4963ca2ad0309e7da2142e.png",
+    "sha": "F9E351158CB588B0A3F49C60E673BCA64FE417F2EA4963CA2AD0309E7DA2142E",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\candoc-v0\\IEEE-1547-2018-document-assets.zip",
+    "sha": "AF973DF9ECA6C22107401CE4ED63034E70B9D61C23AA58F9DDFC6B707C0962C1",
+    "unchanged": true
+  }
+]

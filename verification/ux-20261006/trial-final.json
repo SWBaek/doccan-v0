@@ -1,0 +1,15 @@
+{
+  "document_matches_source": true,
+  "reviews": {},
+  "revision": 36,
+  "export": {
+    "state": "synced",
+    "db_revision": 36,
+    "files": {
+      "document.json": 36,
+      "review.json": 36
+    },
+    "errors": {}
+  },
+  "pending": 0
+}
