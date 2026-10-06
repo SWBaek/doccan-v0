@@ -1,4 +1,4 @@
-"""Version-bounded Codex stdio transport. No model HTTP client or credential access."""
+"""Codex stdio transport. Runtime capability checks live in Chat.connect."""
 from __future__ import annotations
 
 import json
@@ -11,7 +11,6 @@ import subprocess
 import threading
 
 
-SUPPORTED_VERSION = 'codex-cli 0.160.0'
 # These overrides affect this child only, never the user's Codex configuration.
 SECURITY_CONFIG = {
     'sandbox_mode': 'read-only', 'approval_policy': 'never',
@@ -144,11 +143,6 @@ class StdioRPC:
         self.proc = None
         if command is None:
             executable = executable_path(executable)
-            flags = subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0
-            version = subprocess.run([executable, '--version'], capture_output=True, text=True,
-                                     encoding='utf-8', timeout=10, creationflags=flags, env=child_environment())
-            if version.returncode or version.stdout.strip() != SUPPORTED_VERSION:
-                raise CodexError(f'권한 경계를 검증한 Codex 버전은 0.160.0입니다. 현재 버전: {version.stdout.strip()[:100]}')
             command = [executable, 'app-server', '--listen', 'stdio://', *config_args({**SECURITY_CONFIG, **(overrides or {})})]
         self.proc = subprocess.Popen(command, cwd=cwd, env=child_environment() if env is None else env,
             stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,

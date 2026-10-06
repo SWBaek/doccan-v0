@@ -10,6 +10,7 @@ import sys
 import tempfile
 import threading
 import time
+import tomllib
 import unittest
 import uuid
 import jsonschema
@@ -347,11 +348,31 @@ class ChatWorkflow(unittest.TestCase):
         self.assertEqual(len(self.chat.state()['runs']),1)
         self.assertEqual(sum(m.get('method')=='thread/start' for m in self.wire()),2)
 
-    def test_missing_and_unverified_executable_fail_before_model(self):
+    def test_missing_executable_fails_before_model(self):
         with self.assertRaisesRegex(CodexError,'찾지 못했습니다'):
             StdioRPC(str(self.dir/'does-not-exist'),self.dir,lambda m:None,lambda m:None,lambda:None)
-        with self.assertRaisesRegex(CodexError,'0.160.0'):
-            StdioRPC(sys.executable,self.dir,lambda m:None,lambda m:None,lambda:None)
+
+    def test_connection_and_models_do_not_require_pinned_cli_version(self):
+        self.chat.settings['codex_executable'] = sys.executable
+        self.chat.rpc_factory = StdioRPC
+        popen = subprocess.Popen
+        def synthetic_app_server(command, **kwargs):
+            self.assertEqual(command[1:4], ['app-server','--listen','stdio://'])
+            overrides = {}
+            for flag in command[5::2]:
+                key, value = flag.split('=',1)
+                overrides[key] = tomllib.loads('value='+value)['value']
+            proc = popen([sys.executable,str(ROOT/'tests/fake_codex.py'),'--state',str(self.dir/'fake'),
+                          '--overrides',json.dumps(overrides)], **kwargs)
+            self.processes.append(proc)
+            return proc
+        with patch('candoc.codex_rpc.subprocess.run', return_value=subprocess.CompletedProcess(
+                [], 0, stdout='codex-cli 99.0.0\n')) as version_probe, \
+                patch('candoc.codex_rpc.subprocess.Popen', side_effect=synthetic_app_server):
+            self.assertEqual(self.chat.connect()['connection'], 'connected')
+            self.assertTrue(self.chat.models())
+            self.assertEqual(self.chat.state()['runs'], [])
+            version_probe.assert_not_called()
 
     def test_http_sse_auth_and_proposal_approval_are_separate(self):
         self.chat.close()
