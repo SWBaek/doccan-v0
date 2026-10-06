@@ -1,0 +1,26 @@
+
+╔════════════════════════════════════════════════════════════════════╗
+║ Update available for @playwright/cli: 0.1.18 → 0.1.22              ║
+║ Run `npm install -g @playwright/cli@latest` (global) or            ║
+║ `npm install --save-dev @playwright/cli@latest` (local) to update. ║
+╚════════════════════════════════════════════════════════════════════╝
+
+### Result
+{"pass":true,"recoveredWithoutNewHistory":true,"finalRevision":8,"validation":{"schema":"1.10.0","pages":138,"texts":2937,"tables":71,"pictures":29,"references_checked":6307,"images_checked":167,"element_bbox_origins":{"BOTTOMLEFT":3055},"cell_bbox_origins":{"TOPLEFT":2991},"warnings":["Overlapping table cells (preserved): #/tables/56"],"unchanged_source_files":168,"revision":8,"export":{"state":"synced","db_revision":8,"files":{"document.json":8,"review.json":8},"errors":{}}}}
+### Ran Playwright code
+```js
+await (async page => {
+ const base='http://127.0.0.1:52742',b=await(await page.request.get(base+'/api/bootstrap')).json(),headers={'X-Candoc-Token':b.token};
+ const get=async path=>(await page.request.get(base+'/api/'+path,{headers})).json();
+ const events=(await get('history')).length;
+ await page.locator('#reexport').click();
+ await page.waitForFunction(()=>document.querySelector('#export-warning').hidden,null,{timeout:60000});
+ if((await get('bootstrap')).revision!==b.revision || (await get('history')).length!==events)throw Error('File recovery added a document change');
+ await page.waitForFunction(()=>document.querySelector('#conversation-status').textContent.includes('문서 파일 저장을 복구'));
+ await page.screenshot({path:'verification/review-ux-20261006/after-export-recovered.png'});
+ await page.locator('#tools-toggle').click();await page.locator('#history').click();await page.locator('#undo').click();
+ await page.waitForFunction(n=>document.querySelector('#asset').title.endsWith('revision '+n),b.revision+1);
+ return {pass:true,recoveredWithoutNewHistory:true,finalRevision:(await get('bootstrap')).revision,validation:await get('validate')};
+}
+)(page);
+```

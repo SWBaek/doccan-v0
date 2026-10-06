@@ -115,7 +115,9 @@ class Conversation:
                 receipt = receipts.get(msg['id'])
                 if receipt:
                     undone = receipt['seq'] in reversals
-                    msg['result'] = {'committed': True, 'revision': receipt['seq'], 'undone': undone}
+                    evidence = receipt['conversation_approval']
+                    msg['result'] = {'committed': True, 'revision': receipt['seq'], 'undone': undone,
+                        'count': len(evidence['targets']), 'decision': evidence['decision']}
             if value['current']:
                 p = value['current']['proposal']
                 if p['status'] != 'pending' or p.get('undone_revision'):
@@ -125,7 +127,9 @@ class Conversation:
             else: value['can_approve'] = False
         value['chat'] = self.chat.state()
         for run in value['chat']['runs']:
-            run['target'].pop('review',None) # model journal retains frozen evidence; UI needs target/locations only
+            review = run['target'].pop('review', {})
+            run['review_kind'] = review.get('type')
+            run['message_id'] = review.get('message_id')
         value['job'] = copy.deepcopy(self.batch.job)
         return value
 
@@ -147,6 +151,8 @@ class Conversation:
     def control(self, req):
         action = req.get('action')
         with self.op:
+            if action == 'scope':
+                return self._scope(req)
             if action in ('pause', 'stop'):
                 with self.store.lock:
                     self.s.update(mode='paused', note='일시정지했습니다. 추가 적용과 다음 항목 진행을 멈췄습니다.')
@@ -191,6 +197,44 @@ class Conversation:
                         self._save()
             else:
                 self._advance(action, req.get('group'))
+            return self.state()
+
+    def _scope(self, req):
+        """A user's checkbox edit creates another immutable proposal, never approval."""
+        if set(req) != {'action','offer','generation','refs','request_id'}:
+            raise ValueError('적용 범위 요청 형식이 올바르지 않습니다.')
+        try: uuid.UUID(req['request_id'])
+        except (ValueError,TypeError,AttributeError): raise ValueError('범위 요청 ID가 올바르지 않습니다.')
+        key, fingerprint = 'ui-scope:'+req['request_id'], identity(req)
+        with self.store.lock:
+            old = self.store.db.execute('SELECT fingerprint FROM conversation_tool_calls WHERE id=?',(key,)).fetchone()
+            if old:
+                if old[0] != fingerprint: raise ValueError('동일 요청의 범위가 달라졌습니다.')
+                return self.state()
+            if self.s['mode'] not in ('awaiting','discussing') or req['offer'] != self.s['current'] or req['generation'] != self.s['generation']:
+                raise ValueError('화면의 수정안이 바뀌었습니다. 현재 범위를 다시 확인하세요.')
+            current = self._view_offer(req['offer'])
+            if current['kind'] != 'batch' or current['proposal']['status'] != 'pending':
+                raise ValueError('현재 대기 중인 묶음 수정안만 범위를 조정할 수 있습니다.')
+            root = self._view_offer(current.get('scope_root',current['id']))
+            if root['proposal']['status'] != 'pending':
+                raise ProposalConflict('처음 제시한 대상이 바뀌었습니다. 재진단 후 다시 검수하세요.',root['proposal'])
+            refs = req['refs']
+            if not isinstance(refs,list) or not refs or any(not isinstance(r,str) for r in refs) or len(refs)!=len(set(refs)) or not set(refs)<=set(root['refs']):
+                raise ValueError('처음 제시한 범위 안에서 하나 이상의 항목을 선택하세요.')
+            refs = [r for r in root['refs'] if r in refs]
+            p = self.batch.preview(dict(group=root['proposal']['group'],refs=refs,
+                action=current['proposal']['action'],request_id='ui-scope-'+req['request_id']))
+            oid = identity({'kind':'batch','proposal_id':p['id'],'proposal':p})
+            offer = {**{k:root[k] for k in ('kind','run_id','context')}, 'id':oid,
+                'version':identity(p),'proposal_id':p['id'],'refs':refs,'scope_root':root['id'],
+                'scope_targets':root['proposal']['targets']}
+            offer['context'] = {**offer['context'],'revision':p['revision']}
+            with self.store.db:
+                self.store.db.execute('INSERT INTO conversation_offers VALUES(?,?)',(oid,dump(offer)))
+                self.store.db.execute('INSERT INTO conversation_tool_calls VALUES(?,?,?)',(key,fingerprint,dump({'offer':oid})))
+                self.s['offers'] = [oid]
+                self._present(oid)
             return self.state()
 
     def _present(self, oid):
@@ -262,7 +306,7 @@ class Conversation:
                     # discussing one cell receives only that cell's before/after.
                     current['proposal'] = dict(id=p['id'],op=r['op'],cell=cell,reason=r['reason'],
                         before=values(p['before']),after=values(p['after']))
-            data = {'type':self.s['turn']['type'], 'group':group,
+            data = {'type':self.s['turn']['type'], 'message_id':self.s['turn'].get('message_id'), 'group':group,
                 'previous_offer':current, 'application_result':self.s['result']}
             if self.s['turn'].get('selection'):
                 data['user_selection_at_send'] = self.chat.snapshot(self.s['turn']['selection'])

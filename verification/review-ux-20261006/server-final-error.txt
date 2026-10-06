@@ -1,0 +1,668 @@
+127.0.0.1 - - [06/Oct/2026 08:29:06] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:06] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:06] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:06] "GET /chat.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:06] "GET /batch.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:06] "GET /conversation.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:06] "GET /review-layout.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:07] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:07] "GET /favicon.ico HTTP/1.1" 204 -
+127.0.0.1 - - [06/Oct/2026 08:29:07] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:07] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:07] "GET /api/chat/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:07] "GET /api/chat/events?after=0 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:07] "GET /api/page?page=1 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:07] "GET /api/document HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:07] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:08] "GET /asset/artifacts/f866d2f0495b5d138059bbdee2fc62dc168a8bc28ed9c633e9cbd0c417290506.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:08] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:08] "GET /favicon.ico HTTP/1.1" 204 -
+127.0.0.1 - - [06/Oct/2026 08:29:08] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:08] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:08] "GET /api/diagnostics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:08] "POST /api/conversation/models HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:09] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:09] "POST /api/conversation/settings HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:09] "POST /api/conversation/control HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:09] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:09] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:11] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:11] "GET /api/item?ref=%23%2Ftexts%2F158 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:12] "GET /api/page?page=18 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:12] "GET /asset/artifacts/b087fc3b2bc8eb5328f6ccea41d3344c24a436183a61418feb0bedb5d4a9c257.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:12] "GET /favicon.ico HTTP/1.1" 204 -
+127.0.0.1 - - [06/Oct/2026 08:29:12] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:12] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:13] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:13] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:14] "GET /api/item?ref=%23%2Ftexts%2F171 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:14] "GET /api/page?page=19 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:14] "GET /asset/artifacts/30d87e2b9770c09bb0807bc42b328181de9fae2f8c3a36331243c87de748aa9d.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:14] "GET /favicon.ico HTTP/1.1" 204 -
+127.0.0.1 - - [06/Oct/2026 08:29:14] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:15] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:15] "GET /api/item?ref=%23%2Ftexts%2F170 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:15] "GET /favicon.ico HTTP/1.1" 204 -
+127.0.0.1 - - [06/Oct/2026 08:29:15] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:15] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:16] "GET /api/item?ref=%23%2Ftexts%2F158 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:16] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:16] "GET /api/page?page=18 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:16] [WinError 10053] 현재 연결은 사용자의 호스트 시스템의 소프트웨어의 의해 중단되었습니다
+127.0.0.1 - - [06/Oct/2026 08:29:16] "GET /api/page?page=18 HTTP/1.1" 500 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 7954)
+Traceback (most recent call last):
+  File "C:\Projects\candoc-v0\candoc\server.py", line 63, in do_GET
+    self.get()
+    ~~~~~~~~^^
+  File "C:\Projects\candoc-v0\candoc\server.py", line 121, in get
+    return self.send({'revision': revision, 'page': page, 'size': p['size'], 'image': '/asset/'+p['image']['uri'], 'items': cache[revision,page]})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\candoc-v0\candoc\server.py", line 45, in send
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 현재 연결은 사용자의 호스트 시스템의 소프트웨어의 의해 중단되었습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 424, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Projects\candoc-v0\candoc\server.py", line 70, in do_GET
+    self.send({'error': str(e)}, 500)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\candoc-v0\candoc\server.py", line 44, in send
+    self.end_headers()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 538, in end_headers
+    self.flush_headers()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 현재 연결은 사용자의 호스트 시스템의 소프트웨어의 의해 중단되었습니다
+----------------------------------------
+127.0.0.1 - - [06/Oct/2026 08:29:16] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:16] [WinError 10053] 현재 연결은 사용자의 호스트 시스템의 소프트웨어의 의해 중단되었습니다
+127.0.0.1 - - [06/Oct/2026 08:29:16] "GET /api/conversation/state HTTP/1.1" 500 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 9281)
+Traceback (most recent call last):
+  File "C:\Projects\candoc-v0\candoc\server.py", line 61, in do_GET
+    return self.send(conversation.state())
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\candoc-v0\candoc\server.py", line 45, in send
+    self.wfile.write(body)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 현재 연결은 사용자의 호스트 시스템의 소프트웨어의 의해 중단되었습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 424, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Projects\candoc-v0\candoc\server.py", line 70, in do_GET
+    self.send({'error': str(e)}, 500)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\candoc-v0\candoc\server.py", line 44, in send
+    self.end_headers()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 538, in end_headers
+    self.flush_headers()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 현재 연결은 사용자의 호스트 시스템의 소프트웨어의 의해 중단되었습니다
+----------------------------------------
+127.0.0.1 - - [06/Oct/2026 08:29:16] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:16] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:16] "GET /chat.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:16] "GET /batch.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:16] "GET /conversation.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:16] "GET /review-layout.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:16] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:16] "GET /favicon.ico HTTP/1.1" 204 -
+127.0.0.1 - - [06/Oct/2026 08:29:17] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:17] "GET /api/chat/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:17] "GET /api/chat/events?after=0 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:17] "GET /api/item?ref=%23%2Ftexts%2F170 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:17] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:17] "GET /api/page?page=19 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:17] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:17] "GET /asset/artifacts/30d87e2b9770c09bb0807bc42b328181de9fae2f8c3a36331243c87de748aa9d.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:17] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:17] "GET /api/item?ref=%23%2Ftexts%2F158 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:19] "POST /api/conversation/control HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:19] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:19] "GET /api/page?page=18 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:19] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:19] "GET /api/diagnostics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:19] "GET /asset/artifacts/b087fc3b2bc8eb5328f6ccea41d3344c24a436183a61418feb0bedb5d4a9c257.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:19] "GET /favicon.ico HTTP/1.1" 204 -
+127.0.0.1 - - [06/Oct/2026 08:29:19] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:19] "GET /asset/artifacts/433eefb67efd846d454197ca96ccf937c5333d162bef3af60aabe01449213693.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:20] "GET /asset/artifacts/09592532df4b23383558997f13dbf47acccf41bd10cdda54d0c479e90020c424.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:20] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:20] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:20] "GET /app.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:20] "GET /chat.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:20] "GET /batch.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:20] "GET /conversation.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:20] "GET /review-layout.js HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:20] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:20] "GET /favicon.ico HTTP/1.1" 204 -
+127.0.0.1 - - [06/Oct/2026 08:29:20] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:20] "GET /api/chat/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:20] "GET /api/chat/events?after=0 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:20] "GET /api/item?ref=%23%2Ftexts%2F158 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:21] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:21] "GET /api/page?page=18 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:21] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:21] "GET /asset/artifacts/b087fc3b2bc8eb5328f6ccea41d3344c24a436183a61418feb0bedb5d4a9c257.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:21] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:21] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:21] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:22] "GET /api/diagnostics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:22] "GET /asset/artifacts/433eefb67efd846d454197ca96ccf937c5333d162bef3af60aabe01449213693.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:22] "GET /asset/artifacts/09592532df4b23383558997f13dbf47acccf41bd10cdda54d0c479e90020c424.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:22] [WinError 10053] 현재 연결은 사용자의 호스트 시스템의 소프트웨어의 의해 중단되었습니다
+127.0.0.1 - - [06/Oct/2026 08:29:22] "GET /api/chat/events?after=0 HTTP/1.1" 500 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 9425)
+Traceback (most recent call last):
+  File "C:\Projects\candoc-v0\candoc\server.py", line 57, in do_GET
+    return self.chat_get()
+           ~~~~~~~~~~~~~^^
+  File "C:\Projects\candoc-v0\candoc\server.py", line 94, in chat_get
+    self.wfile.write(b': keepalive\n\n')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 현재 연결은 사용자의 호스트 시스템의 소프트웨어의 의해 중단되었습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 424, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Projects\candoc-v0\candoc\server.py", line 70, in do_GET
+    self.send({'error': str(e)}, 500)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\candoc-v0\candoc\server.py", line 44, in send
+    self.end_headers()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 538, in end_headers
+    self.flush_headers()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 현재 연결은 사용자의 호스트 시스템의 소프트웨어의 의해 중단되었습니다
+----------------------------------------
+127.0.0.1 - - [06/Oct/2026 08:29:22] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:23] "POST /api/conversation/message HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:23] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:23] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:23] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:24] "POST /api/conversation/message HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:24] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:24] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:25] "POST /api/conversation/message HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:25] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:26] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:26] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:26] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:26] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:26] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:26] "GET /api/item?ref=%23%2Ftexts%2F158 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:26] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:27] [WinError 10053] 현재 연결은 사용자의 호스트 시스템의 소프트웨어의 의해 중단되었습니다
+127.0.0.1 - - [06/Oct/2026 08:29:27] "GET /api/chat/events?after=0 HTTP/1.1" 500 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 14206)
+Traceback (most recent call last):
+  File "C:\Projects\candoc-v0\candoc\server.py", line 57, in do_GET
+    return self.chat_get()
+           ~~~~~~~~~~~~~^^
+  File "C:\Projects\candoc-v0\candoc\server.py", line 94, in chat_get
+    self.wfile.write(b': keepalive\n\n')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 현재 연결은 사용자의 호스트 시스템의 소프트웨어의 의해 중단되었습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 424, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Projects\candoc-v0\candoc\server.py", line 70, in do_GET
+    self.send({'error': str(e)}, 500)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\candoc-v0\candoc\server.py", line 44, in send
+    self.end_headers()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 538, in end_headers
+    self.flush_headers()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swBaek\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] 현재 연결은 사용자의 호스트 시스템의 소프트웨어의 의해 중단되었습니다
+----------------------------------------
+127.0.0.1 - - [06/Oct/2026 08:29:27] "GET /api/page?page=18 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:27] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:27] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:28] "GET /api/diagnostics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:28] "GET /api/item?ref=%23%2Ftexts%2F158 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:28] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:28] "GET /api/diagnostics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:29] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:29] "GET /api/item?ref=%23%2Ftexts%2F159 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:30] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:30] "GET /favicon.ico HTTP/1.1" 204 -
+127.0.0.1 - - [06/Oct/2026 08:29:30] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:31] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:31] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:31] "GET /api/history HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:33] "POST /api/conversation/message HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:33] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:33] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:33] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:34] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:34] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:34] "GET /api/item?ref=%23%2Ftexts%2F159 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:34] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:34] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:35] "GET /api/page?page=18 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:35] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:35] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:35] "GET /api/diagnostics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:36] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:36] "GET /api/diagnostics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:37] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:37] "GET /api/item?ref=%23%2Ftexts%2F684 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:38] "GET /api/page?page=43 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:38] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:38] "GET /asset/artifacts/3b8abcc805df57e1ca68003f37a32a8188dde94a675713b8bf48795182fda5c8.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:38] "GET /favicon.ico HTTP/1.1" 204 -
+127.0.0.1 - - [06/Oct/2026 08:29:38] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:39] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:39] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:40] "GET /api/chat/events?after=0 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:41] "POST /api/conversation/message HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:42] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:42] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:42] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:42] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:42] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:42] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:42] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:42] "GET /api/item?ref=%23%2Ftexts%2F684 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:43] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:43] "GET /api/page?page=43 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:44] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:44] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:44] "GET /api/diagnostics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:44] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:44] "GET /asset/artifacts/b087fc3b2bc8eb5328f6ccea41d3344c24a436183a61418feb0bedb5d4a9c257.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:44] "GET /asset/artifacts/433eefb67efd846d454197ca96ccf937c5333d162bef3af60aabe01449213693.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:44] "GET /asset/artifacts/09592532df4b23383558997f13dbf47acccf41bd10cdda54d0c479e90020c424.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:45] "GET /api/diagnostics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:45] "POST /api/conversation/control HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:45] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:45] "GET /api/item?ref=%23%2Ftables%2F56 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:45] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:45] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:46] "GET /api/page?page=86 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:46] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:46] "GET /asset/artifacts/c7326e37080c380665184b519c2acd89bf2ef50dd5f56d7b3780b9a595f6cfb6.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:46] "GET /favicon.ico HTTP/1.1" 204 -
+127.0.0.1 - - [06/Oct/2026 08:29:46] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:46] "POST /api/conversation/control HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:46] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:46] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:47] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:47] "POST /api/conversation/message HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:47] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:47] "GET /api/item?ref=%23%2Ftables%2F56 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:48] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:48] "POST /api/conversation/control HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:48] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:48] "GET /api/item?ref=%23%2Ftables%2F56 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:49] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:49] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:49] "POST /api/conversation/message HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:50] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:50] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:50] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:50] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:50] "GET /api/item?ref=%23%2Ftables%2F56 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:50] "POST /api/conversation/control HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:50] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:51] "POST /api/conversation/control HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:51] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:51] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:51] "POST /api/conversation/control HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:51] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:52] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:52] "GET /api/history HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:53] "POST /api/undo HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:53] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:53] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:53] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:53] "GET /api/item?ref=%23%2Ftables%2F56 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:53] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:53] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:54] "GET /api/page?page=86 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:54] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:54] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:54] "GET /api/history HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:55] "GET /api/diagnostics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:55] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:55] "GET /asset/artifacts/b087fc3b2bc8eb5328f6ccea41d3344c24a436183a61418feb0bedb5d4a9c257.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:55] "GET /asset/artifacts/433eefb67efd846d454197ca96ccf937c5333d162bef3af60aabe01449213693.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:55] "GET /asset/artifacts/09592532df4b23383558997f13dbf47acccf41bd10cdda54d0c479e90020c424.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:55] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:55] "GET /api/diagnostics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:55] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:56] "POST /api/undo HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:57] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:57] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:57] "GET /api/item?ref=%23%2Ftables%2F56 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:57] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:57] "GET /api/page?page=86 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:58] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:58] "GET /api/history HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:58] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:58] "GET /api/item?ref=%23%2Ftables%2F56 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:58] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:58] "GET /api/page?page=86 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:58] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:58] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:29:59] "GET /api/diagnostics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:00] "POST /api/undo HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:00] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:00] "GET /asset/artifacts/b087fc3b2bc8eb5328f6ccea41d3344c24a436183a61418feb0bedb5d4a9c257.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:00] "GET /asset/artifacts/433eefb67efd846d454197ca96ccf937c5333d162bef3af60aabe01449213693.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:00] "GET /asset/artifacts/09592532df4b23383558997f13dbf47acccf41bd10cdda54d0c479e90020c424.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:00] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:00] "GET /api/diagnostics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:01] "GET /api/item?ref=%23%2Ftables%2F56 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:01] "GET /api/document HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:01] "GET /api/chat/events?after=0 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:01] "GET /api/page?page=86 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:01] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:01] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:02] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:02] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:02] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:02] "GET /api/diagnostics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:02] "GET /api/item?ref=%23%2Ftables%2F56 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:02] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:02] "GET /asset/artifacts/b087fc3b2bc8eb5328f6ccea41d3344c24a436183a61418feb0bedb5d4a9c257.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:02] "GET /asset/artifacts/433eefb67efd846d454197ca96ccf937c5333d162bef3af60aabe01449213693.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:02] "GET /asset/artifacts/09592532df4b23383558997f13dbf47acccf41bd10cdda54d0c479e90020c424.png HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:03] "GET /api/page?page=86 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:03] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:03] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:03] "GET /api/diagnostics HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:04] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:05] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:05] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:06] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:06] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:07] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:08] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:09] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:09] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:10] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:10] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:12] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:13] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:13] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:14] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:14] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:15] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:16] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:17] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:17] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:18] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:18] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:19] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:20] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:21] "GET /api/chat/events?after=0 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:21] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:22] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:22] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:23] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:24] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:25] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:25] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:26] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:26] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:27] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:28] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:29] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:29] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:30] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:30] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:31] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:33] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:33] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:34] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:34] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:35] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:36] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:37] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:37] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:38] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:38] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:39] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:40] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:41] "GET /api/chat/events?after=0 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:41] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:42] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:42] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:42] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:44] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:45] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:45] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:46] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:46] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:47] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:48] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:49] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:49] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:50] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:50] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:51] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:52] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:53] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:54] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:54] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:55] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:56] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:57] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:57] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:58] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:58] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:30:59] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:00] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:01] "GET /api/chat/events?after=0 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:01] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:01] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:02] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:02] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:03] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:04] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:04] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:04] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:05] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:06] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:06] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:07] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:08] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:09] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:09] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:10] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:10] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:11] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:12] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:13] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:13] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:14] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:14] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:15] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:16] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:17] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:18] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:18] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:19] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:20] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:21] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:21] "GET /api/chat/events?after=0 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:21] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:22] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:22] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:23] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:24] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:25] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:25] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:26] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:26] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:27] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:28] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:29] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:30] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:30] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:31] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:32] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:33] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:33] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:34] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:34] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:35] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:36] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:37] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:37] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:38] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:38] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:39] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:40] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:41] "GET /api/chat/events?after=0 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:41] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:42] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:42] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:43] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:44] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:45] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:45] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:46] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:46] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:47] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:48] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:49] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:49] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:50] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:50] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:51] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:52] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:53] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:54] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:54] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:55] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:56] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:57] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:57] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:58] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:58] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:31:59] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:32:00] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:32:01] "GET /api/chat/events?after=0 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:32:01] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:32:01] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:32:02] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:32:02] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:32:03] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:32:04] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:32:05] "GET /api/proposals HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:32:06] "GET /api/export-status HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:32:06] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:32:07] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:32:08] "GET /api/conversation/state HTTP/1.1" 200 -
+127.0.0.1 - - [06/Oct/2026 08:32:09] "GET /api/conversation/state HTTP/1.1" 200 -

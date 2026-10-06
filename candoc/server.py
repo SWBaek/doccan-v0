@@ -104,7 +104,7 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
                 return self.send(b'', status=204, mime='image/x-icon')
             revision, doc, reviews = store.current()
             if path == '/api/bootstrap':
-                return self.send({'token': token, 'workspace_id': hashlib.sha256(str(store.data).encode()).hexdigest()[:16], 'asset': store.manifest, 'revision': revision, 'export': store.export_status(), 'pages': sorted(map(int, doc['pages'])), 'reviews': reviews, 'counts': {'total': len(items(doc)), 'review_decisions': len(reviews)}, 'unlocated': [v['self_ref'] for v in items(doc) if not v.get('prov')]})
+                return self.send({'token': token, 'workspace_id': hashlib.sha256(str(store.data).encode()).hexdigest()[:16], 'document_name': doc.get('name') or store.manifest['archive_name'], 'asset': store.manifest, 'revision': revision, 'export': store.export_status(), 'pages': sorted(map(int, doc['pages'])), 'reviews': reviews, 'counts': {'total': len(items(doc)), 'review_decisions': len(reviews)}, 'unlocated': [v['self_ref'] for v in items(doc) if not v.get('prov')]})
             if path == '/api/diagnostics':
                 return self.send(batch.state())
             if path == '/api/batch':
@@ -155,7 +155,7 @@ def make_server(data, port=52741, chat_settings=None, *, rpc_factory=StdioRPC):
                 if p.suffix.lower() not in {'.png','.jpg','.jpeg'}:
                     raise ValueError('Only raster assets are served')
                 return self.send(p.read_bytes(), mime=mimetypes.guess_type(p.name)[0])
-            static = {'/': 'index.html', '/app.js':'app.js', '/chat.js':'chat.js', '/style.css':'style.css', '/batch.js':'batch.js', '/conversation.js':'conversation.js'}
+            static = {'/': 'index.html', '/app.js':'app.js', '/chat.js':'chat.js', '/style.css':'style.css', '/batch.js':'batch.js', '/conversation.js':'conversation.js', '/review-layout.js':'review-layout.js'}
             if path in static:
                 p = ROOT/'web'/static[path]
                 return self.send(p.read_bytes(), mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8'}[p.suffix])

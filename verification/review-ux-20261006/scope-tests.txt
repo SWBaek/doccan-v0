@@ -1,0 +1,7 @@
+test_user_scope_is_new_proposal_idempotent_and_requires_new_approval (tests.test_conversation.ConversationTests.test_user_scope_is_new_proposal_idempotent_and_requires_new_approval) ... ok
+test_scope_rejects_empty_foreign_paused_old_and_changed_targets (tests.test_conversation.ConversationTests.test_scope_rejects_empty_foreign_paused_old_and_changed_targets) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 24.843s
+
+OK

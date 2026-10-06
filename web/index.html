@@ -9,27 +9,38 @@
     <script src="/chat.js" defer></script>
     <script src="/batch.js" defer></script>
     <script src="/conversation.js" defer></script>
+    <script src="/review-layout.js" defer></script>
   </head>
   <body>
     <header>
-      <div class="brand">CanDoc <span>MVP 1</span></div>
+      <div class="brand">CanDoc</div>
       <div>
-        <strong>IEEE 1547–2018</strong><small id="asset">문서를 여는 중…</small>
+        <strong id="document-name">문서를 여는 중…</strong
+        ><small id="asset"></small>
       </div>
       <div class="head-actions">
-        <button id="conversation-toggle" class="primary">검수 대화</button>
+        <span id="header-progress" role="status">검수 준비</span>
+        <button
+          id="settings-toggle"
+          aria-controls="review-settings"
+          aria-expanded="true"
+        >
+          모델 설정
+        </button>
+        <button id="explore-toggle" aria-haspopup="dialog">문서 탐색</button>
+        <button id="tools-toggle" aria-haspopup="dialog">이력·내보내기</button>
+        <button id="conversation-toggle" hidden>검수 대화</button>
         <button
           id="chat-toggle"
           aria-controls="chat-panel"
           aria-expanded="false"
+          hidden
         >
           개별 항목 채팅
         </button>
-        <button id="refresh">새로고침</button
-        ><a href="/api/document" download="document.json">작업 JSON 다운로드</a>
       </div>
     </header>
-    <nav>
+    <nav id="legacy-navigation" aria-label="문서 탐색 도구">
       <div class="pager">
         <button id="prev" aria-label="이전 페이지">←</button
         ><label
@@ -40,18 +51,18 @@
       <form id="search-form">
         <input
           id="search"
-          placeholder="전체 문서 텍스트 또는 #/texts/번호"
+          placeholder="문서에서 찾을 문구를 입력하세요"
           aria-label="전체 문서 검색"
         /><button>찾기</button>
       </form>
-      <button id="issues" class="primary">문제 묶음</button>
+      <button id="issues" class="primary">진단 묶음</button>
       <button id="work-resume" hidden>작업 목록</button
-      ><button id="suspects">의심 후보</button
-      ><button id="proposals">제안 <b id="pending-count">0</b></button
+      ><button id="suspects">개별 확인 후보</button
+      ><button id="proposals">개별 교정 제안 <b id="pending-count">0</b></button
       ><button id="history">변경 이력</button
       ><button id="validate">전체 연결 검사</button>
     </nav>
-    <p class="notice">
+    <p class="notice" id="review-limit">
       원본 페이지를 보고 판단하세요. 의심 후보는 오류 확정이 아닙니다. 승인한
       제안만 작업 사본에 반영되며, 부분 교정은 전체 항목 검수 완료를 뜻하지
       않습니다.
@@ -60,6 +71,10 @@
     <div id="export-warning" role="status" aria-live="polite" hidden>
       <span id="export-detail"></span>
       <button id="reexport">최신 확정 데이터 재내보내기</button>
+      <details>
+        <summary>저장 상태 상세</summary>
+        <pre id="export-technical"></pre>
+      </details>
     </div>
     <section id="worklist" aria-label="검수 작업 목록" hidden>
       <div class="worklist-head">
@@ -81,22 +96,54 @@
       <div id="worklist-items"></div>
       <small id="worklist-note"></small>
     </section>
-    <main>
+    <div class="mobile-switch" aria-label="검수 화면 전환">
+      <button id="view-conversation" aria-pressed="true">검수 대화</button>
+      <button id="view-evidence" aria-pressed="false">원본 근거</button>
+    </div>
+    <main id="review-workspace">
       <section class="converted panel">
         <div class="panel-title">
           <h1>변환 문서</h1>
           <span id="item-count"></span>
         </div>
         <section id="conversation-panel" aria-label="에이전트 주도 검수">
-          <div class="conversation-settings">
-            <button id="conversation-models" disabled>Codex 연결·모델 조회</button>
-            <label>모델 <select id="conversation-model" disabled><option value="">조회 필요</option></select></label>
-            <label>Reasoning effort <select id="conversation-effort" disabled><option value="">조회 필요</option></select></label>
-            <button id="conversation-configure" disabled>설정 적용</button>
-            <small id="conversation-setting">설정 변경은 다음 턴부터 적용됩니다.</small>
+          <div class="conversation-heading">
+            <div>
+              <small>원본을 보며 함께 판단하세요</small>
+              <h1>검수 대화</h1>
+            </div>
+            <span id="conversation-progress"></span>
           </div>
+          <section id="review-settings" aria-label="검수 모델 설정">
+            <p>검수에 사용할 모델과 사고 수준을 선택하세요.</p>
+            <div class="conversation-settings">
+              <button id="conversation-models" disabled>
+                Codex 연결·모델 조회
+              </button>
+              <label
+                >모델
+                <select id="conversation-model" disabled>
+                  <option value="">조회 필요</option>
+                </select></label
+              >
+              <label
+                >Reasoning effort
+                <select id="conversation-effort" disabled>
+                  <option value="">조회 필요</option>
+                </select></label
+              >
+              <button id="conversation-configure" disabled hidden>
+                다음 턴부터 변경
+              </button>
+              <small id="conversation-setting"
+                >설정 변경은 다음 턴부터 적용됩니다.</small
+              >
+            </div>
+          </section>
           <div class="conversation-controls">
-            <button id="conversation-start" class="primary" disabled>검수 시작</button>
+            <button id="conversation-start" class="primary" disabled>
+              검수 시작
+            </button>
             <button id="conversation-pause" disabled>일시정지·중단</button>
             <button id="conversation-resume" disabled>대화 재개</button>
             <button id="conversation-retry" disabled>작업 다시 시도</button>
@@ -105,15 +152,44 @@
           </div>
           <p id="conversation-status" role="status" aria-live="polite"></p>
           <p id="conversation-error" class="error" role="alert"></p>
-          <div id="conversation-transcript" aria-label="검수 대화 기록"></div>
-          <section id="conversation-offer" aria-label="대화에서 제시한 정확한 수정안"></section>
+          <div
+            id="conversation-transcript"
+            tabindex="0"
+            aria-label="검수 대화와 수정안"
+          ></div>
           <form id="conversation-form">
-            <label><input type="checkbox" id="conversation-inspect"/> 화면에서 선택한 문단·셀에 대해 새 질문</label>
+            <div class="composer-context">
+              <strong id="composer-label">현재 제안에 질문</strong
+              ><button id="question-reset" type="button" hidden>
+                현재 제안으로 돌아가기
+              </button>
+            </div>
+            <label hidden
+              ><input type="checkbox" id="conversation-inspect" /> 선택한
+              항목으로 새 질문</label
+            >
             <small id="conversation-target"></small>
-            <textarea id="conversation-input" rows="2" maxlength="8000" placeholder="왜 그렇게 생각해? / 137쪽은 제외해 / 응 / 그대로 둬 / 보류해"></textarea>
-            <div class="actions"><button id="conversation-send" class="primary" disabled>보내기</button><button id="conversation-check" type="button" hidden>전송 결과 확인·재시도</button></div>
+            <label for="conversation-input" class="sr-only"
+              >검수 대화 입력</label
+            >
+            <textarea
+              id="conversation-input"
+              rows="2"
+              maxlength="8000"
+              placeholder="궁금한 점이나 판단을 말해 주세요. 예: 왜 그렇게 생각해?"
+            ></textarea>
+            <div class="actions">
+              <button id="conversation-send" class="primary" disabled>
+                보내기</button
+              ><button id="conversation-check" type="button" hidden>
+                전송 결과 확인·재시도
+              </button>
+            </div>
           </form>
-          <small class="conversation-privacy">검수 시작과 질문은 선택 모델을 실제 호출하며 계정 사용량이 발생합니다. AI는 원본 이미지를 보지 않습니다. 원본 영역은 사용자가 대조하세요. 규칙으로 탐지하지 못한 내용까지 검증한 것은 아닙니다.</small>
+          <small class="conversation-privacy"
+            >승인한 범위만 사본에 반영합니다. 모델은 원본 이미지를 보지
+            못합니다.</small
+          >
         </section>
         <section id="diagnostic-panel" hidden aria-label="전체 문서 문제 묶음">
           <div class="diagnostic-toolbar">
@@ -149,17 +225,32 @@
       </section>
       <section class="source panel">
         <div class="panel-title">
-          <h2>원본 페이지</h2>
+          <div>
+            <small>현재 검수 근거</small>
+            <h2 id="evidence-title">원본을 준비하고 있습니다</h2>
+          </div>
+          <button id="manual-toggle" aria-haspopup="dialog">직접 수정</button>
+        </div>
+        <div id="evidence-context" role="status"></div>
+        <div class="evidence-toolbar">
+          <button id="evidence-previous" aria-label="이전 적용 사례">←</button
+          ><span id="evidence-case">제안 대기</span
+          ><button id="evidence-next" aria-label="다음 적용 사례">→</button>
+          <button id="evidence-return" hidden>제안 근거로 돌아가기</button>
+        </div>
+        <div class="evidence-toolbar">
+          <button id="source-region" aria-pressed="true">해당 영역</button
+          ><button id="source-page" aria-pressed="false">전체 페이지</button>
           <label
             >확대
             <input
               type="range"
               id="zoom"
               min="100"
-              max="220"
+              max="300"
               value="100"
-              aria-label="원본 확대"
-          /></label>
+              aria-label="원본 확대" /></label
+          ><output id="zoom-value">100%</output>
         </div>
         <div class="image-scroll">
           <div id="page-stage">
@@ -168,9 +259,29 @@
           </div>
         </div>
         <div id="crop-area">
-          <strong>선택 영역 캡처</strong>
+          <strong class="sr-only">선택 영역과 주변 원본</strong>
           <p id="location-note">변환 문서의 항목을 선택하세요.</p>
-          <canvas id="crop" hidden></canvas>
+          <canvas
+            id="crop"
+            role="img"
+            aria-label="선택한 원본 영역과 주변 문맥"
+            hidden
+          ></canvas>
+        </div>
+        <div class="evidence-footer">
+          <details id="source-explore">
+            <summary>이 페이지의 다른 항목 살펴보기</summary>
+            <label
+              >항목
+              <select id="evidence-item"></select></label
+            ><label id="evidence-cell-label" hidden
+              >표 셀
+              <select id="evidence-cell"></select
+            ></label>
+            <p>다른 항목을 선택해도 승인 범위는 유지됩니다.</p>
+          </details>
+          <button id="ask-selection">선택한 항목으로 새 질문</button
+          ><small id="evidence-selection"></small>
         </div>
       </section>
       <aside class="panel detail">
@@ -220,7 +331,7 @@
                 비교 확인 · 최신 기준으로 초안 계속
               </button>
             </div>
-            <details open id="editor">
+            <details id="editor">
               <summary>직접 수정안 작성</summary>
               <p id="edit-limitation" class="muted"></p>
               <label
@@ -262,6 +373,50 @@
         </div>
       </aside>
     </main>
+    <dialog id="explore-dialog" aria-labelledby="explore-title">
+      <div class="dialog-head">
+        <div>
+          <h2 id="explore-title">문서 탐색</h2>
+          <p>진단 묶음을 다시 열거나 문서에서 특정 항목을 찾습니다.</p>
+        </div>
+        <button data-close="explore-dialog">대화로 돌아가기</button>
+      </div>
+      <div id="explore-navigation"></div>
+      <div id="explore-content"></div>
+    </dialog>
+    <dialog id="editor-dialog" aria-labelledby="editor-title">
+      <div class="dialog-head">
+        <div>
+          <h2 id="editor-title">직접 수정</h2>
+          <p>제안을 등록한 뒤 변경 전후를 확인하고 승인합니다.</p>
+        </div>
+        <button data-close="editor-dialog">대화로 돌아가기</button>
+      </div>
+      <div id="editor-content"></div>
+    </dialog>
+    <dialog id="tools-dialog" aria-labelledby="tools-title">
+      <div class="dialog-head">
+        <h2 id="tools-title">이력·내보내기</h2>
+        <button data-close="tools-dialog">닫기</button>
+      </div>
+      <div id="tools-actions"></div>
+      <a href="/api/document" download="document.json"
+        >교정한 문서 내려받기 (JSON)</a
+      >
+      <p>이미지는 work/artifacts와 함께 보관하세요.</p>
+      <details>
+        <summary>문서·연결 상세정보</summary>
+        <div id="technical-actions">
+          <button id="refresh">문서 상태 새로고침</button>
+        </div>
+        <pre id="review-technical"></pre>
+        <p id="technical-privacy">
+          검수 시작과 질문은 선택 모델을 실제 호출하며 계정 사용량이 발생합니다.
+          모델은 원본 이미지를 보지 못합니다. 탐지한 후보의 처리가 문서 전체
+          정확성 검증을 뜻하지 않습니다.
+        </p>
+      </details>
+    </dialog>
     <section id="chat-panel" class="panel" aria-label="Codex 검수 대화" hidden>
       <div class="panel-title">
         <h2>Codex 검수 대화</h2>

@@ -93,6 +93,10 @@ def turn(request):
     if '[error]' in user:
         event('turn/completed', turn={'id': turn_id, 'status': 'failed', 'error': {'message': 'Synthetic model failure'}})
         return
+    if '[error-once]' in user and not (args.state/'error-once.used').exists():
+        (args.state/'error-once.used').write_text('synthetic retry scenario', 'utf-8')
+        event('turn/completed', turn={'id': turn_id, 'status': 'failed', 'error': {'message': 'Synthetic one-time failure'}})
+        return
     if '[propose]' in user:
         invoke('candoc_read_selection', {}, 'read')
         proposal = {'op': 'cell' if context['cell'] is not None else 'text', 'value': 'Synthetic correction', 'reason': 'Synthetic test proposal; user must approve'}

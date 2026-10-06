@@ -81,6 +81,43 @@ class ConversationTests(unittest.TestCase):
         with self.assertRaises(Exception):self.c.models()
         self.assertEqual(self.store.current()[0],0)
 
+    def test_user_scope_is_new_proposal_idempotent_and_requires_new_approval(self):
+        s=self.start();first=s['current'];old_approval=self.request('응')
+        change=dict(action='scope',offer=first['id'],generation=s['generation'],refs=first['refs'][:-2],request_id=str(uuid.uuid4()))
+        changed=self.c.control(change);new=changed['current']
+        self.assertEqual(len(new['refs']),len(first['refs'])-2)
+        self.assertNotEqual(new['id'],first['id']);self.assertEqual(self.store.current()[0],0)
+        self.assertEqual(self.c.control(change)['current']['id'],new['id'])
+        with self.assertRaises(ValueError):self.c.control({**change,'refs':first['refs']})
+        self.c.message(old_approval);self.assertEqual(self.store.current()[0],0)
+        restored=self.c.control(dict(action='scope',offer=new['id'],generation=changed['generation'],refs=first['refs'],request_id=str(uuid.uuid4())))
+        self.assertEqual(restored['current']['refs'],first['refs'])
+        self.close();self.open();self.assertEqual(self.c.state()['current']['id'],restored['current']['id'])
+        self.c.control({'action':'resume'});self.c.control({'action':'present','offer':restored['current']['id']})
+        approval=self.request('승인해');self.c.message(approval);self.c.control({'action':'pause'})
+        self.assertEqual(self.store.current()[0],1)
+        self.c.message(approval);self.c.control(change);self.assertEqual(self.store.current()[0],1)
+        receipt=next(m['result'] for m in self.c.state()['messages'] if m['id']==approval['id'])
+        self.assertEqual(receipt['count'],len(first['refs']));self.assertEqual(receipt['decision'],'approve')
+        self.store.undo(1);self.assertEqual(self.store.current()[1],self.original)
+
+    def test_scope_rejects_empty_foreign_paused_old_and_changed_targets(self):
+        s=self.start();o=s['current']
+        def scope(refs,**kwargs):return dict(action='scope',offer=o['id'],generation=s['generation'],refs=refs,request_id=str(uuid.uuid4()),**kwargs)
+        for refs in ([],['#/texts/0'],[o['refs'][0],o['refs'][0]]):
+            with self.assertRaises(ValueError):self.c.control(scope(refs))
+        self.c.control({'action':'pause'})
+        with self.assertRaises(ValueError):self.c.control(scope(o['refs'][:-1]))
+        self.c.control({'action':'resume'})
+        self.c.control({'action':'present','offer':o['id']})
+        with self.assertRaises(ValueError):self.c.control(scope(o['refs'][:-1]))
+        s=self.c.state()
+        p=self.store.propose(dict(asset_id=self.store.manifest['asset_id'],revision=0,ref=o['refs'][0],op='keep',reason='isolated conflict'))
+        self.store.decide(p['id'],'approve')
+        with self.assertRaises(ValueError):self.c.control(scope(o['refs'][1:]))
+        self.assertEqual(self.store.current()[0],1)
+        self.store.undo(1);self.assertEqual(self.store.current()[1],self.original)
+
     def test_start_explain_exception_clear_approval_receipt_and_undo(self):
         s=self.start();p=s['current']['proposal'];self.assertGreater(len(p['targets']),3)
         self.assertEqual(self.store.current()[0],0)

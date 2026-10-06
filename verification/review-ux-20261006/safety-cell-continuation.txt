@@ -1,0 +1,19 @@
+
+╔════════════════════════════════════════════════════════════════════╗
+║ Update available for @playwright/cli: 0.1.18 → 0.1.22              ║
+║ Run `npm install -g @playwright/cli@latest` (global) or            ║
+║ `npm install --save-dev @playwright/cli@latest` (local) to update. ║
+╚════════════════════════════════════════════════════════════════════╝
+
+### Result
+{"pass":true,"appliedCell":73,"unchangedCell":72,"revision":6}
+### Ran Playwright code
+```js
+await (async page => { const base='http://127.0.0.1:52742',b=await(await page.request.get(base+'/api/bootstrap')).json(),headers={'X-Candoc-Token':b.token};const get=async p=>(await page.request.get(base+'/api/'+p,{headers})).json();await page.locator('#evidence-cell').selectOption('72');await page.waitForFunction(()=>window.candocChatContext()?.cell===72);const before=await get('item?ref=%23%2Ftables%2F56&cell=72');await page.locator('#conversation-input').fill('응');await page.locator('#conversation-send').click();await page.waitForFunction(async()=> (await(await fetch('/api/bootstrap')).json()).revision===4);const after=await get('item?ref=%23%2Ftables%2F56&cell=73');if(after.item.data.table_cells[72].text!==before.item.data.table_cells[72].text||after.item.data.table_cells[73].text!=='Synthetic correction')throw Error('cell target');await page.locator('#conversation-pause').click();for(let i=0;i<2;i++){await page.locator('#tools-toggle').click();await page.locator('#history').click();await page.locator('#undo').click();await page.waitForFunction(n=>document.querySelector('#asset').title.endsWith('revision '+n),5+i);}return {pass:true,appliedCell:73,unchangedCell:72,revision:6}; })(page);
+```
+### Page
+- Page URL: http://127.0.0.1:52742/#page=43&ref=%23%2Ftexts%2F684&loc=0
+- Page Title: CanDoc · 원본 대조 검수
+- Console: 2 errors, 0 warnings
+### Events
+- New console entries: .playwright-cli\console-2026-10-05T23-36-35-227Z.log#L1-L2

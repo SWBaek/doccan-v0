@@ -1,0 +1,38 @@
+
+╔════════════════════════════════════════════════════════════════════╗
+║ Update available for @playwright/cli: 0.1.18 → 0.1.22              ║
+║ Run `npm install -g @playwright/cli@latest` (global) or            ║
+║ `npm install --save-dev @playwright/cli@latest` (local) to update. ║
+╚════════════════════════════════════════════════════════════════════╝
+
+### Result
+{"pass":true,"pending":57,"revision":6,"model":{"model":"mock-a","effort":"medium"},"readyForRestart":true}
+### Ran Playwright code
+```js
+await (async page => {
+ const base='http://127.0.0.1:52742',out='verification/review-ux-20261006/';
+ const boot=await(await page.request.get(base+'/api/bootstrap')).json(),headers={'X-Candoc-Token':boot.token};
+ const get=async p=>(await page.request.get(base+'/api/'+p,{headers})).json();
+ await page.locator('#explore-toggle').click();await page.locator('#diagnose').click();
+ await page.waitForFunction(()=>document.querySelector('#diagnostic-status').textContent.includes('진단 완료'),null,{timeout:60000});
+ await page.locator('#diagnostic-list').evaluate(e=>e.open=true);
+ await page.locator('[data-conversation-group]').first().click();
+ await page.waitForFunction(()=>document.querySelector('#header-progress').textContent==='판단 대기'&&document.querySelector('.conversation-current h2')?.textContent.startsWith('57개'),null,{timeout:60000});
+ await page.locator('#crop').waitFor({state:'visible'});
+ const s=await get('conversation/state');
+ const expected={offer:s.current.id,refs:s.current.refs,settings:s.settings,revision:s.revision,runs:s.chat.runs.length};
+ await page.evaluate(v=>sessionStorage.setItem('review-ux-restart-expected',JSON.stringify(v)),expected);
+ for(const size of [{width:1366,height:768},{width:1920,height:1080},{width:390,height:844}]) {
+   await page.setViewportSize(size);
+   await page.locator('#conversation-transcript').evaluate(e=>{const o=e.querySelector('#conversation-offer');e.scrollTop=o.offsetTop-e.offsetTop;});
+   await page.screenshot({path:out+`after-review-${size.width}.png`});
+   if(size.width===390){await page.locator('#view-evidence').click();await page.screenshot({path:out+'after-current-evidence-390.png'});await page.locator('#view-conversation').click();}
+ }
+ await page.setViewportSize({width:1366,height:768});
+ return {pass:true,pending:expected.refs.length,revision:s.revision,model:s.settings,readyForRestart:true};
+}
+)(page);
+```
+### Page
+- Page URL: http://127.0.0.1:52742/#page=18&ref=%23%2Ftexts%2F158&loc=0
+- Page Title: CanDoc · 원본 대조 검수

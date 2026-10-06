@@ -1,5 +1,7 @@
 # Asset과 DoclingDocument 조사
 
+현재 화면 구성은 [대화 중심 UI](REVIEW-UX.md)를 참고하세요. UI의 범위 조정은 기존 `BatchReview.preview`를 재사용합니다. 최초 제안의 대상·변경 전 값·항목 이력을 기준으로 포함/제외를 검사하고 새 제안 ID와 표시 차수를 발급합니다. 중복 요청 ID는 같은 결과를 조회하며, 새 승인을 받기 전에는 문서 revision과 내용이 바뀌지 않습니다. 범위 원본 제안 참조와 중복 방지 기록은 기존 대화 테이블에 저장하며 DoclingDocument에 추가하지 않습니다.
+
 ## 확인한 입력
 
 `document.json`은 `schema_name=DoclingDocument`, `version=1.10.0`입니다. 138페이지, 텍스트 2,937개, 표 71개, 그림 29개, 그룹 73개입니다. ZIP은 JSON 1개와 PNG 167개를 포함하며 PDF는 없습니다. 페이지 이미지 138개와 그림 이미지 29개의 파일·크기를 실제 검사했습니다.

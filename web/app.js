@@ -89,6 +89,9 @@ function showExport(status) {
   $("export-warning").hidden = status?.state === "synced";
   $("reexport").hidden = !status;
   $("export-detail").textContent = status
+    ? '승인한 변경은 저장되어 있습니다. 문서 파일 내보내기를 다시 시도하세요. 재승인할 필요는 없습니다.'
+    : '저장 상태를 확인하려면 업데이트된 서버를 재시작해야 합니다.';
+  $("export-technical").textContent = status
     ? `DB revision ${status.db_revision} 반영 완료 · JSON 내보내기 미완료. ` +
       Object.entries(status.files)
         .map(
@@ -270,7 +273,8 @@ async function bootstrap() {
       "연속 검수 UI를 사용하려면 실행 중인 서버를 종료한 뒤 start.ps1로 다시 시작하세요.",
     );
   $("asset").textContent =
-    `${session.pages.length}페이지 · 전체 문서 검수 완료를 자동 판정하지 않습니다`;
+    `${session.pages.length}페이지 · 원본 대조 검수`;
+  $("document-name").textContent = session.document_name || session.asset.archive_name;
   $("asset").title = `${session.asset.asset_id} · revision ${session.revision}`;
   $("total").textContent = "/ " + session.pages.length;
   $("page").max = session.pages.at(-1);
@@ -497,16 +501,20 @@ function drawLocation() {
   if (!img.complete || !img.naturalWidth) return;
   const scaleX = img.naturalWidth / s.width,
     scaleY = img.naturalHeight / s.height,
-    pad = 8;
-  const x = Math.max(0, (r.x - pad) * scaleX),
-    y = Math.max(0, (r.y - pad) * scaleY),
-    w = Math.min(img.naturalWidth - x, (r.width + 2 * pad) * scaleX),
-    h = Math.min(img.naturalHeight - y, (r.height + 2 * pad) * scaleY);
+    padX = 90, padY = 28;
+  const x = Math.max(0, (r.x - padX) * scaleX),
+    y = Math.max(0, (r.y - padY) * scaleY),
+    w = Math.min(img.naturalWidth - x, (r.width + 2 * padX) * scaleX),
+    h = Math.min(img.naturalHeight - y, (r.height + 2 * padY) * scaleY);
   if (w <= 0 || h <= 0) return;
   const canvas = $("crop");
   canvas.width = Math.ceil(w);
   canvas.height = Math.ceil(h);
   canvas.getContext("2d").drawImage(img, x, y, w, h, 0, 0, w, h);
+  const context = canvas.getContext("2d");
+  context.strokeStyle = '#bf6216';
+  context.lineWidth = 2;
+  context.strokeRect(r.x * scaleX - x, r.y * scaleY - y, r.width * scaleX, r.height * scaleY);
   canvas.hidden = false;
   requestAnimationFrame(() =>
     $("boxes").firstElementChild?.scrollIntoView({
@@ -692,6 +700,7 @@ async function readProposals() {
 }
 async function showProposals(list = null, id = null, align = true) {
   window.candocOpenDocument?.();
+  if (align) window.candocWorkspace?.edit(false);
   const epoch = generation,
     view = ++proposalView;
   if (list) proposals = list;
@@ -1263,4 +1272,6 @@ window.candocBatchBridge = {
   message,
   showExport,
   context: () => window.candocChatContext(),
+  selection: () => selected ? { info: selected, cell: selectedCell, location: locationIndex, page: pageNo } : null,
+  page: () => pageData,
 };
